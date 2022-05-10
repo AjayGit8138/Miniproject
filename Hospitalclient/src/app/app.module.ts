@@ -14,12 +14,14 @@ import {MatInputModule} from '@angular/material/input';
 import { PatientenquiryComponent } from './patientenquiry/patientenquiry.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DoctoradminComponent } from './doctoradmin/doctoradmin.component';
+import { PatientloginComponent } from './patientlogin/patientlogin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientenquiryComponent,
-    DoctoradminComponent
+    DoctoradminComponent,
+    PatientloginComponent
   ],
   imports: [
     BrowserModule,

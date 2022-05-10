@@ -1,0 +1,33 @@
+<div class="d-flex align-items-center ">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="col-md-8">
+                <mat-card>
+                    <form [formGroup]="patientloginform">
+
+                        <mat-card-content>
+                            <div class="row">
+
+
+                                <div class="form-group row"
+                                    [class.has-error]="patientname.invalid && patientname.touched">
+                                    <label for="PatentName" class="col-sm-2 col-form-label">PatientName:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputPassword3"
+                                            formControlName="patientname" pattern="^[a-z0-9_-]{8,15}$"
+                                            placeholder="Enter the PatientName">
+                                        <div class="help-block text-danger" *ngIf="patientname.touched">
+                                            <span *ngIf="patientname.errors?.required">
+                                                PatientName is REQUIRED!!!
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div><br><br><br>
+                            </div>
+                        </mat-card-content>
+                    </form>
+                </mat-card>
+            </div>
+        </div>
+    </div>

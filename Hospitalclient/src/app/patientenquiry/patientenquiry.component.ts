@@ -22,12 +22,17 @@ export class PatientenquiryComponent implements OnInit {
       aadharno:['',[Validators.required,Validators.minLength(12)]],
       Treatmentcategory:['',[Validators.required]],
       requestId:['',[Validators.required]],
+      password:['',Validators.required],
+      cpassword:['',Validators.required],
       symptoms:['',[Validators.required]]
 
     })
+ 
   }
   selecttreatment:boolean = false;
-  ngOnInit(): void {
+  ngOnInit(
+   
+  ): void {
   }
 sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology","MentalHealth"];
 skin = ["Eczema","Cold Sores","Dry Skin","Psoriasis","Vitiligo","Contact Dermatitis","Rosacea","Melasma","Warts","Actinic Keratosis"];

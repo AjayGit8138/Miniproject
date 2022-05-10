@@ -67,9 +67,64 @@
                                 <div class="example-button-row">
                                     <br><br>
 
-                                    <button class="btnspace" type="submit" (click)="navigatenext()" mat-raised-button
+                                    <button class="btnspace" type="button" (click)="navigatenext()" mat-raised-button
                                         color="primary">Next</button>
 
+                                </div>
+                            </div>
+                            <div *ngIf="step == 2">
+                                <div class="row">
+                                    <div class="form-group row">
+
+                                        <label for="certification" class="col-sm-2 col-form-label">Identityno:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" formControlName="doctorname"
+                                                placeholder="'DR.'Enter the CertificationNo">
+
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group row">
+
+                                        <label for="Degree in Specialization"
+                                            class="col-sm-2 col-form-label">specialization:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-select">
+
+
+                                                <option value="default">selectDeg</option>
+                                                <option *ngFor="let course of courses" [value]="course">
+                                                    {{course}}
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group row">
+
+                                        <label for="password" class="col-sm-2 col-form-label">Password:</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" formControlName="doctorname"
+                                                placeholder="password">
+
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group row">
+
+                                        <label for="password" class="col-sm-2 col-form-label">confirmpassword:</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" formControlName="doctorname"
+                                                placeholder="Enter confirm password">
+
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="example-button-row">
+                                        <br><br>
+
+                                        <button class="btnspace" type="submit" mat-raised-button
+                                            color="primary">submit</button>
+
+                                    </div>
                                 </div>
                             </div>
                         </mat-card-content>

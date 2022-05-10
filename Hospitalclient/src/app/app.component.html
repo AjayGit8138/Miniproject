@@ -1,19 +1,14 @@
 <nav class="navbar navbar-dark fixed-top bg-dark">
+  <h1 class="text-light">Doctor Appointment Booking Management</h1>
   <div class="container">
     <div class="row">
+
       <div class="col-md-12">
         <div class="nav nav-pills">
           <ul class="nav nav-pills">
-            <li class="nav-item"><a class="nav-link" routerLink="Home" routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact:true}">Home</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" routerLink="Product" routerLinkActive="active">About</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" routerLink="Contact" routerLinkActive="active">Contact</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" routerLink="empform" routerLinkActive="active">Empform</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" routerLink="docadmin" routerLinkActive="active">Doctor's Admin</a>
+
+            <li class="nav-item"><a class="nav-link" routerLink="docadmin" routerLinkActive="active">Doctor's
+                Admin</a>
             </li>
             <li class="nav-item"><a class="nav-link" routerLink="enquiry"
                 routerLinkActive="active">PatientEnquiryForm</a>
@@ -27,11 +22,12 @@
 <div class="routingcontent">
   <div class="col-md-12">
     <div class="container">
-      <div class="row">
-        <br><br><br><br><br>
+      <div class="row maincontent">
+
 
         <router-outlet #myOutlet="outlet"></router-outlet>
 
       </div>
     </div>
   </div>
+</div>
