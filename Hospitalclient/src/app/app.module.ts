@@ -15,13 +15,15 @@ import { PatientenquiryComponent } from './patientenquiry/patientenquiry.compone
 import { HttpClientModule } from '@angular/common/http';
 import { DoctoradminComponent } from './doctoradmin/doctoradmin.component';
 import { PatientloginComponent } from './patientlogin/patientlogin.component';
+import { DoctorloginComponent } from './doctorlogin/doctorlogin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientenquiryComponent,
     DoctoradminComponent,
-    PatientloginComponent
+    PatientloginComponent,
+    DoctorloginComponent
   ],
   imports: [
     BrowserModule,

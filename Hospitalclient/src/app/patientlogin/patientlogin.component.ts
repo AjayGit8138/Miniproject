@@ -14,10 +14,16 @@ export class PatientloginComponent implements OnInit {
     // this.serveapi.getconnection();
     this.patientloginform = this.fb.group({
       patientname:['',Validators.required],
+      email:['',Validators.required,Validators.email],
+      loginid:['',Validators.required]
     })
    }
 
   ngOnInit(): void {
   }
   get patientname() {return this.patientloginform.get('patientname');}
+  get email() {return this.patientloginform.get('email');}
+  get password() {return this.patientloginform.get('password');}
+  get loginid() {return this.patientloginform.get('loginid');}
+  
 }
