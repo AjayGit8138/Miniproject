@@ -1,0 +1,243 @@
+<div class="d-flex align-items-center ">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="col-md-8">
+                <mat-card>
+                    <form [formGroup]="patientinquiryform" (ngSubmit)="Formsubmit(this.patientinquiryform.value)">
+
+                        <mat-card-content>
+                            <div class="row">
+
+
+                                <div class="form-group row"
+                                    [class.has-error]="patientname.invalid && patientname.touched">
+                                    <label for="PatentName" class="col-sm-2 col-form-label">PatientName:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputPassword3"
+                                            formControlName="patientname" pattern="^[a-z0-9_-]{8,15}$"
+                                            placeholder="Enter the PatientName">
+                                        <div class="help-block text-danger" *ngIf="patientname.touched">
+                                            <span *ngIf="patientname.errors?.required">
+                                                PatientName is REQUIRED!!!
+                                            </span>
+                                            <span *ngIf="patientname.errors?.pattern">
+                                                The Name should not appear any special characters Ex:
+                                                M.ajay!,M.Ajay's</span>
+                                        </div>
+                                    </div>
+                                </div><br><br><br>
+                                <div class="form-group row" [class.has-error]="age.invalid && age.touched">
+                                    <label for="Age" class="col-sm-2 col-form-label">Age:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="inputPassword3"
+                                            placeholder="Enter the Patient Age" formControlName="age">
+                                        <div class="help-block text-danger" *ngIf="age.touched">
+                                            <span *ngIf="age.errors?.required">
+                                                Hi'Patient Age is REQUIRED!!!
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div><br><br><br>
+                                <div class="form-group row"
+                                    [class.has-error]="dateofbirth.invalid && dateofbirth.touched">
+                                    <label for="PatinetDOB" class="col-sm-2 col-form-label">DateofBirth:</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" formControlName="dateofbirth" class="form-control">
+                                    </div>
+                                    <div class="help-block text-danger" *ngIf="dateofbirth.touched">
+                                        <span *ngIf="dateofbirth.errors?.required">
+                                            Hi'Patient DateofBirth is REQUIRED!!!
+                                        </span>
+
+                                    </div>
+                                </div><br><br><br>
+                                <div class="form-group row" [class.has-error]="mobileno.invalid && mobileno.touched">
+                                    <label for="Mobileno" class="col-sm-2 col-form-label">Mobileno:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" formControlName="mobileno" class="form-control"
+                                            placeholder="Enter the Mobileno">
+                                    </div>
+                                    <div class="help-block text-danger" *ngIf="mobileno.touched">
+                                        <span *ngIf="mobileno.errors?.required">
+                                            MobileNo is REQUIRED the mobileno should be 10 Numbers!!!
+                                        </span>
+
+                                    </div>
+                                </div><br><br><br>
+                                <div class="form-group row" [class.has-error]="email.invalid && email.touched">
+                                    <label for="Email" class="col-sm-2 col-form-label">Email:</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" (change)="emailcheck($event)"
+                                            formControlName="email" placeholder="Enter the Emailaddress">
+                                    </div>
+                                    <div class="help-block text-danger" *ngIf="email.touched">
+                                        Enter a Valid Email Address!!!
+                                    </div>
+                                </div><br><br><br>
+                                <div class="form-group row" [class.has-error]="esino.invalid && esino.touched">
+                                    <label for="Esino" class="col-sm-2 col-form-label">ESI-No:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" formControlName="esino"
+                                            placeholder="Enter the ESI-NO">
+                                    </div>
+                                    <div class="help-block text-danger" *ngIf="esino.touched">
+                                        <span *ngIf="esino.errors?.required">
+                                            Hi'Patient Esi-No Must is REQUIRED!!!
+                                        </span>
+                                    </div>
+                                </div><br><br><br>
+                                <div class="form-group row">
+                                    <label for="Aadharno" class="col-sm-2 col-form-label">AadharNo:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="requestid"
+                                            (change)="setrequestid($event)" formControlName="aadharno"
+                                            id="inputPassword3" placeholder="Enter the aaharno as per aadhar-card">
+                                    </div>
+                                </div><br><br><br>
+                                <div class="form-group row">
+                                    <label for="Treatment" class="col-sm-2 col-form-label">Treatment For:</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-select" formControlName="Treatmentcategory" #treatment
+                                            (change)="updatetreatment($event)">
+                                            <option value="default">none</option>
+                                            <option *ngFor="let treat of sicks" [value]="treat">{{treat}}</option>
+
+                                        </select>
+                                    </div>
+                                </div><br><br><br>
+                                <!-- <div *ngIf="selecttreatment">
+                                    <h1>{{selected}}</h1>
+                                    <div class="form-group row">
+                                        <label for="Treatment" class="col-sm-2 col-form-label">Treatment For:</label>
+                                        <div class="col-sm-10">
+                                            <div [ngSwitch]="selected">
+                                                <div *ngSwitchCase="'skin'">
+                                                    <select class="form-select">
+
+
+                                                        <option value="default">{{selected}} diseases</option>
+                                                        <option *ngFor="let symptoms of skin" [value]="symptoms">
+                                                            {{symptoms}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div *ngSwitchCase="'General'">
+                                                    <select class="form-select">
+
+
+                                                        <option value="default">{{selected}} diseases</option>
+                                                        <option *ngFor="let symptoms of General" [value]="symptoms">
+                                                            {{symptoms}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div *ngSwitchCase="'Heart'">
+                                                    <select class="form-select">
+
+
+                                                        <option value="default">{{selected}} diseases</option>
+                                                        <option *ngFor="let symptoms of Heart" [value]="symptoms">
+                                                            {{symptoms}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div *ngSwitchCase="'Dental'">
+                                                    <select class="form-select">
+
+
+                                                        <option value="default">{{selected}} diseases</option>
+                                                        <option *ngFor="let symptoms of Dental" [value]="symptoms">
+                                                            {{symptoms}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div *ngSwitchCase="'Eye'">
+                                                    <select class="form-select">
+
+
+                                                        <option value="default">{{selected}} diseases</option>
+                                                        <option *ngFor="let symptoms of Eye" [value]="symptoms">
+                                                            {{symptoms}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div *ngSwitchCase="'Nerves'">
+                                                    <select class="form-select">
+
+
+                                                        <option value="default">{{selected}} diseases</option>
+                                                        <option *ngFor="let symptoms of Nerves" [value]="symptoms">
+                                                            {{symptoms}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div *ngSwitchCase="'Orthology'">
+                                                    <select class="form-select">
+
+
+                                                        <option value="default">{{selected}} diseases</option>
+                                                        <option *ngFor="let symptoms of Orthology" [value]="symptoms">
+                                                            {{symptoms}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div *ngSwitchCase="'MentalHealth'">
+                                                    <select class="form-select">
+
+
+                                                        <option value="default">{{selected}} diseases</option>
+                                                        <option *ngFor="let symptoms of MentalHealth"
+                                                            [value]="symptoms">
+                                                            {{symptoms}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="form-group row">
+                                    <label for="requestid" class="col-sm-2 col-form-label">RequestId:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" formControlName="requestId" class="form-control"
+                                            [(ngModel)]="requestid">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="SysmptomsQuery" class="col-sm-2 col-form-label">Enter the
+                                        Sysmptoms:</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" formControlName="symptoms" id="Textarea"
+                                            rows="6"></textarea>
+                                    </div>
+                                </div>
+                                <section>
+
+                                    <div class="example-button-row">
+                                        <br><br>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                        <button class="btnspace" type="submit" mat-raised-button
+                                            color="primary">Submit</button>
+
+                                    </div>
+
+                                </section>
+
+                            </div>
+
+                        </mat-card-content>
+
+                    </form>
+                </mat-card>
+            </div>
+        </div>
+    </div>

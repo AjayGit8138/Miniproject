@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server-database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo Testing DoctorAppointment"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AjayGit8138/Miniproject.git"
+  },
+  "keywords": [
+    "Hospital",
+    "Management"
+  ],
+  "author": "Ajay-AngularNodejs-development",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AjayGit8138/Miniproject/issues"
+  },
+  "homepage": "https://github.com/AjayGit8138/Miniproject#readme",
+  "devDependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "node-couchdb": "^1.3.0"
+  }
+}

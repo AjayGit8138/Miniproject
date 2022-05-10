@@ -1,0 +1,81 @@
+<div class="d-flex align-items-center ">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="col-md-8">
+                <mat-card>
+                    <form [formGroup]="doctoradmingroup">
+
+                        <mat-card-content>
+                            <div *ngIf="step == 1">
+                                <div class="row">
+
+
+                                    <div class="form-group row">
+
+                                        <label for="Doctorname" class="col-sm-2 col-form-label">Doctor's Name:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" formControlName="doctorname"
+                                                pattern="^[a-z0-9_-]{8,15}$" placeholder="'DR.'Enter the DoctorsName">
+
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group row">
+
+                                        <label for="Doctoremail" class="col-sm-2 col-form-label">Doctor's Email:</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" formControlName="doctorname"
+                                                placeholder="'DR.'Enter the DoctorsEmail">
+
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group row">
+
+                                        <label for="Mobileno" class="col-sm-2 col-form-label">Mobileno:</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" formControlName="doctorname"
+                                                placeholder="'DR.'Enter the Mobileno">
+
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group row">
+
+                                        <label for="Gender" class="col-sm-2 col-form-label">Gender:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-select">
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        </div>
+                                    </div><br><br><br>
+                                    <div class="form-group row">
+
+                                        <label for="PatinetDOB" class="col-sm-2 col-form-label">DateofBirth:</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" formControlName="dateofbirth" class="form-control">
+                                        </div>
+
+                                    </div><br><br><br>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label" for="customFile">UploadsPhoto:</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" class="form-control" id="
+                                            customFile" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="example-button-row">
+                                    <br><br>
+
+                                    <button class="btnspace" type="submit" (click)="navigatenext()" mat-raised-button
+                                        color="primary">Next</button>
+
+                                </div>
+                            </div>
+                        </mat-card-content>
+
+                    </form>
+                </mat-card>
+            </div>
+        </div>
+    </div>
