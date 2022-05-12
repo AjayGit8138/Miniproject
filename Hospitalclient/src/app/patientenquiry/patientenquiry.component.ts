@@ -49,10 +49,11 @@ public updatetreatment(e:any)
   genid = this.addharid;
   
   this.serverapi.gettotalpatients(this.selected).subscribe(data=>{
+    
    this.patientcount = data; 
-  this.requestid = this.selected + genid.slice(-4) + 'P-' + this.patientcount;
+  this.requestid = this.selected + genid.slice(-4);
 
-   console.log(data);
+   console.log("from form ts file"+data);
   })
   
   
@@ -62,6 +63,10 @@ public updatetreatment(e:any)
 Formsubmit(Formvalue:NgForm)
 {
   console.log(Formvalue);
+  this.serverapi.storepatientrecord(Formvalue).subscribe((res)=>{
+        console.log("Form value added successfully into database");
+        console.log("return response",res);
+  })
   
 }
 

@@ -22,12 +22,10 @@ export class ApiserviceService {
    return this.http.get<any>('http://localhost:8000/totalpatients/'+getcategory);
    
   }
-  // getconnection()
-  // {
-  //   this.http.get<any>('https://a1b21745-8512-41b2-8506-c83a13a27993-bluemix.cloudantnosqldb.appdomain.cloud/hospital_admission/_all_docs ').subscribe(data=>{
-  //     console.log(data);
-  //   })
-  // }
+  storepatientrecord(formobject:any)
+  {
+    return this.http.post<any>('http://localhost:8000/storepatient/',formobject);
+  }
 }
 
 

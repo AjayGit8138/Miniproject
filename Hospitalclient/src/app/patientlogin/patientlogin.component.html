@@ -28,7 +28,7 @@
                                         <input type="email" class="form-control" formControlName="email"
                                             placeholder="Enter the Emailaddress">
                                     </div>
-                                    <div class="help-block text-danger" *ngIf="email.touched">
+                                    <div class="help-block text-danger" *ngIf="email.invalid && email.touched">
                                         Enter a Valid Email Address!!!
                                     </div>
                                 </div><br><br><br>

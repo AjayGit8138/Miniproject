@@ -16,18 +16,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { DoctoradminComponent } from './doctoradmin/doctoradmin.component';
 import { PatientloginComponent } from './patientlogin/patientlogin.component';
 import { DoctorloginComponent } from './doctorlogin/doctorlogin.component';
-
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { HeaderComponent } from './header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
     PatientenquiryComponent,
     DoctoradminComponent,
     PatientloginComponent,
-    DoctorloginComponent
+    DoctorloginComponent,
+    DashboardComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,
+    AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,MatSidenavModule,
     BrowserAnimationsModule,MatToolbarModule, NgbModule,MatCardModule,MatFormFieldModule,MatInputModule,MatButtonModule
   ],
   providers: [],
