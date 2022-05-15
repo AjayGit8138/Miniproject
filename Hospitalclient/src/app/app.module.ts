@@ -19,6 +19,13 @@ import { DoctorloginComponent } from './doctorlogin/doctorlogin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { HeaderComponent } from './header/header.component';
+import { PatientdashboardComponent } from './patientdashboard/patientdashboard.component';
+import { ToastrModule } from 'ngx-toastr';
+import { HomeComponent } from './home/home.component';
+import { SpecialityComponent } from './speciality/speciality.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,14 +34,19 @@ import { HeaderComponent } from './header/header.component';
     PatientloginComponent,
     DoctorloginComponent,
     DashboardComponent,
-    HeaderComponent
+    HeaderComponent,
+    PatientdashboardComponent,
+    HomeComponent,
+    SpecialityComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,MatSidenavModule,
+    BrowserModule,NgbModalModule,
+    AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,MatSidenavModule,ToastrModule.forRoot(),
     BrowserAnimationsModule,MatToolbarModule, NgbModule,MatCardModule,MatFormFieldModule,MatInputModule,MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  
+ }

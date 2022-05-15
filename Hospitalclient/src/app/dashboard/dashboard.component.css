@@ -1,3 +1,17 @@
 .sidenav{
     background-color: chocolate;
 }
+#toast-container > div { opacity:1; }
+a:hover{
+    cursor: pointer;
+}
+.sidebar{
+    position: relative;
+    left: -5%;
+}
+.contheight{
+  margin-top: 5%;
+}
+.card-table {
+    word-break: break-all;
+  }

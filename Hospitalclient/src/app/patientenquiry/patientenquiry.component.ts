@@ -8,6 +8,7 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class PatientenquiryComponent implements OnInit {
   requestid:string="undefined";
+  type:string = "patient";
   addharid:number=0;
   idgen:number = 1;
   patientinquiryform:FormGroup;
@@ -22,6 +23,7 @@ export class PatientenquiryComponent implements OnInit {
       aadharno:['',[Validators.required,Validators.minLength(12)]],
       Treatmentcategory:['',[Validators.required]],
       requestId:['',[Validators.required]],
+      category:['',Validators.required],
       password:['',Validators.required],
       cpassword:['',Validators.required],
       symptoms:['',[Validators.required]]
@@ -67,6 +69,8 @@ Formsubmit(Formvalue:NgForm)
         console.log("Form value added successfully into database");
         console.log("return response",res);
   })
+  this.patientinquiryform.reset();
+  alert("Patient data successuly added");
   
 }
 
@@ -88,5 +92,6 @@ get dateofbirth() {return this.patientinquiryform.get('dateofbirth');}
 get mobileno() {return this.patientinquiryform.get('mobileno');}
 get email() {return this.patientinquiryform.get('email');}
 get esino() {return this.patientinquiryform.get('esino');}
+get category() {return this.patientinquiryform.get('category');}
 }
 

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,TemplateRef } from '@angular/core';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Hospitalclient';
+  closeResult = '';
+ constructor(private modalService: NgbModal){}
+ 
 }

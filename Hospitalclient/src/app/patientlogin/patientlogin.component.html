@@ -1,9 +1,9 @@
-<div class="d-flex align-items-center ">
+<div class="d-flex align-items-center formspanel">
     <div class="container">
         <div class="d-flex justify-content-center">
             <div class="col-md-8">
                 <mat-card>
-                    <form [formGroup]="patientloginform">
+                    <form [formGroup]="patientloginform" (ngSubmit)="loginauth(this.patientloginform.value)">
 
                         <mat-card-content>
                             <div class="row">

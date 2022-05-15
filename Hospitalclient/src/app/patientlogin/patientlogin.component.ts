@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+
 import { ApiserviceService } from '../apiservice.service';
 
 @Component({
@@ -9,13 +11,14 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class PatientloginComponent implements OnInit {
   patientloginform:FormGroup
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService) {
+  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router) {
 
     // this.serveapi.getconnection();
     this.patientloginform = this.fb.group({
-      patientname:['',Validators.required],
-      email:['',Validators.required,Validators.email],
-      loginid:['',Validators.required]
+    
+      email:['',Validators.required],
+      loginid:['',Validators.required],
+      password:['',Validators.required]
     })
    }
 
@@ -25,5 +28,29 @@ export class PatientloginComponent implements OnInit {
   get email() {return this.patientloginform.get('email');}
   get password() {return this.patientloginform.get('password');}
   get loginid() {return this.patientloginform.get('loginid');}
+
+  loginauth(loginval:any)
+  {
+    console.log("Login details",loginval);
+    var searchobject = {
+      selector:{
+        "requestId":loginval.loginid
+      }
+      
+    }
+    
+    console.log(searchobject);
+    this.serveapi.checkpatientlogin(loginval.loginid).subscribe(data=>{
+      console.log("Data search successfully returned",data);
+
+      if((data.email == loginval.email) && (data.password == loginval.password))
+      {
+        this.router.navigate(['patientdashboard']);
+      }
+      else{
+        // this.toastr.warning("Hi Patient wrong authentication,Please enter correct Email and Password");
+      }
+    })
+  }
   
 }

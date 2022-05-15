@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { 
+    height: auto;
+    background-color: rgba(97, 102, 153, 0.87);
+ }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import url('../node_modules/bootstrap/dist/css/bootstrap.css');
+@import url('../node_modules/ngx-toastr/toastr.css');
 
 .maincontent{
     margin-top: 150px;
@@ -10,3 +14,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* .routercomponents{
     margin-top: 50px;
 } */
+.formspanel{
+    position: absolute;
+    top: 25%;
+}
+.navbarlist{
+    position: absolute;
+    left: 55%;
+}
