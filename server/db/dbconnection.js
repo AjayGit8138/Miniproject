@@ -1,4 +1,5 @@
 const DbHospital = require('./nanodb');
+var validator = require("email-validator");
 
 var totalPalist = "16edf8804196a7dbbf6f4b5529c2fe03"; //get total patient list
 
@@ -25,59 +26,40 @@ console.log("storeddata",searchval[0]);
 var getlogindetails = 
     async (getobject)=>{
         let pushval = [];
+        var value;
     // {selector:{"requestId":"skin9898"}}
     console.log(getobject);
-        
+        var mailcheck =  validator.validate(getobject);
+        console.log("Yes this is a Email",mailcheck);
+        if(mailcheck)
+        {
+            var emailquery = {
+                selector:{
+                    "email":getobject,
+                    "category":"patient"
+                }
+            }
+            value = DbHospital.hospitaldb.find(emailquery).then((data)=>{
+                console.log("email id matched documents fetched from database",data);
+                return data;
+            }).catch((err)=>{
+                console.log("EmailId doesn't Exists in database",err);
+            })
+            
+        }
+        else{
         if(getobject)
         {
-           
-          var value =   DbHospital.hospitaldb.get(getobject).then(data=>{
+          value =   DbHospital.hospitaldb.get(getobject).then(data=>{
                 console.log("found data",data);
-            
-               
                 return data;
             }).catch((err=>{
                 console.log("some bad request error",err);
             }))
         }
-        return value;
+    }
+    return value;
     };
-
-
-var availability = async (getparams)=>{
-    var getcount = new Promise((resolve,reject)=>{
-        if(getparams == undefined)
-        {
-            reject();
-        }
-        else{
-            resolve(
-            DbHospital.hospitaldb.get(totalPalist).then((data)=>{
-                console.log("Total admitted patients",data);
-                for(var x in data.patientlist)
-                {
-                    console.log(getparams);
-                    if(data.patientlist[x].category === getparams)
-                    {
-                       retval =  data.patientlist[x].noofpatients = data.patientlist[x].noofpatients+1;
-                       
-                    }
-                }
-                console.log(retval);
-                DbHospital.hospitaldb.insert(totalPalist,patiendic).then((data)=>{
-                    console.log("updates");
-                })
-              return retval;
-             
-            }).catch((err)=>{
-                return "Data Not available";
-            }))
-            
-        }
-    })
-    
-    return getcount;
-}
 
 var newpatinetrecord = async (patientobject)=>{
     var insertrecord = new Promise((resolve,reject)=>{
@@ -96,7 +78,11 @@ var newpatinetrecord = async (patientobject)=>{
     return insertrecord;
 }
 
+function isEmailvalid(inputemail)
+{
+    var pattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+    return pattern.test(inputemail);
+}
 
 
-
-module.exports = {availability,newpatinetrecord,getlogindetails}
+module.exports = {newpatinetrecord,getlogindetails}

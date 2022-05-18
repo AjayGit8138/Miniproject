@@ -29,8 +29,10 @@
   "dependencies": {
     "@cloudant/cloudant": "^4.5.1",
     "couchdb-api": "^1.2.2",
+    "email-validator": "^2.0.4",
     "nano": "^10.0.0",
     "node-fetch": "^3.2.4",
+    "nodemailer": "^6.7.5",
     "pouchdb": "^7.3.0"
   }
 }

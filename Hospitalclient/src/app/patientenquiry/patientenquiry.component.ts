@@ -50,13 +50,14 @@ public updatetreatment(e:any)
   this.selected = e.target.value;
   genid = this.addharid;
   
-  this.serverapi.gettotalpatients(this.selected).subscribe(data=>{
+  // this.serverapi.gettotalpatients(this.selected).subscribe(data=>{
     
-   this.patientcount = data; 
-  this.requestid = this.selected + genid.slice(-4);
+  //  this.patientcount = data; 
+  // this.requestid = this.selected + genid.slice(-4);
 
-   console.log("from form ts file"+data);
-  })
+  //  console.log("from form ts file"+data);
+  // })
+  this.requestid = this.selected + genid.slice(-4);
   
   
   
@@ -72,6 +73,7 @@ Formsubmit(Formvalue:NgForm)
   this.patientinquiryform.reset();
   alert("Patient data successuly added");
   
+  
 }
 
 
@@ -84,7 +86,15 @@ setrequestid(event:any)
 
 public emailcheck(event:any)
 {
-
+    var emailId = event.target.value;
+    this.serverapi.checkpatientlogin(emailId).subscribe((data)=>{
+        console.log("Patient Exists data from Database",data);
+        if(data.docs[0].email == emailId)
+        {
+          alert("Email Id already Exists,Please register with new one");
+        }
+    })
+    
 }
 get patientname() {return this.patientinquiryform.get('patientname');}
 get age() {return this.patientinquiryform.get('age');}

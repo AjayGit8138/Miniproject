@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-
+import { ActivatedRoute,Params } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
+
 
 @Component({
   selector: 'app-patientlogin',
@@ -10,9 +11,13 @@ import { ApiserviceService } from '../apiservice.service';
   styleUrls: ['./patientlogin.component.css']
 })
 export class PatientloginComponent implements OnInit {
-  patientloginform:FormGroup
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router) {
+  patientloginform:FormGroup;
 
+  
+  
+  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private activeparams:ActivatedRoute) {
+   
+  
     // this.serveapi.getconnection();
     this.patientloginform = this.fb.group({
     
@@ -22,7 +27,9 @@ export class PatientloginComponent implements OnInit {
     })
    }
 
+  
   ngOnInit(): void {
+   
   }
   get patientname() {return this.patientloginform.get('patientname');}
   get email() {return this.patientloginform.get('email');}
@@ -33,22 +40,25 @@ export class PatientloginComponent implements OnInit {
   {
     console.log("Login details",loginval);
     var searchobject = {
-      selector:{
-        "requestId":loginval.loginid
-      }
+      "patientname":loginval.email,
+      "loginid":loginval.loginid
       
     }
     
     console.log(searchobject);
     this.serveapi.checkpatientlogin(loginval.loginid).subscribe(data=>{
-      console.log("Data search successfully returned",data);
-
-      if((data.email == loginval.email) && (data.password == loginval.password))
+     
+      console.log(data);
+      console.log(data.password);
+     
+     
+      if((data.doc.email == loginval.email) && (data.doc.password == loginval.password))
       {
-        this.router.navigate(['patientdashboard']);
+        this.router.navigate(['patientdashboard/',loginval.loginid]);
       }
       else{
         // this.toastr.warning("Hi Patient wrong authentication,Please enter correct Email and Password");
+        alert("Login authentication failed");
       }
     })
   }

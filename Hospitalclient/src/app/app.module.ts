@@ -24,6 +24,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
 import { SpecialityComponent } from './speciality/speciality.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminComponent } from './admin/admin.component';
+import { TreatmentdivisionComponent } from './treatmentdivision/treatmentdivision.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     PatientdashboardComponent,
     HomeComponent,
-    SpecialityComponent
+    SpecialityComponent,
+    AdminComponent,
+    TreatmentdivisionComponent
   ],
   imports: [
     BrowserModule,NgbModalModule,

@@ -15,12 +15,12 @@ app.use(bodyparser.json());
 app.use(cors({
     origin:'http://localhost:4200'}));
 
-app.get('/totalpatients/:id',(req,res,value)=>{
+app.get('/totalpatients/:id/:refid',(req,res,value)=>{
     console.log("Request sent By Treatment Category"+req.params.id);
- dbconnect.availability(req.params.id).then((data)=>{
-    console.log("total count",data);
-    res.json(data);
- });
+    console.log(req.params.refid);
+    // patienparse.availability(req.params.id).then((data)=>{
+    //   console.log("Get Patient datas from database",data)
+    // })
  
  
 })
@@ -64,7 +64,7 @@ app.post('/savedoctorprofile',(req,res,next)=>{
         doctorfile.storedoctorinformation(req);
 })
 
-app.use('/bookrequested',(req,res,next)=>{
+app.get('/bookrequested',(req,res,next)=>{
   var data = {
     selector:{
         "category":"patient",
@@ -85,6 +85,36 @@ app.get('/doctorloginauth/:objectid',(req,res,next)=>{
   })
 })
 
+app.get('/getdoctordetails/:id',(req,res,next)=>{
+  var data;
+  if(req.params.id == 'Doctor')
+  {
+  data = {
+    selector:{
+        "category":req.params.id,
+        
+    }
+    }
+  }
+  else{
+    data = {
+      selector:{
+        "category":"Doctor",
+        "specialist":req.params.id
+      }
+    }
+  }
+  if(data)
+  {
+    doctorfile.getalldoctors(data).then((data)=>{
+      console.log("Doctors available in Hospital",data);
+      res.json(data);
+    }).catch((err)=>{
+      console.log("Some Bad request Error occured",err);
+    })
+  }
+})
+
 app.put('/updatepatienrecord/:updateobject',(req,res,next)=>{
     var patientid = req.params.updateobject;
     var updatepatient = {
@@ -95,7 +125,11 @@ app.put('/updatepatienrecord/:updateobject',(req,res,next)=>{
     }
     console.log("update operation in to database",patientid);
     console.log("want to store a object",updatepatient);
-    
+    patienparse.bookappointment(updatepatient,patientid).then((resdata)=>{
+      console.log("Updated Appointment Booking status successfully",resdata);
+    }).catch((err)=>{
+      console.log("Something Bad request Can't update",err);
+    })
 })
 app.listen(port, (err) => {
     if (err) {

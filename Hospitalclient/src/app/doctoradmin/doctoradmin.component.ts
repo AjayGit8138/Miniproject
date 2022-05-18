@@ -48,15 +48,27 @@ export class DoctoradminComponent implements OnInit {
   {
     this.step += 1;
   }
-
+  public emailcheck(event:any)
+{
+    var emailId = event.target.value;
+    this.serveapi.checkdoctorlogin(emailId).subscribe((data)=>{
+        console.log("Patient Exists data from Database",data);
+        if(data.docs[0].email == emailId)
+        {
+          alert("Email Id already Exists,Please register with new one");
+        }
+    })
+    
+}
   doctorprofile(Formvalue:any)
   {
     Formvalue.profilesnap = this.filename;
     this.serveapi.storedoctorprofile(Formvalue).subscribe(resdata=>{
       console.log("Hi doctor information is inserted",resdata);
-      this.doctoradmingroup.reset();
       alert("Doctor Profile is added succesfully");
     })
+    this.doctoradmingroup.reset();
+    alert("Doctor Profile is added succesfully");
     console.log(Formvalue);
   }
 

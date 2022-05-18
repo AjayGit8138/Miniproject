@@ -37,16 +37,13 @@
         <li class="nav-item"><a class="nav-link" routerLink="home" routerLinkActive="active">Home
             </a>
         </li>
-        <li class="nav-item"><a class="nav-link" routerLink="specialists" routerLinkActive="active">specialists
+        <li class="nav-item"><a (click)="tabselect(1)" routerLinkActive="active">mypatient
             </a>
         </li>
-        <li class="nav-item"><a class="nav-link" routerLink="docadmin" routerLinkActive="active">Doctor's
-                Admin</a>
+        <li class="nav-item"><a (click)="tabselect(2)" routerLinkActive="active">medicine
+            </a>
         </li>
-        <li class="nav-item"><a class="nav-link" routerLink="enquiry" routerLinkActive="active">PatientForm</a>
-        </li>
-
-        <li class="nav-item"><a class="nav-link" routerLink="adminauth" routerLinkActive="active">Admin</a>
+        <li class="nav-item"><a (click)="tabselect(3)" routerLinkActive="active">Logout</a>
         </li>
     </ul>
     <label for="nav-toggle" class="icon-burger">
@@ -55,3 +52,15 @@
         <div class="line"></div>
     </label>
 </nav>
+
+<div *ngIf="tabchange == 1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" (click)="gettreatmentlist()">Treatmentunderme</button>
+                <button class="btn btn-primary" (click)="getdetail()">Treatmentunderme</button>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@ import { getNumberOfCurrencyDigits } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
- 
+import {Http, Headers} from '@angular/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -16,10 +16,10 @@ export class ApiserviceService {
     
    }
 
- gettotalpatients(getcategory:any){
+ gettotalpatients(getcategory:any,getlist:any){
   
  
-   return this.http.get<any>('http://localhost:8000/totalpatients/'+getcategory);
+   return this.http.get<any>('http://localhost:8000/totalpatients/'+getcategory+'/'+getlist);
    
   }
   storepatientrecord(formobject:any)
@@ -47,6 +47,11 @@ export class ApiserviceService {
   {
     console.log(appoint);
     return this.http.put<any>('http://localhost:8000/updatepatienrecord/'+appoint.requestId,appoint);
+  }
+  getdoctorslist(getreference:any)
+  {
+    var doctor = getreference;
+    return this.http.get<any>('http://localhost:8000/getdoctordetails/'+doctor);
   }
 }
 

@@ -4,6 +4,7 @@ import { ApiserviceService } from '../apiservice.service';
 declare var $: any;
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,10 +15,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   bookingform:FormGroup;
   patientrequest = [];
+  doctorlist = [];
+  employeddoctors = []
   closeResult = '';
   status:any = "YES";
   timeclock:any;
-  constructor(private toastr:ToastrService,private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder) { 
+  doctors:any;
+  constructor(private toastr:ToastrService,private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router) { 
     this.bookingform = this.bookform.group({
         requestId:['',Validators.required],
         patientname:['',Validators.required],
@@ -29,6 +33,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   number:any;
+  num = 1;
   sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology","MentalHealth"];
   skindoctors = ["karthick","Ramamoorthy","ramachandran","geetha","srinivasan"];
   ngOnInit(): void {
@@ -43,6 +48,7 @@ export class DashboardComponent implements OnInit {
         console.log("waiting for Doctor appointment",data.docs);
         var availength = data.docs.length;
         console.log("returned Length",availength);
+        this.patientrequest = [];
         for(var i=0;i<availength;i++)
         {
           this.patientrequest.push(data.docs[i]);
@@ -51,8 +57,30 @@ export class DashboardComponent implements OnInit {
         console.log("patient request",this.patientrequest);
       })
     }
+    else if(tab == 2)
+    {
+      var referenceid = 'Doctor';
+      this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
+        console.log("Avalable Doctors in Hospital",data);
+        var availength = data.docs.length;
+        this.doctorlist = [];
+        for(var i=0;i<availength;i++)
+        {
+          this.doctorlist.push(data.docs[i]);
+        }
+        console.log("Availabily doctors in Hospital",this.doctorlist);
+      })
+    }
   }
 
+  selectdoctors(event:any)
+  {
+     console.log(event.target.value);
+     var referenceid = event.target.value;
+     this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
+          console.log("Get specialized doctor data from server",data);
+     })
+  }
   open(content,row:any) {
     
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -64,6 +92,15 @@ export class DashboardComponent implements OnInit {
     this.bookingform.controls['patientname'].setValue(row.patientname);
     this.bookingform.controls['Treatmentcategory'].setValue(row.Treatmentcategory);
     this.bookingform.controls['appointstatus'].setValue(this.status);
+    this.doctors = row.Treatmentcategory;
+    this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
+      console.log("Get specialized doctor data from server",data);;
+
+      //push doctors as per the specialization into the array
+      this.employeddoctors.push(data.docs);
+     
+      console.log("List of specialization doctors",this.employeddoctors[0])
+ })
     }
 
     savebookingstatus(bookinformation:any){
@@ -76,7 +113,9 @@ export class DashboardComponent implements OnInit {
         })
     }
 
-
+    redirectlink(){
+      this.route.navigate(['adminauth']);
+    }
     get requestId() {return this.bookingform.get('requestId');}
     get dateofappointment() {return this.bookingform.get('dateofappointment');}
     get Treatmentcategory() {return this.bookingform.get('Treatmentcategory');}

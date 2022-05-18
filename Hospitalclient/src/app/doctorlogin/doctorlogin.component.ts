@@ -48,9 +48,8 @@ doctorloginauth(loginval:any)
     console.log("Data search successfully returned",data);
 
     if((data.email == loginval.email) && (data.password == loginval.password))
-    {;
-     
-      this.router.navigate(['docdash']);
+    {
+      this.router.navigate(['treat/',loginval.loginid]);
     }
     else{
       this.warning("authentication failed");

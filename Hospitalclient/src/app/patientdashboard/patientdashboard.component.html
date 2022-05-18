@@ -1,1 +1,41 @@
-<h1>Patientlogin Dashboard Works!!!</h1>
+<nav>
+    <input id="nav-toggle" type="checkbox">
+    <ul class="links">
+        <li class="nav-item"><a class="nav-link" routerLinkActive="active">Home
+            </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" (click)="showdiv(1)" routerLinkActive="active">Patient appointement
+                details
+            </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" (click)="showdiv(2)" routerLinkActive="active">Patient
+                Medicinal status
+            </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" (click)="redirectback()" routerLinkActive="active">Logout</a>
+        </li>
+
+    </ul>
+    <label for="nav-toggle" class="icon-burger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </label>
+</nav>
+
+<div class="container">
+    <div *ngIf="divBoolean == 1">
+        <div class="mt-4 p-5 bg-light text-dark rounded">
+            <h1>Appointment details</h1>
+            <div *ngFor="let detail of appointstatus">
+                <h2>Doctor For You:{{detail.doctor}}</h2>
+                <h2>TimeofAppointment:{{detail.time}}</h2>
+                <h2>Dateofappointment:{{detail.dateofappointment}}</h2>
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="divBoolean == 3">
+
+    </div>
+</div>
