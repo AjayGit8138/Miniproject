@@ -1,18 +1,14 @@
 <nav>
-    <input id="nav-toggle" type="checkbox">
     <ul class="links">
-        <li class="nav-item"><a class="nav-link" routerLinkActive="active">Home
-            </a>
-        </li>
-        <li class="nav-item"><a class="nav-link" (click)="showdiv(1)" routerLinkActive="active">Patient appointement
+        <li class="nav-item"><a class="active" (click)="showdiv(1)" routerLinkActive="active">Patient appointement
                 details
             </a>
         </li>
-        <li class="nav-item"><a class="nav-link" (click)="showdiv(2)" routerLinkActive="active">Patient
+        <li class="nav-item"><a class="active" (click)="showdiv(2)" routerLinkActive="active">Patient
                 Medicinal status
             </a>
         </li>
-        <li class="nav-item"><a class="nav-link" (click)="redirectback()" routerLinkActive="active">Logout</a>
+        <li class="nav-item"><a class="active" (click)="redirectback()" routerLinkActive="active">Logout</a>
         </li>
 
     </ul>
@@ -25,17 +21,160 @@
 
 <div class="container">
     <div *ngIf="divBoolean == 1">
-        <div class="mt-4 p-5 bg-light text-dark rounded">
+        <div class="jumbo jumbotron">
             <h1>Appointment details</h1>
             <div *ngFor="let detail of appointstatus">
-                <h2>Doctor For You:{{detail.doctor}}</h2>
-                <h2>TimeofAppointment:{{detail.time}}</h2>
-                <h2>Dateofappointment:{{detail.dateofappointment}}</h2>
+                <h2 class="text-light">Doctor For You:{{detail.doctor}}</h2>
+                <h2 class="text-light">TimeofAppointment:{{detail.time}}</h2>
+                <h2 class="text-light">Dateofappointment:{{detail.dateofappointment}}</h2>
             </div>
 
         </div>
     </div>
-    <div *ngIf="divBoolean == 3">
+    <div *ngIf="divBoolean == 2">
+        <div class="container">
+            <div class="row">
+                <div class="jumbo jumbotron">
+                    <h1>medicinal reports</h1>
+                    <div class="list-group">
+                        <ul class="list-group">
+                            <div *ngFor="let items of patienttestreports">
+                                <li class="list-group-item">{{items.totalreport}}<button
+                                        (click)="displaytestreport(items,3)"
+                                        class="viewreport btn btn-primary">view</button></li>
 
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- <ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"></h4>Timeallotment for Patient
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="jumbo jumbotron">
+        <div class="col-md-12">
+            <div class="mx-auto col-md-10">
+                <form [formGroup]="testform" (ngSubmit)="generatereport(this.testform.value)">
+                    <h1 class="text-light">Doctor Generated report based upon Testanlysis</h1>
+                    <div>
+                        <div class="row">
+                            <label for="Patientname" class="text-light col-sm-2 col-form-label">Patientname:</label>
+                            <input type="text-light" readonly class="form-control" formControlName="patientname"
+                                placeholder="Enter the Patientname">
+
+                        </div><br>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <label for="reportgeneratedby"
+                                class="text-light col-sm-2 col-form-label">Reportgenreatedby:</label>
+                            <input type="text-light" readonly class="form-control input-lg" formControlName="reportby"
+                                placeholder="reportgeneratedby">
+
+                        </div><br>
+                    </div>
+                    <div class="row">
+                        <label for="Typesofdiseases">Type of symptoms and diseases
+                        </label>
+                        <textarea class="form-control" formControlName="diseases" id="Textarea" rows="4"></textarea>
+                    </div>
+                    <div class="row">
+                        <label for="Typesofdiseases" class="text-light">Remedies to Follow
+                        </label>
+                        <textarea class="form-control" formControlName="remedies" id="Textarea" rows="4"></textarea>
+                    </div>
+                    <div class="row">
+                        <label for="Typesofdiseases" class="text-light">Follow precuations
+                        </label>
+                        <textarea class="form-control" formControlName="precuations" id="Textarea" rows="4"></textarea>
+                    </div>
+                    <div class="row">
+                        <label for="Typesofdiseases" class="text-light">Diet Plan
+                        </label>
+                        <textarea class="form-control" formControlName="dietplan" id="Textarea" rows="4"></textarea>
+                    </div>
+                    <div class="row">
+                        <label for="pharmacy" class="text-light">medicineone
+                        </label>
+                        <div class="row">
+                            <label for="Treatment" class="text-light">Tablets:</label>
+
+                            <select class="form-select " formControlName="medicineone" #treatment>
+                                <option value="default">none</option>
+                                <option *ngFor="let treat of tablets[0]" [value]="treat">{{treat}}
+                                </option>
+
+                            </select>
+                        </div>
+                    </div><br>
+                    <div class="row">
+
+                        <div class="row">
+                            <label for="Treatment" class="text-light">medicinetwo:</label>
+
+                            <select class="form-select " formControlName="medicinetwo" #treatment>
+                                <option value="default">none</option>
+                                <option *ngFor="let treat of tablets[0]" [value]="treat">{{treat}}
+                                </option>
+
+                            </select>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <label for="pharmacy" class="text-light">medicinethree
+                        </label>
+                        <div class="row">
+                            <label for="Treatment" class="text-light">Tablets:</label>
+
+                            <select class="form-select " formControlName="medicinethree" #treatment>
+                                <option value="default">none</option>
+                                <option *ngFor="let treat of tablets[0]" [value]="treat">{{treat}}
+                                </option>
+
+                            </select>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <label for="Typesofdiseases" class="text-light">Dosage
+                        </label>
+                        <textarea class="form-control" formControlName="dosage" id="Textarea" rows="4"></textarea>
+                    </div><br><br>
+
+                </form>
+
+
+                <div class="modal-footer">
+                    <button type="submit" (click)="modal.close('Save click')" class="btn btn-outline-dark">Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template> -->
+
+<div *ngIf="divBoolean == 3">
+
+    <div *ngFor="let item of showobject | operation">
+
+        <div class="container">
+            <div class="row">
+                <h1>{{item.key}}</h1>
+                <div class="card services bg-light text-dark">
+                    <div class="card-body">
+                        <div class="container transone">
+                            <div class="row">
+                                <h1>{{item.value}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" (click)="showdiv(2)">view another report</button>

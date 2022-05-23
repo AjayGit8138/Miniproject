@@ -19,6 +19,7 @@ import { DoctorloginComponent } from './doctorlogin/doctorlogin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { HeaderComponent } from './header/header.component';
+
 import { PatientdashboardComponent } from './patientdashboard/patientdashboard.component';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
@@ -26,6 +27,14 @@ import { SpecialityComponent } from './speciality/speciality.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminComponent } from './admin/admin.component';
 import { TreatmentdivisionComponent } from './treatmentdivision/treatmentdivision.component';
+import { TestanalysisComponent } from './testanalysis/testanalysis.component';
+import { MypatientComponent } from './mypatient/mypatient.component';
+import { OperationPipe } from './operation.pipe';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ScanreportComponent } from './scanreport/scanreport.component';
+import { FooterComponent } from './footer/footer.component';
+
+
 
 
 @NgModule({
@@ -41,10 +50,15 @@ import { TreatmentdivisionComponent } from './treatmentdivision/treatmentdivisio
     HomeComponent,
     SpecialityComponent,
     AdminComponent,
-    TreatmentdivisionComponent
+    TreatmentdivisionComponent,
+    TestanalysisComponent,
+    MypatientComponent,
+    OperationPipe,
+    ScanreportComponent,
+    FooterComponent
   ],
   imports: [
-    BrowserModule,NgbModalModule,
+    BrowserModule,NgbModalModule,MatTabsModule,
     AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,MatSidenavModule,ToastrModule.forRoot(),
     BrowserAnimationsModule,MatToolbarModule, NgbModule,MatCardModule,MatFormFieldModule,MatInputModule,MatButtonModule
   ],

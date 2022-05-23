@@ -12,5 +12,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+ 
+
   banner = "./images/medicalbanner.jpg";
+  bannerone = "./images/hospitalbanner.jpg";
+  services = "./images/goalmission.jpg";
+  vision = "./images/vision.png";
 }

@@ -5,11 +5,11 @@ html, body {
 	background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(195, 165, 48));
 	  
  }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+body { margin: 0; font-family: 'Poppins', sans-serif;
  }
 @import url('../node_modules/bootstrap/dist/css/bootstrap.css');
 @import url('../node_modules/ngx-toastr/toastr.css');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 .maincontent{
     margin-top: 150px;
 }
@@ -24,11 +24,13 @@ body {
 	padding: 0;
 	margin: 0;
 	background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(195, 165, 48));
+	font-family: 'Poppins', sans-serif;
 }
 .container {
 	position: relative;
 	margin-top: 100px;
 }
+
 .container img {
 	display: block;
 	width: 100%;
@@ -69,19 +71,21 @@ nav .links li {
 a:hover{
     cursor: pointer;
     color: orange;
-    border: 1px solid white;
-    border-radius: 1px;
+	border-bottom: 2px solid salmon;
 }
 nav .links a {
 	display: block;
 	padding: 1em;
 	font-size: 16px;
 	font-weight: bold;
-	color: #fff;
+	color: white;
 	text-decoration: none;
 }
 nav .links a :active{
 	background-color: orange;
+}
+nav .links a:focus{
+	border-bottom: 2px solid salmon;
 }
 #nav-toggle {
 	position: absolute;

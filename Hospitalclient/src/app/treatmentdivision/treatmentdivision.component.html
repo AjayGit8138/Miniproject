@@ -1,49 +1,11 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <h1 class="text-light">Appointment Booking Management</h1>
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="nav nav-pills">
-                    <ul class="navbarlist nav nav-pills">
-
-                        <li class="nav-item"><a class="nav-link" routerLink="home" routerLinkActive="active">Home
-                            </a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" routerLink="specialists"
-                                routerLinkActive="active">specialists
-                            </a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" routerLink="docadmin"
-                                routerLinkActive="active">Doctor's
-                                Admin</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" routerLink="enquiry"
-                                routerLinkActive="active">PatientEnquiryForm</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" routerLink="docdash"
-                                routerLinkActive="active">Demodashboard</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav> -->
-
 <nav>
-    <input id="nav-toggle" type="checkbox">
     <ul class="links">
-        <li class="nav-item"><a class="nav-link" routerLink="home" routerLinkActive="active">Home
+
+        <li class="nav-item"><a routerLink="mypatient" routerLinkActive="active">mypatient
             </a>
         </li>
-        <li class="nav-item"><a (click)="tabselect(1)" routerLinkActive="active">mypatient
-            </a>
-        </li>
-        <li class="nav-item"><a (click)="tabselect(2)" routerLinkActive="active">medicine
-            </a>
-        </li>
-        <li class="nav-item"><a (click)="tabselect(3)" routerLinkActive="active">Logout</a>
+
+        <li class="nav-item"><a class="active" (click)="backtohome()">Logout</a>
         </li>
     </ul>
     <label for="nav-toggle" class="icon-burger">
@@ -53,14 +15,16 @@
     </label>
 </nav>
 
-<div *ngIf="tabchange == 1">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-primary" (click)="gettreatmentlist()">Treatmentunderme</button>
-                <button class="btn btn-primary" (click)="getdetail()">Treatmentunderme</button>
 
-            </div>
-        </div>
+
+<div *ngIf="tabchange == 2">
+    <div class="jumbotron">
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <router-outlet></router-outlet>
     </div>
 </div>

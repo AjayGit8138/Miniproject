@@ -2,11 +2,12 @@
     background-color: chocolate;
 }
 #toast-container > div { opacity:1; }
-a:hover{
-    cursor: pointer;
-    color: orange;
-    border: 1px solid white;
-    border-radius: 1px;
+
+nav .links a :active{
+	background-color: orange;
+}
+nav .links a:focus{
+	border-bottom: 2px solid salmon;
 }
 .sidebar{
     position: relative;

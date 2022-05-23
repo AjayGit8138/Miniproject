@@ -19,9 +19,9 @@
                                         </span>
                                     </div>
 
-                                </div><br><br><br>
+                                </div><br>
                                 <div class="row" [class.has-error]="age.invalid && age.touched">
-                                    <label for="Age" class="col-sm-2 col-form-label">Age:</label>
+                                    <label for="Age">Age:</label>
 
                                     <input type="number" class="form-control" id="inputPassword3"
                                         placeholder="Enter the Patient Age" formControlName="age">
@@ -31,9 +31,9 @@
                                         </span>
                                     </div>
 
-                                </div><br><br><br>
+                                </div><br>
                                 <div class="row" [class.has-error]="dateofbirth.invalid && dateofbirth.touched">
-                                    <label for="PatinetDOB" class="col-sm-2 col-form-label">DateofBirth:</label>
+                                    <label for="PatinetDOB">Dob:</label>
 
                                     <input type="date" formControlName="dateofbirth" class="form-control">
                                 </div>
@@ -42,9 +42,9 @@
                                         Hi'Patient DateofBirth is REQUIRED!!!
                                     </span>
 
-                                </div><br><br><br>
+                                </div><br>
                                 <div class="row" [class.has-error]="mobileno.invalid && mobileno.touched">
-                                    <label for="Mobileno" class="col-sm-2 col-form-label">Mobileno:</label>
+                                    <label for="Mobileno">Mobileno:</label>
 
                                     <input type="number" formControlName="mobileno" class="form-control"
                                         pattern="[789][0-9]{9}" placeholder="Enter the Mobileno">
@@ -57,9 +57,9 @@
                                         Please enter a valid Mobileno
                                     </span>
 
-                                </div><br><br><br>
-                                <div class="row" [class.has-error]="email.invalid && email.touched">
-                                    <label for="Email" class="col-sm-2 col-form-label">Email:</label>
+                                </div><br>
+                                <!-- <div class="row" [class.has-error]="email.invalid && email.touched">
+                                    <label for="Email">Email:</label>
 
                                     <input type="email" class="form-control" (change)="emailcheck($event)"
                                         formControlName="email" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
@@ -73,19 +73,19 @@
                                         Please enter a valid Email address 'ex:validemail@gmail.com'
                                     </span>
 
-                                </div><br><br><br>
+                                </div><br> -->
                                 <div class="row" [class.has-error]="esino.invalid && esino.touched">
                                     <label for="Esino" class="col-sm-2 col-form-label">ESI-No:</label>
 
-                                    <input type="number" class="form-control" formControlName="esino"
-                                        placeholder="Enter the ESI-NO">
+                                    <input type="number" class="form-control" (change)="setesino($event)"
+                                        formControlName="esino" placeholder="Enter the ESI-NO">
                                 </div>
                                 <div class="help-block text-danger" *ngIf="esino.touched">
                                     <span *ngIf="esino.errors?.required">
                                         Hi'Patient Esi-No Must is REQUIRED!!!
                                     </span>
 
-                                </div><br><br><br>
+                                </div><br>
                                 <div class="row">
                                     <label for="Aadharno">AadharNo:</label>
 
@@ -93,7 +93,23 @@
                                         (change)="setrequestid($event)" formControlName="aadharno" id="inputPassword3"
                                         placeholder="Enter the aaharno as per aadhar-card">
 
-                                </div><br><br><br>
+                                </div><br>
+                                <div class="row" [class.has-error]="email.invalid && email.touched">
+                                    <label for="Email">Email:</label>
+
+                                    <input type="email" class="form-control" (change)="emailcheck($event)"
+                                        formControlName="email" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                                        placeholder="Enter the Emailaddress">
+                                </div>
+                                <div class="help-block text-danger" *ngIf="email.invalid && email.touched">
+                                    <span *ngIf="email.errors?.required">
+                                        Hi Doctor email is REQUIRED!!!
+                                    </span>
+                                    <span *ngIf="email.errors?.pattern">
+                                        Please enter a valid Email address 'ex:validemail@gmail.com'
+                                    </span>
+
+                                </div><br>
                                 <div class="row">
                                     <label for="Treatment">Treatment For:</label>
 
@@ -135,10 +151,8 @@
                             <div class="row">
                                 <label for="SysmptomsQuery">Enter the
                                     Sysmptoms:</label>
-
                                 <textarea class="form-control" formControlName="symptoms" id="Textarea"
                                     rows="3"></textarea>
-
                             </div>
                             <section>
                                 <div class="example-button-row">
@@ -150,8 +164,6 @@
                             </section>
                             <label for="signup" class="text-dark"> Have a Account? <a routerLink="/patientlogin"
                                     class="text-danger">Login</a></label>
-
-
                         </form>
                     </div>
                 </div>

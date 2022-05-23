@@ -2,6 +2,7 @@ const doctorschema = require('../model/doctorprofile');
 const storedb = require('../db/nanodb');
 var validator = require("email-validator");
 var profile = {};
+const generatelog = require('../logger/logger');
 
 var checkdoctorauth = async (searchadmin)=>{
 
@@ -97,6 +98,68 @@ var storedoctorinformation = async (storeobject)=>{
     return stored;
 }
 
+// var gettablets = async (tabletparams)=>{
+//     var retlist = await new Promise((resolve,reject)=>{
+//         if(tabletparams == undefined)
+//         {
+//             reject();
+//         }
+//         else{
+//             resolve(
+//                 storedb.hospitaldb.find().then((data)=>{
+//                     console.log("Get all tablets from database",data);
+//                 })
+//             )
+//         }
+//     })
+// }
+
+var gettabletlist = (getreference)=>{
+   console.log("from services",getreference);
+    return new Promise((resolve,reject)=>{
+       if(getreference == undefined){
+            return reject(getreference);
+       }
+       else{
+          var query ={
+            selector: {
+               "category": getreference
+               }
+          }
+          var retval = storedb.hospitaldb.find(query).then((data)=>{
+               console.log("Get medicine tablet from server",data);
+               generatelog.info("Get medicine tablet from server");
+               return data;
+           }).catch((err)=>{
+                console.log("Error from Medicine list",err);
+                generatelog.info("Error from Medicine list",err);
+           })
+         return resolve(retval);
+       }
+    
+    })
+
+}
+
+var storetestreport = (reportobject)=>{
+    console.log("from services",reportobject);
+    return new Promise((resolve,reject)=>{
+        if(reportobject == undefined)
+        {
+           return reject(reportobject);
+        }
+        else{
+            let retobject =  storedb.hospitaldb.insert(reportobject).then((data)=>{
+                console.log("Doctor Profile datas are Inserted successfully",data);
+                return data;
+            }).catch((err)=>{
+                console.log("Bad response while inserting::"+err);
+                return err;
+            })
+           return resolve(retobject);
+        }
+    })
+}
 module.exports = {
-    storedoctorinformation,checkdoctorauth,getalldoctors
+    storedoctorinformation,checkdoctorauth,getalldoctors,gettabletlist,storetestreport
 }

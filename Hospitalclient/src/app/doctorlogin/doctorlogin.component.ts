@@ -49,7 +49,7 @@ doctorloginauth(loginval:any)
 
     if((data.email == loginval.email) && (data.password == loginval.password))
     {
-      this.router.navigate(['treat/',loginval.loginid]);
+      this.router.navigate(['treat/mypatient',loginval.loginid]);
     }
     else{
       this.warning("authentication failed");

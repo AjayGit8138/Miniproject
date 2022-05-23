@@ -64,20 +64,20 @@
     <nav>
         <input id="nav-toggle" type="checkbox">
         <ul class="links">
-            <li class="nav-item"> <a class="nav-link" (click)="display(1)" routerLinkActive="active">Admission
+            <li class="nav-item"> <a routerLinkActive="active" (click)="display(1)">Admission
                     Request</a></li>
-            <li class="nav-item"> <a (click)="display(2)" class="nav-link" routerLinkActive="active">Total
+            <li class="nav-item"> <a (click)="display(2)">Total
                     Doctors List
 
                 </a>
             </li>
-            <li class="nav-item"> <a (click)="display(3)" class="nav-link" routerLinkActive="active">
+            <li class="nav-item"> <a (click)="display(3)">
                     Pateint
                     Medicinal
                     status</a>
             </li>
 
-            <li class="nav-item"> <a (click)="redirectlink()" class="nav-link" routerLinkActive="active">Logout
+            <li class="nav-item"> <a (click)="redirectlink()">Logout
 
                 </a> </li>
         </ul>
@@ -116,9 +116,10 @@
                                     <td>{{list.mobileno}}</td>
                                     <td>{{list.appointmentstatus}}</td>
                                     <td>{{list.symptoms}}</td>
-                                    <button class="btnspace getrow" mat-raised-button color="primary"
-                                        (click)="open(content,list)">BookPatient</button>
-                                    <td> </td>
+                                    <td>
+                                        <button class="btnspace getrow" mat-raised-button color="primary"
+                                            (click)="open(content,list)">BookPatient</button>
+                                    </td>
 
                                 </tr>
                             </tbody>
@@ -219,64 +220,64 @@
                             <div *ngSwitchCase="'Orthology'">
                                 <select formControlName="assigndoctor" (change)="selectdoctors($event)"
                                     class="form-select">
-                                    <option *ngFor="let doctorlist of employeddoctors[0]" [value]="doctorlist">
-                                        {{doctorlist.doctorname}}
+                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        {{doctorlist}}
                                     </option>
                                 </select>
                             </div>
                             <div *ngSwitchCase="'skin'">
                                 <select formControlName="assigndoctor" (change)="selectdoctors($event)"
                                     class="form-select">
-                                    <option *ngFor="let doctorlist of employeddoctors[0]" [value]="doctorlist">
-                                        {{doctorlist.doctorname}}
+                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        {{doctorlist}}
                                     </option>
                                 </select>
                             </div>
                             <div *ngSwitchCase="'General'">
                                 <select formControlName="assigndoctor" (change)="selectdoctors($event)"
                                     class="form-select">
-                                    <option *ngFor="let doctorlist of employeddoctors[0]" [value]="doctorlist">
-                                        {{doctorlist.doctorname}}
+                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        {{doctorlist}}
                                     </option>
                                 </select>
                             </div>
                             <div *ngSwitchCase="'Dental'">
                                 <select formControlName="assigndoctor" (change)="selectdoctors($event)"
                                     class="form-select">
-                                    <option *ngFor="let doctorlist of employeddoctors[0]" [value]="doctorlist">
-                                        {{doctorlist.doctorname}}
+                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        {{doctorlist}}
                                     </option>
                                 </select>
                             </div>
                             <div *ngSwitchCase="'Eye'">
                                 <select formControlName="assigndoctor" (change)="selectdoctors($event)"
                                     class="form-select">
-                                    <option *ngFor="let doctorlist of employeddoctors[0]" [value]="doctorlist">
-                                        {{doctorlist.doctorname}}
+                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        {{doctorlist}}
                                     </option>
                                 </select>
                             </div>
                             <div *ngSwitchCase="'Nerves'">
                                 <select formControlName="assigndoctor" (change)="selectdoctors($event)"
                                     class="form-select">
-                                    <option *ngFor="let doctorlist of employeddoctors[0]" [value]="doctorlist">
-                                        {{doctorlist.doctorname}}
+                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        {{doctorlist}}
                                     </option>
                                 </select>
                             </div>
                             <div *ngSwitchCase="'MentalHealth'">
                                 <select formControlName="assigndoctor" (change)="selectdoctors($event)"
                                     class="form-select">
-                                    <option *ngFor="let doctorlist of employeddoctors[0]" [value]="doctorlist">
-                                        {{doctorlist.doctorname}}
+                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        {{doctorlist}}
                                     </option>
                                 </select>
                             </div>
                             <div *ngSwitchCase="'Heart'">
                                 <select formControlName="assigndoctor" (change)="selectdoctors($event)"
                                     class="form-select">
-                                    <option *ngFor="let doctorlist of employeddoctors[0]" [value]="doctorlist">
-                                        {{doctorlist.doctorname}}
+                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        {{doctorlist}}
                                     </option>
                                 </select>
                             </div>
@@ -301,7 +302,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="submit" (click)="modal.close('Save click')" class="btn btn-outline-dark">Save</button>
+                <button type="submit" (click)="modal.close('Save click')" class="btn btn-outline-dark">Book</button>
             </div>
         </form>
     </ng-template>

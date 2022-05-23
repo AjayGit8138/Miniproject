@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {Http, Headers} from '@angular/http';
 import { map } from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,15 +44,26 @@ export class ApiserviceService {
   {
     return this.http.get<any>('http://localhost:8000/bookrequested/');
   }
-  bookappointment(appoint:any)
+  bookappointment(appoint:any,refid:any)
   {
-    console.log(appoint);
-    return this.http.put<any>('http://localhost:8000/updatepatienrecord/'+appoint.requestId,appoint);
+    console.log("Bookappointment",refid);
+    return this.http.put<any>('http://localhost:8000/updatepatienrecord/'+refid,appoint);
   }
   getdoctorslist(getreference:any)
   {
     var doctor = getreference;
     return this.http.get<any>('http://localhost:8000/getdoctordetails/'+doctor);
+  }
+  gettablets(reference:any){
+    return this.http.get<any>('http://localhost:8000/gettablets/'+reference);
+  }
+  generatetestreport(object:any)
+  {
+    return this.http.post<any>('http://localhost:8000/generatemedicalreport',object);
+  }
+  gettestreport(id:any)
+  {
+    return this.http.get<any>('http://localhost:8000/getreport/'+id);
   }
 }
 

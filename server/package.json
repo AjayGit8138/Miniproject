@@ -28,11 +28,19 @@
   },
   "dependencies": {
     "@cloudant/cloudant": "^4.5.1",
+    "connect-cloudant-store": "^1.0.0",
+    "cookie-parser": "^1.4.6",
     "couchdb-api": "^1.2.2",
+    "couchdb-expression": "^1.5.4",
+    "couchdb-node-passport-login": "^0.3.2",
     "email-validator": "^2.0.4",
+    "express-session": "^1.17.3",
     "nano": "^10.0.0",
     "node-fetch": "^3.2.4",
     "nodemailer": "^6.7.5",
-    "pouchdb": "^7.3.0"
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pouchdb": "^7.3.0",
+    "winston": "^3.7.2"
   }
 }

@@ -49,10 +49,8 @@ export class PatientloginComponent implements OnInit {
     this.serveapi.checkpatientlogin(loginval.loginid).subscribe(data=>{
      
       console.log(data);
-      console.log(data.password);
      
-     
-      if((data.doc.email == loginval.email) && (data.doc.password == loginval.password))
+      if((data.docs[0].email == loginval.email) && (data.docs[0].password == loginval.password))
       {
         this.router.navigate(['patientdashboard/',loginval.loginid]);
       }

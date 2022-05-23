@@ -1,0 +1,16 @@
+nav .links a:focus{
+	border-bottom: 2px solid salmon;
+}
+.jumbo{
+    background-color: rgb(158, 91, 113);
+    height: auto;
+}
+.viewreport{
+    margin-left: 100px;
+}
+.medicaladvice{
+    background-color: rgba(74, 114, 189, 0.658);
+    height: 60px;
+    text-align: center;
+    width: 30%;
+}

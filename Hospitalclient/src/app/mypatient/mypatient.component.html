@@ -1,0 +1,238 @@
+<div *ngIf="divboolean == 1">
+    <div class="container">
+        <div class="col-sm-2">
+            <button (click)="getdetail()" class="btn btn-primary">Show My Patients</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-image">
+                    <thead>
+                        <tr>
+
+                            <th scope="col"> Patientname</th>
+                            <th scope="col"> PatientId</th>
+                            <th scope="col"> Treatment </th>
+                            <th scope="col"> Symtoms </th>
+                            <th scope="col"> UpdateRemedies </th>
+                            <th scope="col">Add TestReport</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of mypatients">
+
+                            <td>{{list.patientname}}</td>
+                            <td>{{list.requestId}}</td>
+                            <td>{{list.Treatmentcategory}}</td>
+                            <td>{{list.symptoms}}</td>
+                            <td><button class="btnspace getrow" mat-raised-button color="primary"
+                                    (click)="testformdisplay(list,2)">Generatereport</button>
+                            </td>
+                            <td><button class="btnspace getrow" mat-raised-button color="primary"
+                                    (click)="addtestreport(list,3)">Add TestReport</button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="divboolean == 2">
+    <div class="container">
+        <div class="row">
+            <div class="report container">
+                <div class="row">
+                    <div class="jumbo jumbotron">
+                        <div class="col-md-12">
+                            <div class="mx-auto col-md-10">
+                                <form [formGroup]="testform" (ngSubmit)="generatereport(this.testform.value)">
+                                    <h1 class="text-light">Create TestReport and Remedies form</h1>
+                                    <div>
+                                        <div class="row">
+                                            <label for="Loginid"
+                                                class="text-light col-sm-2 col-form-label">PatientId:</label>
+                                            <input type="text-light" readonly class="form-control" id="inputPassword3"
+                                                formControlName="patientId" placeholder="Enter the Register LoginId">
+
+                                        </div><br>
+                                    </div>
+                                    <div>
+                                        <div class="row">
+                                            <label for="Patientname"
+                                                class="text-light col-sm-2 col-form-label">Patientname:</label>
+                                            <input type="text-light" readonly class="form-control"
+                                                formControlName="patientname" placeholder="Enter the Patientname">
+
+                                        </div><br>
+                                    </div>
+                                    <div>
+                                        <div class="row">
+                                            <label for="reportgeneratedby"
+                                                class="text-light col-sm-2 col-form-label">Reportgenreatedby:</label>
+                                            <input type="text-light" readonly class="form-control input-lg"
+                                                formControlName="reportby" placeholder="reportgeneratedby">
+
+                                        </div><br>
+                                    </div>
+                                    <div>
+                                        <div class="row">
+                                            <label for="reportgeneratedby"
+                                                class="text-light col-sm-2 col-form-label">Nofreport:</label>
+                                            <input type="text-light" readonly class="form-control"
+                                                formControlName="totalreport" placeholder="noforeport">
+
+                                        </div><br>
+                                    </div>
+                                    <div class="row">
+                                        <label for="Typesofdiseases">Type of symptoms and diseases
+                                        </label>
+                                        <textarea class="form-control" formControlName="diseases" id="Textarea"
+                                            rows="4"></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <label for="Typesofdiseases" class="text-light">Remedies to Follow
+                                        </label>
+                                        <textarea class="form-control" formControlName="remedies" id="Textarea"
+                                            rows="4"></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <label for="Typesofdiseases" class="text-light">Follow precuations
+                                        </label>
+                                        <textarea class="form-control" formControlName="precuations" id="Textarea"
+                                            rows="4"></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <label for="Typesofdiseases" class="text-light">Diet Plan
+                                        </label>
+                                        <textarea class="form-control" formControlName="dietplan" id="Textarea"
+                                            rows="4"></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row">
+                                            <label for="Tablets" class="text-light">Tabletsfor:</label>
+                                            <select class="form-select " (change)="setmedicine($event)"
+                                                formControlName="tabletscategory" #treatment>
+                                                <option value="default">none</option>
+                                                <option *ngFor="let tablets of medical" [value]="tablets">{{tablets}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <label for="pharmacy" class="text-light">medicineone
+                                        </label>
+                                        <div class="row">
+                                            <label for="Treatment" class="text-light">Tablets:</label>
+
+                                            <select class="form-select " formControlName="medicineone" #treatment>
+                                                <option value="default">none</option>
+                                                <option *ngFor="let treat of tablets[0]" [value]="treat">{{treat}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+
+                                        <div class="row">
+                                            <label for="Treatment" class="text-light">medicinetwo:</label>
+
+                                            <select class="form-select " formControlName="medicinetwo" #treatment>
+                                                <option value="default">none</option>
+                                                <option *ngFor="let treat of tablets[0]" [value]="treat">{{treat}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <label for="pharmacy" class="text-light">medicinethree
+                                        </label>
+                                        <div class="row">
+                                            <label for="Treatment" class="text-light">Tablets:</label>
+
+                                            <select class="form-select " formControlName="medicinethree" #treatment>
+                                                <option value="default">none</option>
+                                                <option *ngFor="let treat of tablets[0]" [value]="treat">{{treat}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <label for="Typesofdiseases" class="text-light">Dosage
+                                        </label>
+                                        <textarea class="form-control" formControlName="dosage" id="Textarea"
+                                            rows="4"></textarea>
+                                    </div><br><br>
+                                    <div>
+                                        <div class="row col-4">
+                                            <button type="submit" style="height: 60px;"
+                                                class="btn btn-primary">GenerateTest
+                                                report</button>
+
+                                        </div><br>
+
+                                    </div>
+                                    <div class="row col-4">
+                                        <button style="height: 60px;" (click)="navigatetoback(1)"
+                                            class="btn btn-primary">Back to
+                                            Doctoradmin
+                                        </button>
+
+                                    </div><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="divboolean == 3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <button class="testbtn btn btn-primary">Blood Test&nbsp;<i class="fa fa-plus"></i></button>
+                <p>&nbsp;</p>
+                <button class="testbtn btn btn-primary">Urine Test&nbsp;<i class="fa fa-plus"></i></button>
+                <p>&nbsp;</p>
+                <button class="testbtn btn btn-primary">X-Ray Test&nbsp;<i class="fa fa-plus"></i></button>
+                <p>&nbsp;</p>
+                <button class="testbtn btn btn-primary">Breath Test&nbsp;<i class="fa fa-plus"></i></button>
+                <p>&nbsp;</p>
+                <button class="testbtn btn btn-primary">Eye Test&nbsp;<i class="fa fa-plus"></i></button>
+                <p>&nbsp;</p>
+            </div>
+            <div class="col-md-6">
+                <div [ngSwitch]="selecttestdetails">
+                    <div *ngSwitchCase="'Orthology'">
+                        <h1 class="text-dark">Treatment in Skin</h1>
+                        <h2>which provides skin, hair & nail care services, Laser treatments, cosmetic and plastic
+                            surgery
+                            procedures.
+                            Our Plastic surgeon and Dermatologist team will provide you highest standards of
+                            personalised
+                            and
+                            professional Cosmetic treatments (Surgical and Non surgical).
+
+                            Aesthetic medicine is an art and a science.
+
+                            LOOK GOOD, FEEL BETTER has become the mantra for all of us.
+                            The desire to achieve and maintain an attractive and youthful appearance is universal.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+</div>

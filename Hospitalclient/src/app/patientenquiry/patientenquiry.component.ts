@@ -11,6 +11,7 @@ export class PatientenquiryComponent implements OnInit {
   type:string = "patient";
   addharid:number=0;
   idgen:number = 1;
+  dubesi:number = 0;
   patientinquiryform:FormGroup;
   constructor(private validate:FormBuilder,private serverapi:ApiserviceService) { 
     this.patientinquiryform = this.validate.group({
@@ -72,6 +73,7 @@ Formsubmit(Formvalue:NgForm)
   })
   this.patientinquiryform.reset();
   alert("Patient data successuly added");
+  window.location.reload();
   
   
 }
@@ -84,14 +86,27 @@ setrequestid(event:any)
   console.log(this.requestid);
 }
 
+setesino(event:any)
+{
+  this.dubesi = event.target.value;
+}
+
 public emailcheck(event:any)
 {
     var emailId = event.target.value;
     this.serverapi.checkpatientlogin(emailId).subscribe((data)=>{
         console.log("Patient Exists data from Database",data);
-        if(data.docs[0].email == emailId)
+        console.log("Totallength",data.docs.length);
+        for(var i=0;i<data.docs.length;i++)
+        {
+        if(data.docs[i].email == emailId )
         {
           alert("Email Id already Exists,Please register with new one");
+        }
+        else if((data.docs[i].esino == this.dubesi ) || (data.docs[i].aadharno == this.addharid))
+        {
+          alert("Esino or Aadhar No already Exists");
+        }
         }
     })
     

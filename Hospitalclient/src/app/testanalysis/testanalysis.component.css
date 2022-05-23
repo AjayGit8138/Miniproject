@@ -1,0 +1,10 @@
+.jumbo{
+    background-color: rgb(113, 32, 59);
+}
+input[type="text"]
+{
+    font-size:24px;
+}
+.report{
+    margin-top: 20%;
+}
