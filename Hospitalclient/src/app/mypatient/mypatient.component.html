@@ -1,7 +1,7 @@
 <div *ngIf="divboolean == 1">
     <div class="container">
         <div class="col-sm-2">
-            <button (click)="getdetail()" class="btn btn-primary">Show My Patients</button>
+            <button (click)="getdetail()" class="btn btn-primary">My Patients</button>
         </div>
     </div>
     <div class="container">
@@ -17,6 +17,7 @@
                             <th scope="col"> Symtoms </th>
                             <th scope="col"> UpdateRemedies </th>
                             <th scope="col">Add TestReport</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +33,8 @@
                             <td><button class="btnspace getrow" mat-raised-button color="primary"
                                     (click)="addtestreport(list,3)">Add TestReport</button>
                             </td>
-
+                            <td><button class="btn btn-danger" (click)="deletepatient(list)">Delete</button>
+                            </td>
                         </tr>
 
                     </tbody>
@@ -202,37 +204,27 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <button class="testbtn btn btn-primary">Blood Test&nbsp;<i class="fa fa-plus"></i></button>
+                <button class="testbtn btn btn-primary" (click)="display(4)">Blood Test&nbsp;<i
+                        class="fa fa-plus"></i></button>
                 <p>&nbsp;</p>
-                <button class="testbtn btn btn-primary">Urine Test&nbsp;<i class="fa fa-plus"></i></button>
+                <!-- <button class="testbtn btn btn-primary">Urine Test&nbsp;<i class="fa fa-plus"></i></button> -->
                 <p>&nbsp;</p>
-                <button class="testbtn btn btn-primary">X-Ray Test&nbsp;<i class="fa fa-plus"></i></button>
+                <!-- <button class="testbtn btn btn-primary">X-Ray Test&nbsp;<i class="fa fa-plus"></i></button> -->
                 <p>&nbsp;</p>
-                <button class="testbtn btn btn-primary">Breath Test&nbsp;<i class="fa fa-plus"></i></button>
+                <!-- <button class="testbtn btn btn-primary">Breath Test&nbsp;<i class="fa fa-plus"></i></button> -->
                 <p>&nbsp;</p>
-                <button class="testbtn btn btn-primary">Eye Test&nbsp;<i class="fa fa-plus"></i></button>
+                <!-- <button class="testbtn btn btn-primary">Eye Test&nbsp;<i class="fa fa-plus"></i></button> -->
                 <p>&nbsp;</p>
             </div>
-            <div class="col-md-6">
-                <div [ngSwitch]="selecttestdetails">
-                    <div *ngSwitchCase="'Orthology'">
-                        <h1 class="text-dark">Treatment in Skin</h1>
-                        <h2>which provides skin, hair & nail care services, Laser treatments, cosmetic and plastic
-                            surgery
-                            procedures.
-                            Our Plastic surgeon and Dermatologist team will provide you highest standards of
-                            personalised
-                            and
-                            professional Cosmetic treatments (Surgical and Non surgical).
 
-                            Aesthetic medicine is an art and a science.
-
-                            LOOK GOOD, FEEL BETTER has become the mantra for all of us.
-                            The desire to achieve and maintain an attractive and youthful appearance is universal.</h2>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-    <br><br>
 </div>
+
+<div *ngIf="divboolean == 4">
+    <app-bloodreport (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentpage.id"
+        [reference]="'blood'">
+    </app-bloodreport>
+</div>
+
+<br><br>

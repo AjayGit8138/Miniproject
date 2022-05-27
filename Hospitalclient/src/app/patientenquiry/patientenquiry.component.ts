@@ -37,7 +37,7 @@ export class PatientenquiryComponent implements OnInit {
    
   ): void {
   }
-sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology","MentalHealth"];
+sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
 skin = ["Eczema","Cold Sores","Dry Skin","Psoriasis","Vitiligo","Contact Dermatitis","Rosacea","Melasma","Warts","Actinic Keratosis"];
 Heart = ["Coronary Artery Disease (CAD)","Heart Arrhythmias","Heart Failure","Heart Valve Disease","Congenital Heart Disease","Cardiomyopathy (Heart Muscle Disease)","Pericardial Disease"];
 Dental = ["Tooth Decay","Gum Disease","Bad Breath","Sensitive Teeth","Cracked or Broken Teeth","Receding Gums","Root Infection","Enamel Erosion","Dry Mouth","Teeth Grinding"];
@@ -67,13 +67,20 @@ public updatetreatment(e:any)
 Formsubmit(Formvalue:NgForm)
 {
   console.log(Formvalue);
+  if(Formvalue.value == '')
+  {
+      alert("Please fill the form")
+  }
+  else{
   this.serverapi.storepatientrecord(Formvalue).subscribe((res)=>{
         console.log("Form value added successfully into database");
         console.log("return response",res);
+     
   })
   this.patientinquiryform.reset();
   alert("Patient data successuly added");
   window.location.reload();
+}
   
   
 }
@@ -118,5 +125,8 @@ get mobileno() {return this.patientinquiryform.get('mobileno');}
 get email() {return this.patientinquiryform.get('email');}
 get esino() {return this.patientinquiryform.get('esino');}
 get category() {return this.patientinquiryform.get('category');}
+get password() {return this.patientinquiryform.get('password');}
+get cpassword() {return this.patientinquiryform.get('cpassword');}
+
 }
 

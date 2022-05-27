@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ActivatedRoute,Params } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
+import { PatienauthService } from '../shared/patienauth.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class PatientloginComponent implements OnInit {
 
   
   
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private activeparams:ActivatedRoute) {
+  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private activeparams:ActivatedRoute,private patientauth:PatienauthService) {
    
   
     // this.serveapi.getconnection();
@@ -29,7 +30,7 @@ export class PatientloginComponent implements OnInit {
 
   
   ngOnInit(): void {
-   
+    this.patientauth.logout();
   }
   get patientname() {return this.patientloginform.get('patientname');}
   get email() {return this.patientloginform.get('email');}
@@ -52,6 +53,8 @@ export class PatientloginComponent implements OnInit {
      
       if((data.docs[0].email == loginval.email) && (data.docs[0].password == loginval.password))
       {
+        localStorage.setItem('isPatientloggedIn','true');
+        localStorage.setItem('token', loginval.loginid);  
         this.router.navigate(['patientdashboard/',loginval.loginid]);
       }
       else{

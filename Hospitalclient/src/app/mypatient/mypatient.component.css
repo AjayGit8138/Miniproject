@@ -1,6 +1,9 @@
 .jumbo{
     background-color: rgb(113, 32, 59);
 }
+body{
+    height: 100vh;
+}
 input[type="text"]
 {
     font-size:24px;
@@ -10,4 +13,7 @@ input[type="text"]
 }
 .testbtn{
     width: 200px;
+}
+.checkupform{
+    border: 2px solid green;
 }

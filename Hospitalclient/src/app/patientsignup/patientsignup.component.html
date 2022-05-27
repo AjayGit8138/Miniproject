@@ -1,0 +1,50 @@
+<!-- <div class="container">
+    <div class="wrapper">
+        <div class="title"><span>Patient Login </span></div>
+        <form [formGroup]="patientsignupform" (ngSubmit)="loginauth(this.patientsignupform.value)">
+            <div class="row" [class.has-error]="email.invalid && email.touched">
+                <label for="Email">Email:</label>
+                <input type="email" formControlName="email" placeholder="Enter the Emailaddress">
+                <div class="help-block text-danger" *ngIf="email.invalid && email.touched">
+                    Enter a Valid Email Address!!!
+                </div>
+            </div><br><br><br>
+            <div class="row" [class.has-error]="password.touched">
+                <label for="password">Password:</label>
+
+                <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" formControlName="password"
+                    placeholder="password">
+                <div class="help-block text-danger" *ngIf="password.touched">
+                    <div class="error" *ngIf="(password.invalid || password.touched) && password.errors?.pattern">
+                        Please Enter a Valid password and password should be 8
+                        charactes,Atleast
+                        one letter and one number</div>
+                    <div class="error" *ngIf="(password.invalid || password.touched) && password.errors?.required">
+                        Please Enter Your Password</div>
+                </div>
+            </div><br><br>
+            <div class="row" [class.has-error]="cpassword.touched">
+                <label for="password">confirmpassword:</label>
+
+                <input type="password" formControlName="cpassword" placeholder="Enter confirm password">
+                <div class="help-block text-danger" *ngIf="cpassword.invalid && cpassword.touched">
+
+                    <div class="error" *ngIf="cpassword.errors?.required">
+                        Please Enter Your confirmpassword as per the password</div>
+                    <div class="error" *ngIf="this.patientinquiryform.password !== this.patientinquiryform.cpassword">
+                        confirm password should be Match with Pasword</div>
+
+
+                </div>
+
+            </div><br><br>
+            <div class="row button">
+                <input type="submit" value="Login">
+            </div>
+
+            <label for="signup" class="text-dark"> Do't Have a Account? <a routerLink="/patientregister"
+                    class="text-danger">Register</a></label>
+
+        </form>
+    </div>
+</div> -->

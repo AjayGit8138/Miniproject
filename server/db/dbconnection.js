@@ -2,7 +2,7 @@ const DbHospital = require('./nanodb');
 var validator = require("email-validator");
 const generatelogger = require('../logger/logger');
 
-var totalPalist = "16edf8804196a7dbbf6f4b5529c2fe03"; //get total patient list
+
 
 const { request } = require('express');
 var retval;
@@ -43,37 +43,17 @@ var getlogindetails =
              }
           value =   DbHospital.hospitaldb.find(loginauth).then(data=>{
                 console.log("found data",data);
+                generatelogger.info("Requested Details Found")
                 return data;
             }).catch((err=>{
                 console.log("some bad request error",err);
+                generatelogger.error("Some bad reques error",err);
             }))
         }
     }
     return value;
     };
 
-var newpatinetrecord = async (patientobject)=>{
-    var insertrecord = new Promise((resolve,reject)=>{
-        if(patientobject === undefined)
-        {
-            reject();
-        }
-        else{
-                DbHospital.hospitaldb.insert(patientobject).then((data) => {
-                console.log("Data Inserted into Clouddatabase"+data); 
-              }).catch((err) => {
-              console.log(err);
-            });
-        }
-    })
-    return insertrecord;
-}
-
-function isEmailvalid(inputemail)
-{
-    var pattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
-    return pattern.test(inputemail);
-}
 
 
-module.exports = {newpatinetrecord,getlogindetails}
+module.exports = {getlogindetails}

@@ -33,7 +33,11 @@ import { OperationPipe } from './operation.pipe';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ScanreportComponent } from './scanreport/scanreport.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { BloodreportComponent } from './mypatient/bloodreport/bloodreport.component';
+import { PatientlistComponent } from './dashboard/patientlist/patientlist.component';
+import { DoctorlistComponent } from './dashboard/doctorlist/doctorlist.component';
+import { PatientrackComponent } from './patientdashboard/patientrack/patientrack.component';
+import { PatientsignupComponent } from './patientsignup/patientsignup.component';
 
 
 
@@ -55,7 +59,12 @@ import { FooterComponent } from './footer/footer.component';
     MypatientComponent,
     OperationPipe,
     ScanreportComponent,
-    FooterComponent
+    FooterComponent,
+    BloodreportComponent,
+    PatientlistComponent,
+    DoctorlistComponent,
+    PatientrackComponent,
+    PatientsignupComponent
   ],
   imports: [
     BrowserModule,NgbModalModule,MatTabsModule,

@@ -56,6 +56,7 @@ export class DoctoradminComponent implements OnInit {
         if(data.docs[0].email == emailId)
         {
           alert("Email Id already Exists,Please register with new one");
+          this.doctoradmingroup.reset();
         }
     })
     
@@ -65,7 +66,7 @@ export class DoctoradminComponent implements OnInit {
     Formvalue.profilesnap = this.filename;
     this.serveapi.storedoctorprofile(Formvalue).subscribe(resdata=>{
       console.log("Hi doctor information is inserted",resdata);
-      alert("Doctor Profile is added succesfully");
+     
     })
     this.doctoradmingroup.reset();
     alert("Doctor Profile is added succesfully");

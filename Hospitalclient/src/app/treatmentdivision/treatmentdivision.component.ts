@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
+import { AuthService } from '../shared/auth.service';
+import { DoctorauthService } from '../shared/doctorauth.service';
 
 @Component({
   selector: 'app-treatmentdivision',
@@ -18,7 +20,7 @@ export class TreatmentdivisionComponent implements OnInit {
 
   };
   mypatients = [];
-  constructor(private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private router:Router) {
+  constructor(private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private route:Router,private authserve:DoctorauthService) {
     this.activeparams.params.subscribe((data:Params)=>{
       this.currentpage = {
         id:data['id'],
@@ -30,15 +32,15 @@ export class TreatmentdivisionComponent implements OnInit {
           
    }
   ngOnInit(): void {
-    this.serveapi.checkdoctorlogin(this.currentpage.id).subscribe((data)=>{
-      console.log("Logged doctor details",data);
-      console.log("Doctor-Name",data.doctorname);
-      console.log("category",data.specialist);
-      this.undertreatment.doctor = data.doctorname;
-      this.undertreatment.Treatmentcategory = data.specialist;
-    })
-    this.tabchange = 1;
-    this.logindocid = this.currentpage.id;
+    // this.serveapi.checkdoctorlogin(this.currentpage.id).subscribe((data)=>{
+    //   console.log("Logged doctor details",data);
+    //   console.log("Doctor-Name",data.doctorname);
+    //   console.log("category",data.specialist);
+    //   this.undertreatment.doctor = data.doctorname;
+    //   this.undertreatment.Treatmentcategory = data.specialist;
+    // })
+    // this.tabchange = 1;
+    // this.logindocid = this.currentpage.id;
   }
 
   tabselect(params:any)
@@ -77,7 +79,12 @@ export class TreatmentdivisionComponent implements OnInit {
 
   }
   backtohome(){
-    this.router.navigate(['..']);
+    this.route.navigate(['..']);
     
   }
+  doctorlogout() {  
+    console.log('logout');  
+    this.authserve.doctorlogout();  
+    this.route.navigate(['/home']);  
+  } 
 }

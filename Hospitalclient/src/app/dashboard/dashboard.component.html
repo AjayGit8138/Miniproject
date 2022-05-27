@@ -1,81 +1,23 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <h1 class="text-light">Appointment Booking Management</h1>
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="nav nav-pills">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item"> <a href="#" class="nav-link"> <i class="fa fa-home"></i>
-                                <small>Home</small> </a> </li>
-                        <li class="nav-item"> <a class="nav-link" (click)="display(1)"
-                                routerLinkActive="active">Admission
-                                Request</a></li>
-                        <li class="nav-item"> <a (click)="display(2)" class="nav-link" routerLinkActive="active">Total
-                                Doctors List
-
-                            </a>
-                        </li>
-                        <li class="nav-item"> <a (click)="display(3)" class="nav-link" routerLinkActive="active">
-                                Pateint
-                                Medicinal
-                                status</a>
-                        </li>
-                        <li class="nav-item"> <a (click)="display(4)" class="nav-link"
-                                routerLinkActive="active">Maintain
-                                Patients data
-                            </a> </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav> -->
 <div class="row">
-    <!-- <div class="col-sm-4">
-        <div class="d-flex flex-column flex-shrink-0 bg-light vh-100" style="width: 260px;">
-            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-                <li class="nav-item"> <a href="#" class="nav-link active py-4 border-bottom"> <i class="fa fa-home"></i>
-                        <small>Home</small> </a> </li>
-                <li class="nav-item"> <a class="nav-link py-4 border-bottom" (click)="display(1)"
-                        routerLinkActive="active">Admission
-                        Request</a></li>
-                <li class="nav-item"> <a (click)="display(2)" class="nav-link py-4 border-bottom"
-                        routerLinkActive="active">Total Doctors List
-
-                    </a>
-                </li>
-                <li class="nav-item"> <a (click)="display(3)" class="nav-link py-4 border-bottom"
-                        routerLinkActive="active"> Pateint
-                        Medicinal
-                        status</a>
-                </li>
-                <li class="nav-item"> <a (click)="display(4)" class="nav-link py-4 border-bottom"
-                        routerLinkActive="active">Maintain
-                        Patients data
-                    </a> </li>
-
-            </ul>
-        </div> -->
-
-    <!-- </div> -->
-
     <nav>
         <input id="nav-toggle" type="checkbox">
         <ul class="links">
-            <li class="nav-item"> <a routerLinkActive="active" (click)="display(1)">Admission
+            <!-- <li class="nav-item"> <a class="active" (click)="display(1)">Admission
+                    Request</a></li> -->
+            <li class="nav-item"> <a routerLink="enquirypatients" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact: true}">Admission
                     Request</a></li>
-            <li class="nav-item"> <a (click)="display(2)">Total
+            <!-- <li class="nav-item"> <a class="active" (click)="display(2)">Total
+                    Doctors List
+
+                </a>
+            </li> -->
+            <li class="nav-item"> <a class="active" routerLink="doclist" routerLinkActive="active">Total
                     Doctors List
 
                 </a>
             </li>
-            <li class="nav-item"> <a (click)="display(3)">
-                    Pateint
-                    Medicinal
-                    status</a>
-            </li>
+
 
             <li class="nav-item"> <a (click)="redirectlink()">Logout
 
@@ -87,222 +29,11 @@
             <div class="line"></div>
         </label>
     </nav>
-    <div>
-        <div class="sidebar col-md-12">
-            <div *ngIf="number == 1">
-                <div class="contheight container">
-                    <div class="table-wrapper">
-                        <!-- <table class="fl-table">  -->
-                        <table class="table table-striped table-dark">
-                            <thead>
-                                <tr>
-                                    <th scope="col">RequestId</th>
-                                    <th scope="col">Patientname</th>
-                                    <th scope="col">Treatmentfor</th>
-                                    <th scope="col">mobileno</th>
-                                    <th scope="col">Appointmentstatus</th>
-                                    <th scope="col">symptoms</th>
-                                    <th scope="col">Bookappointment</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let list of patientrequest">
-
-                                    <td>{{list.requestId}}</td>
-                                    <td>{{list.patientname}}</td>
-                                    <td>{{list.Treatmentcategory}}</td>
-                                    <td>{{list.mobileno}}</td>
-                                    <td>{{list.appointmentstatus}}</td>
-                                    <td>{{list.symptoms}}</td>
-                                    <td>
-                                        <button class="btnspace getrow" mat-raised-button color="primary"
-                                            (click)="open(content,list)">BookPatient</button>
-                                    </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-            <div *ngIf="number == 2">
-                <div class="container">
-
-                </div>
-
-                <div class="contheight container">
-                    <div class="row">
-
-                        <div class="table-wrapper">
-                            <!-- <table class="fl-table">  -->
-                            <table class="table table-striped table-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">certificateid</th>
-                                        <th scope="col">doctorname</th>
-                                        <th scope="col">email</th>
-                                        <th scope="col">education</th>
-                                        <th scope="col">specialist</th>
 
 
 
-                                    </tr>
-                                </thead>
-                                <tbody id="searchtable">
-                                    <tr *ngFor="let list of doctorlist">
 
-                                        <td>{{list.certificateid}}</td>
-                                        <td>{{list.doctorname}}</td>
-                                        <td>{{list.email}}</td>
-                                        <td>{{list.education}}</td>
-                                        <td>{{list.specialist}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="number == 3">
-                <h1>Hai3</h1>
-            </div>
-            <div *ngIf="number == 4">
-                <h1>Hai4</h1>
-            </div>
-            <div *ngIf="number == 5">
-                <h1>Hai5</h1>
-            </div>
-        </div>
+
+    <div class="container">
+        <router-outlet></router-outlet>
     </div>
-
-
-
-    <ng-template #content let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title"></h4>Timeallotment for Patient
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <form [formGroup]="bookingform" (ngSubmit)="savebookingstatus(this.bookingform.value)">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="PatentName" class="col-sm-2 col-form-label">RequestId:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" formControlName="requestId">
-                    </div>
-                </div><br>
-                <div class="form-group">
-                    <label for="Age" class="col-sm-2 col-form-label">Patientname:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="patientname" formControlName="patientname">
-                    </div>
-                </div><br>
-                <div class="form-group">
-                    <label for="text" class="col-sm-2 col-form-label">Treatmentcategory:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" formControlName="Treatmentcategory">
-                    </div>
-                </div><br>
-                <div class="form-group">
-                    <label for="text" class="col-sm-2 col-form-label">Doctorappointment:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" formControlName="appointstatus">
-                    </div>
-                </div><br>
-
-                <div class="form-group">
-
-                    <label for="treatmentspecialist" class="col-sm-2 col-form-label">Doctorsavalible:</label>
-                    <div class="col-sm-10">
-                        <div [ngSwitch]="doctors">
-                            <div *ngSwitchCase="'Orthology'">
-                                <select formControlName="assigndoctor" (change)="selectdoctors($event)"
-                                    class="form-select">
-                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
-                                        {{doctorlist}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div *ngSwitchCase="'skin'">
-                                <select formControlName="assigndoctor" (change)="selectdoctors($event)"
-                                    class="form-select">
-                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
-                                        {{doctorlist}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div *ngSwitchCase="'General'">
-                                <select formControlName="assigndoctor" (change)="selectdoctors($event)"
-                                    class="form-select">
-                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
-                                        {{doctorlist}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div *ngSwitchCase="'Dental'">
-                                <select formControlName="assigndoctor" (change)="selectdoctors($event)"
-                                    class="form-select">
-                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
-                                        {{doctorlist}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div *ngSwitchCase="'Eye'">
-                                <select formControlName="assigndoctor" (change)="selectdoctors($event)"
-                                    class="form-select">
-                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
-                                        {{doctorlist}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div *ngSwitchCase="'Nerves'">
-                                <select formControlName="assigndoctor" (change)="selectdoctors($event)"
-                                    class="form-select">
-                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
-                                        {{doctorlist}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div *ngSwitchCase="'MentalHealth'">
-                                <select formControlName="assigndoctor" (change)="selectdoctors($event)"
-                                    class="form-select">
-                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
-                                        {{doctorlist}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div *ngSwitchCase="'Heart'">
-                                <select formControlName="assigndoctor" (change)="selectdoctors($event)"
-                                    class="form-select">
-                                    <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
-                                        {{doctorlist}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-
-                    <label for="PatinetDOB" class="col-sm-2 col-form-label">Dateofappointment:</label>
-                    <div class="col-sm-10">
-                        <input type="date" formControlName="dateofappointment" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="settime" class="col-sm-2 col-form-label">Timeallocation:</label>
-
-                    <div class="col-sm-10">
-                        <input type="time" class="form-control" id="timeinput" (change)="timeformat()"
-                            formControlName="timingforappointment">
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="submit" (click)="modal.close('Save click')" class="btn btn-outline-dark">Book</button>
-            </div>
-        </form>
-    </ng-template>

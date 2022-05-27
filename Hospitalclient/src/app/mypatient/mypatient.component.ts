@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-mypatient',
@@ -10,16 +11,23 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 })
 export class MypatientComponent implements OnInit {
 //testanalyze
+bloodreport:FormGroup;
 testform:FormGroup;
 errorMessage:any;
 numbercount:number = 1;
 tablets:any = [];
 testgenerated:any;
-medical=['orthotablet','skinmedicine','hearttablet','nervestablet','eyemedicine','generalmedicine'];
+medical=['orthotablet','skinmedicine','heartmedicine','nervesmedicine','eyemedicine','generalmedicine'];
 nofreport:any;
 increamentcount:number;
 patineid:any;
 closeResult = '';
+refstorage = [];
+object = {
+  id:'',
+  name:'',
+  generatedby:'',
+};
 //
 
 
@@ -27,6 +35,8 @@ closeResult = '';
   tabchange:any;
   divboolean:number = 1;
   setdivision:number = 1;
+
+
   undertreatment = {
     doctor:'',
     Treatmentcategory:''
@@ -68,18 +78,23 @@ closeResult = '';
    }
 
   ngOnInit(): void {
+    console.log("doctor id",this.currentpage.id);
     this.serveapi.checkdoctorlogin(this.currentpage.id).subscribe((data)=>{
       console.log("Logged doctor details",data);
-      console.log("Doctor-Name",data.doctorname);
-      console.log("category",data.specialist);
-      this.undertreatment.doctor = data.doctorname;
-      this.undertreatment.Treatmentcategory = data.specialist;
+      console.log("Doctor-Name",data.docs[0].doctorname);
+      console.log("category",data.docs[0].specialist);
+      this.undertreatment.doctor = data.docs[0].doctorname;
+      this.undertreatment.Treatmentcategory = data.docs[0].specialist;
       this.testgenerated = this.currentpage.id + '-' + this.undertreatment.doctor;
+
+      this.getdetail();
     })
+    
     
   }
   getdetail()
   {
+    console.log(this.undertreatment);
     this.serveapi.gettotalpatients(this.undertreatment.doctor,this.undertreatment.Treatmentcategory).subscribe((data)=>{
       console.log("Undertreatment category is received successfully",data);
 
@@ -94,6 +109,11 @@ closeResult = '';
 
   }
 
+  submitbooldsample(formvalue:NgForm,list:any)
+  {
+    console.log("Bloodsample",formvalue);
+    
+  }
   display(setdisplay:any)
   {
     this.divboolean = setdisplay;
@@ -101,6 +121,19 @@ closeResult = '';
   backtohome(){
     this.router.navigate(['..']);
     
+  }
+  deletepatient(list:any)
+  {
+    console.log("Delete patient",list);
+    let id = list._id;
+    let revid = list._rev;
+    this.serveapi.deletepatient(list).subscribe((response=>{
+      console.log("Deleted patient record",response);
+    }),(err)=>{
+      console.log("Patient record is not deleted",err);
+    })
+
+
   }
 
   //analyze test report
@@ -160,8 +193,18 @@ closeResult = '';
   addtestreport(list:any,showdiv:any)
   {
     this.divboolean = showdiv;
-  }
+    
+    this.object.id = list.requestId;
+    this.object.name = list.patientname;
+    this.object.generatedby = this.testgenerated;
 
+    
+  }
+ 
+  sendData(event:any)
+  {
+    this.divboolean = event;
+  }
   setmedicine(event:any): void
   {
     this.tabletlist.tabletname = event.target.value;
@@ -175,6 +218,7 @@ closeResult = '';
         (response) => {                          
           console.log('response received',response);
           console.log(response.docs[0][`${this.tabletlist.tabletname}`]);
+          this.tablets = [];
           this.tablets.push(response.docs[0][`${this.tabletlist.tabletname}`]);
         },
         (error) => {                              

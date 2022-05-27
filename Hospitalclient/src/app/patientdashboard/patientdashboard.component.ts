@@ -3,6 +3,7 @@ import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { OperationPipe } from '../operation.pipe';
+import { PatienauthService } from '../shared/patienauth.service';
 
 @Component({
   selector: 'app-patientdashboard',
@@ -30,7 +31,7 @@ export class PatientdashboardComponent implements OnInit {
 
   }
   
-  constructor(private modalService: NgbModal,private activeparams:ActivatedRoute,private serviceapi:ApiserviceService,private route:Router,private serveapi:ApiserviceService) { 
+  constructor(private modalService: NgbModal,private activeparams:ActivatedRoute,private serviceapi:ApiserviceService,private route:Router,private serveapi:ApiserviceService,private patientauth:PatienauthService) { 
     this.activeparams.params.subscribe((data:Params)=>{
       this.currentpage = {
         id:data['id'],
@@ -54,6 +55,8 @@ export class PatientdashboardComponent implements OnInit {
         }
       
         
+    },(err)=>{
+      console.log("Bad response from the server",err);
     })
    
   }
@@ -111,6 +114,11 @@ export class PatientdashboardComponent implements OnInit {
     this.divBoolean = disval;
   }
   ngOnInit(): void {
+    this.divBoolean = 1;
   }
-
+  Logout() {  
+    console.log('logout');  
+    this.patientauth.logout();  
+    this.route.navigate(['home']);  
+  } 
 }

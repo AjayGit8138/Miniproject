@@ -1,0 +1,36 @@
+<div class="container">
+
+</div>
+
+<div class="contheight container">
+    <div class="row">
+
+        <div class="table-wrapper">
+            <!-- <table class="fl-table">  -->
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">certificateid</th>
+                        <th scope="col">doctorname</th>
+                        <th scope="col">email</th>
+                        <th scope="col">education</th>
+                        <th scope="col">specialist</th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody id="searchtable">
+                    <tr *ngFor="let list of doctorlist">
+
+                        <td>{{list.certificateid}}</td>
+                        <td>{{list.doctorname}}</td>
+                        <td>{{list.email}}</td>
+                        <td>{{list.education}}</td>
+                        <td>{{list.specialist}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

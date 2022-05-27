@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ApiserviceService } from '../apiservice.service';
+import { AuthService } from '../shared/auth.service';
+import { DoctorauthService } from '../shared/doctorauth.service';
 
 @Component({
   selector: 'app-doctorlogin',
@@ -12,7 +14,7 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class DoctorloginComponent implements OnInit {
   doctorloginformgroup:FormGroup;
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private toast:ToastrService) {
+  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private toast:ToastrService,private doctorauth:DoctorauthService) {
     this.doctorloginformgroup = this.fb.group({
       loginid:['',Validators.required],
       email:['',Validators.required],
@@ -22,6 +24,7 @@ export class DoctorloginComponent implements OnInit {
 
   ngOnInit(): void {
     this.showSuccess();
+    this.doctorauth. doctorlogout();
   }
 get loginid(){return this.doctorloginformgroup.get('loginid');}
 get email(){return this.doctorloginformgroup.get('email');}
@@ -44,11 +47,16 @@ showSuccess() {
 
 doctorloginauth(loginval:any)
 {
-  this.serveapi.checkdoctorlogin(loginval.loginid).subscribe((data)=>{
+  this.serveapi.checkdoctorlogin(loginval.email).subscribe((data)=>{
     console.log("Data search successfully returned",data);
-
-    if((data.email == loginval.email) && (data.password == loginval.password))
+    var length = data.docs;
+    console.log("total length",length);
+  
+    
+    if((data.docs[0].email == loginval.email) && (data.docs[0].password == loginval.password))
     {
+      localStorage.setItem('isdoctorLoggedIn','true');
+        localStorage.setItem('token', loginval.loginid);  
       this.router.navigate(['treat/mypatient',loginval.loginid]);
     }
     else{
@@ -57,6 +65,7 @@ doctorloginauth(loginval:any)
       // this.toast.success("Hi");
       // this.toast.warning("Hi Email or password wrong authentication,Please enter correct Email and Password");
     }
+  
   })
 }
 }

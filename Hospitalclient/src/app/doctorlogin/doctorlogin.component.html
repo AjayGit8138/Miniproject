@@ -1,4 +1,4 @@
-<div class="formfield d-flex align-items-center light-blue-gradient" style="height: 100vh;">
+<!-- <div class="formfield d-flex align-items-center light-blue-gradient" style="height: 100vh;">
     <div class="container">
         <div class="d-flex justify-content-center">
             <div class="col-md-6">
@@ -50,4 +50,42 @@
                 </div>
             </div>
         </div>
+    </div> -->
+
+
+<div class="container">
+    <div class="wrapper">
+        <div class="title"><span>Doctor Login Form</span></div>
+        <form [formGroup]="doctorloginformgroup" (ngSubmit)="doctorloginauth(this.doctorloginformgroup.value)">
+            <div class="row" [class.has-error]="loginid.invalid && loginid.touched">
+                <label for="Loginid">LoginId:</label>
+                <input type="text" formControlName="loginid" placeholder="Enter the Register LoginId">
+                <div class="help-block text-danger" *ngIf="loginid.touched">
+                    <span *ngIf="loginid.errors?.required">
+                        LoginId is REQUIRED as per Regitered account!!!
+                    </span>
+                </div>
+            </div><br><br><br>
+            <div class="row" [class.has-error]="email.invalid && email.touched">
+                <label for="Email">Email:</label>
+                <input type="email" formControlName="email" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                    placeholder="Enter the Emailaddress">
+                <div class="help-block text-danger" *ngIf="email.invalid && email.touched">
+                    Enter a Valid Email Address!!!
+                </div>
+                <div class="help-block text-danger" *ngIf="email.errors?.pattern">
+                    Enter a Valid Email Address!!!
+                </div>
+            </div><br><br><br>
+            <div>
+                <div class="row">
+                    <label for="password">Password:</label>
+                    <input type="password" formControlName="password" placeholder="password">
+                </div>
+            </div><br>
+            <div class="row button">
+                <input type="submit" value="Login">
+            </div>
+        </form>
     </div>
+</div>

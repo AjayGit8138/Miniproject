@@ -5,6 +5,8 @@ declare var $: any;
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthguardGuard } from '../shared/authguard.guard';
+import { AuthService } from '../shared/auth.service';
 
 
 @Component({
@@ -14,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   bookingform:FormGroup;
+  id:any;
   patientrequest = [];
   doctorlist = [];
   employeddoctors = [];
@@ -28,7 +31,7 @@ export class DashboardComponent implements OnInit {
   patientid:any;
   patientrefid:any;
 
-  constructor(private toastr:ToastrService,private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router) { 
+  constructor(private toastr:ToastrService,private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router,private authserve:AuthService) { 
     this.bookingform = this.bookform.group({
         requestId:['',Validators.required],
         patientname:['',Validators.required],
@@ -60,6 +63,7 @@ export class DashboardComponent implements OnInit {
       console.log("patient request",this.patientrequest);
     })
 
+    this.id = localStorage.getItem('token');
   }
   display(tab:any)
   {
@@ -187,7 +191,11 @@ export class DashboardComponent implements OnInit {
   this.timeclock = hours + ':' + minutes + ' ' + meridian;
   }
 
-
+  logout() {  
+    console.log('logout');  
+    this.authserve.logout();  
+    this.route.navigate(['adminauth']);  
+  } 
     
   }
 

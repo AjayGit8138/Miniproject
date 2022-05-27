@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -10,7 +11,8 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class AdminComponent implements OnInit {
   adminauth:FormGroup;
-  constructor(private admingroup:FormBuilder,private api:ApiserviceService,private router:Router) {
+  returnurl = '';
+  constructor(private admingroup:FormBuilder,private api:ApiserviceService,private router:Router,private authserve:AuthService) {
     this.adminauth = this.admingroup.group({
         loginid:['',Validators.required],
         password:['',Validators.required]
@@ -18,25 +20,42 @@ export class AdminComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.returnurl = '/docdash';
+    this.authserve.logout();
   }
 
   Adminauth(formdata:any)
   {
     console.log("admindata",formdata);
-    this.api.checkdoctorlogin(formdata.loginid).subscribe((data)=>{
-      console.log("Authorized email accepts",data.id);
-      console.log("password",data.password);
-      if((data.id == formdata.loginid) && (data.password == formdata.password))
+    // this.api.checkdoctorlogin(formdata.loginid).subscribe((data)=>{
+    //   console.log("Authorized email accepts",data.id);
+    //   console.log("password",data.password);
+    //   if((data.id == formdata.loginid) && (data.password == formdata.password))
+    // {
+    //     localStorage.setItem('isLoggedIn','true');
+    //     localStorage.setItem('token', formdata.loginid);  
+    //   this.router.navigate(['docdash']);
+    // }
+    // else{
+    //   alert("Error Email or Password authentication failed!!!!");
+   
+    // }
+      
+    // })
+
+    this.api.getadmin(formdata.loginid).subscribe((data)=>{
+      console.log("Authorized email accepts",data);
+    
+      if((data.docs[0].loginid == formdata.loginid) && (data.docs[0].password == formdata.password))
     {
-     
+        localStorage.setItem('isLoggedIn','true');
+        localStorage.setItem('token', formdata.loginid);  
       this.router.navigate(['docdash']);
     }
     else{
       alert("Error Email or Password authentication failed!!!!");
-      // this.toast.success("Hi");
-      // this.toast.warning("Hi Email or password wrong authentication,Please enter correct Email and Password");
+   
     }
-      
     })
   }
 

@@ -14,3 +14,12 @@ nav .links a:focus{
     text-align: center;
     width: 30%;
 }
+.viewbtn{
+    justify-content: center;
+}
+.showactive{
+    border-bottom: 2px solid sandybrown;
+}
+.showdeactive{
+    border-bottom: none;
+}

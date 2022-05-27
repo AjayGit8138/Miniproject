@@ -10,24 +10,14 @@ const doctorfile = require('./services/doctorsparser');
 const patienparse = require('./services/patientoperation');
 const generatelogger = require('./logger/logger');
 const controller = require('./controller/doctorcontroller');
-const session = require('express-session');
-const Expression = require('couchdb-expression')(session);
 const cookieParser = require('cookie-parser');
 const { stream } = require('./logger/logger');
-var CloudantStore = require('connect-cloudant-store')(session);
+const jwt = require('jsonwebtoken');
+var fs = require('fs');
+const multer = require('multer');
+const logger = require('./logger/logger');
 
-var store = new CloudantStore(
-  {
-      url : "https://apikey-v2-qnl37sqy0oqwj8owtrhj6kam3p39wzmc0d46oflhvln:cb14c8c9976ced0867c79d8eb625505a@a1b21745-8512-41b2-8506-c83a13a27993-bluemix.cloudant.com"
-  }
-);
 //includes imports ends
-
-store.on('hospital_admission',(stream=>{
-  console.log("connedted",stream);
-}))
-
-
 app.use(connection.static('public'));
 app.use(bodyparser.json());
 // app.use(cors({
@@ -38,19 +28,8 @@ app.use(bodyparser.json());
     ], credentials: true}));
 
 //set session and cookies for user
+
 app.use(cookieParser());
-
-
-
-app.use(session({
-  secret: "Shh, its a secret!",
-  resave: false,
-  saveUninitialized: true
-}));
-
-
-
-//session end
 
 
 
@@ -64,6 +43,32 @@ app.get('/', function(req, res){
    }
 });
 
+const storage = multer.diskStorage({
+  destination:function(req,file,cb){
+    cb(null,"uploads");
+  },
+  filename:function(req,file,cb){
+    originalname = file.originalname;
+    console.log("orginal name",originalname);
+    cb(null,originalname);
+    console.log("orginal name",originalname);
+  }
+})
+const upload = multer({storage:storage});
+
+
+app.post('/upload', upload.single("file"), (req, res) => {
+ 
+
+  var file = req.file;
+  console.log("filenames",file);
+  if(file)
+  {
+    res.json({"message":"upload successfully"});
+  }
+ 
+});
+
 app.get('/totalpatients/:id/:refid',(req,res,value)=>{
     console.log("Request sent By Treatment Category"+req.params.id);
     console.log(req.params.refid);
@@ -74,15 +79,16 @@ app.get('/totalpatients/:id/:refid',(req,res,value)=>{
       }
    }
     
-    patienparse.availability(fetchdata).then((data)=>{
+    controller.fetchpatients(fetchdata).then((data)=>{
       console.log("Get Patient datas from database",data);
+      generatelogger.info("successfully get Patient details from database");
       res.json(data);
     }).catch((err)=>{
       console.log("Whoo Patient is not available",err);
       generatelogger.error("Requested Patient is not available",err);
     })
 })
-
+//store Patient data into the database
 app.post('/storepatient',(req,res,next)=>{
     var storeobject = {
       patientname:req.body.patientname,
@@ -102,16 +108,21 @@ app.post('/storepatient',(req,res,next)=>{
       requestdate:new Date()
     }
     console.log("from form",storeobject);
-    dbconnect.newpatinetrecord(storeobject).then((data=>{
-      console.log("Patient data is successfully stored into the database");
-      generatelogger.info("Patient data is successfully uploaded into the database server",data);
-    })).catch((err=>{
-      console.log("Some bad request Patient data is not uploaded into the database");
-      generatelogger.info("Some bad request Patient data is not uploaded into the database");
-    }))
+    controller.storepatientdata(storeobject).then((data)=>{
+      console.log("Patient data is stored into the database",data);
+      generatelogger.info("Patient data is stored into the database");
+      if(data)
+        res.status(200).send({
+          message:"Patient data is successfully generated"
+        })
+    }).catch((err)=>{
+      console.log("Err cant to add into database",err);
+      generatelogger.error("Patient data is not stored into the database");
+    })
+   
 })
-
-app.get('/checkpatientlogin/:objectid',isLoggedIn,(req,res,next)=>{
+//checklogin authentication for patient
+app.get('/checkpatientlogin/:objectid',(req,res,next)=>{
   console.log(req.params.objectid);
   dbconnect.getlogindetails(req.params.objectid).then((data)=>{
       console.log("from router ",data);
@@ -139,11 +150,16 @@ app.get('/gettablets/:id',(req,res)=>{
             res.send("Server Down Cant fetch Details");
           })
 })
-
+//save doctor Profile into the server
 app.post('/savedoctorprofile',(req,res,next)=>{
-        doctorfile.storedoctorinformation(req).then((success=>{
+        controller.storedoctordetails(req).then((success=>{
           console.log("Hi Doctor information stored into the server",success);
-          generatelogger.info("Hi Doctor Profile is uploaded into the server");
+          if(success)
+          {
+            res.status(200).send({
+              message:"Doctor Profile is successfully Stored into the database"
+            })
+          }
         })).catch((err=>{
           console.log("Some Bad updation Doctor profile is not uploaded into the server",err);
         }))
@@ -156,20 +172,39 @@ app.get('/bookrequested',(req,res,next)=>{
         "appointmentstatus":"NO"
     }
 }
-      patienparse.getbookrequest(data).then((data)=>{
+      controller.bookingstat(data).then((data)=>{
         console.log("waiting for book details",data);
+        if(data)
+        {
         res.json(data);
+        }
+      }).catch((err)=>{
+          console.log("Get Booking status error",err);
+          generatelogger.error("Can't get a details from ther server");
       })
 })
 
 app.get('/doctorloginauth/:objectid',(req,res,next)=>{
-  req.session = req.params.objectid;
+ req.session = req.params.objectid;
   console.log("session address",req.session);
 
-  doctorfile.checkdoctorauth(req.params.objectid).then((data)=>{
-    console.log("doctor Login auth ",data);
-      
+  controller.checkdoctorlogin(req.params.objectid).then((data)=>{
+    console.log("Successfully data received from server",data);
+    generatelogger.info("Doctor auth proceess is done");
+    if(data){
       res.json(data);
+    }
+}).catch((err)=>{
+  console.log("Error from server",err);
+  res.send("Server Down Cant fetch Details");
+})
+})
+
+//get admin priveliages
+app.get('/admin/:id',(req,res)=>{
+  console.log(req.params.id);
+  controller.admincheck(req.params.id).then((data)=>{
+    res.json(data);
   })
 })
 
@@ -179,21 +214,21 @@ app.get('/getdoctordetails/:id',(req,res,next)=>{
   {
   data = {
     selector:{
-        "category":req.params.id,
+        "type":req.params.id,
     }
     }
   }
   else{
     data = {
       selector:{
-        "category":"Doctor",
+        "type":"Doctor",
         "specialist":req.params.id
       }
     }
   }
   if(data)
   {
-    doctorfile.getalldoctors(data).then((data)=>{
+    controller.docslist(data).then((data)=>{
       console.log("Doctors available in Hospital",data);
       res.json(data);
     }).catch((err)=>{
@@ -214,7 +249,7 @@ app.put('/updatepatienrecord/:updateobject',(req,res,next)=>{
     }
     console.log("update operation in to database",patientid);
     console.log("want to store a object",updatepatient);
-  var retmessage = patienparse.bookappointment(updatepatient,patientid).then((resdata)=>{
+  var retmessage = controller.waitingforbook(updatepatient,patientid).then((resdata)=>{
       console.log("Updated Appointment Booking status successfully",resdata);
 
       //return response
@@ -241,13 +276,14 @@ app.post('/generatemedicalreport',(req,res)=>{
           medicineone:req.body.medicineone,
           medicinetwo:req.body.medicinetwo,
           medicinethree:req.body.medicinethree,
-          patientId:req.body.patientId,
+          requestId:req.body.patientId,
           patientname:req.body.patientname,
           precuations:req.body.precuations,
           remedies:req.body.remedies,
           reportby:req.body.reportby,
           tablets:req.body.tabletscategory,
-          totalreport:req.body.totalreport
+          totalreport:req.body.totalreport,
+          dateofreport:new Date()
                 } 
             console.log("Save testReport",object);
             controller.reportgeneration(object).then((data)=>{
@@ -264,6 +300,31 @@ app.post('/generatemedicalreport',(req,res)=>{
   })
 })
 
+app.post('/bloodreport',(req,res)=>{
+
+  var object = {
+      totalreport:req.body.totalreport,
+      acetone:req.body.acetone,
+      bloodsugarlevels:req.body.bloodsugarlevels,
+      patientId:req.body.patientId,
+      patientname:req.body.patientname,
+      reportby:req.body.reportby,
+      urinsugar:req.body.urinsugar
+          } 
+      console.log("Save testReport",object);
+      controller.reportgeneration(object).then((data)=>{
+      console.log("Successfully data received from server",data);
+      generatelogger.info("Testreport is successfully generated into server from indexjs");
+      if(data){
+        res.status(200).send({
+          message:"Patient Record is successfully generated"
+        })
+      }
+  }).catch((err)=>{
+    console.log("Error from server",err);
+    res.send("Server Down Cant fetch Details");
+})
+})
 app.get('/getreport/:id',(req,res)=>{
      console.log("Get  testReport",req.params.id);
             controller.getreport(req.params.id).then((data)=>{
@@ -278,6 +339,27 @@ app.get('/getreport/:id',(req,res)=>{
   })
 
 })
+
+app.delete('/deletepatient/:id/:rev',((req,res)=>{
+  console.log("Delete patient record",req.params.id);
+  console.log("Delete patient record",req.params.rev);
+  let deleteobject = {
+    id:req.params.id,
+    rev:req.params.rev
+  }
+  controller.deletepatient(deleteobject).then((data=>{
+    console.log("Want to delete the records",data);
+    res.status(200).send({
+      message:"Patient data succeesfully Deleted"
+    })
+  }))
+
+}))
+
+//file upload
+
+
+
 app.listen(port, (err) => {
     if (err) {
       return console.log('something bad happened', err);

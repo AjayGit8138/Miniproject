@@ -11,10 +11,15 @@ import { map } from 'rxjs/operators';
 })
 export class ApiserviceService {
  idgen:number = 0;
-  
+  private loggedInStatus = JSON.parse(localStorage.getItem('loggedIn') || 'false')
 
   constructor(private http:HttpClient) {
     
+   }
+
+   setloggedIn(value:boolean)
+   {
+     this.loggedInStatus = value;
    }
 
  gettotalpatients(getcategory:any,getlist:any){
@@ -38,6 +43,7 @@ export class ApiserviceService {
   }
   checkdoctorlogin(doctorlogin:any)
   {
+    console.log("doctorlogin",doctorlogin);
     return this.http.get<any>('http://localhost:8000/doctorloginauth/'+doctorlogin);
   }
   getrequestedpatient()
@@ -64,6 +70,21 @@ export class ApiserviceService {
   gettestreport(id:any)
   {
     return this.http.get<any>('http://localhost:8000/getreport/'+id);
+  }
+  generatebloodreport(object:any)
+  {
+    return this.http.post<any>('http://localhost:8000/bloodreport',object);
+  }
+  deletepatient(object:any)
+  {
+    return this.http.delete<any>('http://localhost:8000/deletepatient/'+object._id+'/'+object._rev);
+  }
+  post(formData:any){
+    return this.http.post<any>('http://localhost:8000/upload/',formData);
+  }
+  getadmin(request:any)
+  {
+    return this.http.get<any>('http://localhost:8000/admin/'+request);
   }
 }
 

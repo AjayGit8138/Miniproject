@@ -1,165 +1,155 @@
-<div class="formfield d-flex align-items-center light-blue-gradient" style="height: 100vh;">
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <div class="col-md-6">
-                <div class="card rounded-0 shadow">
-                    <div class="card-body">
-                        <form [formGroup]="doctoradmingroup" (ngSubmit)="doctorprofile(this.doctoradmingroup.value)">
+<div class="medicalform container">
+    <div class="wrapper">
+        <div class="title"><span>Doctor Admin Form</span></div>
+        <form [formGroup]="doctoradmingroup" (ngSubmit)="doctorprofile(this.doctoradmingroup.value)">
 
-                            <div *ngIf="step == 1">
-                                <div class="row">
-                                    <div class="row" [class.has-error]="doctorname.invalid && doctorname.touched">
-                                        <label for="Doctorname">Doctor's
-                                            Name:</label>
-                                        <input type="text" class="form-control" formControlName="doctorname"
-                                            [(ngModel)]="honourname" placeholder="'DR.'Enter the DoctorsName">
-                                        <div class="help-block text-danger"
-                                            *ngIf="doctorname.invalid && doctorname.touched">
-                                            <span *ngIf="doctorname.errors?.required">
-                                                doctorname is REQUIRED!!!
-                                            </span>
-                                        </div>
-                                    </div><br><br><br>
-                                    <div class="row" [class.has-error]="email.invalid && email.touched">
-                                        <label for="Doctoremail">Doctor's
-                                            Email:</label>
-                                        <input type="email" class="form-control"
-                                            pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" (change)="emailcheck($event)"
-                                            formControlName="email" placeholder="'DR.'Enter the DoctorsEmail">
-                                        <div class="help-block text-danger" *ngIf="email.touched">
-                                            <span *ngIf="email.errors?.required">
-                                                Hi Doctor email is REQUIRED!!!
-                                            </span>
-                                            <span *ngIf="email.errors?.pattern">
-                                                Please enter a valid Email address 'ex:validemail@gmail.com'
-                                            </span>
-                                        </div>
-                                    </div><br><br><br>
-                                    <div class="row" [class.has-error]="mobileno.invalid && mobileno.touched">
-                                        <label for="Mobileno">Mobileno:</label>
-                                        <input type="number" class="form-control" pattern="[789][0-9]{9}"
-                                            formControlName="mobileno" placeholder="'DR.'Enter the Mobileno">
-                                        <div class="help-block text-danger" *ngIf="mobileno.touched">
-                                            <span *ngIf="mobileno.errors?.required">
-                                                Please enter a mobile no!!!
-                                            </span>
-                                            <span *ngIf="mobileno.errors?.pattern">
-                                                Hi Your mobile is not valid please enter a correct number!!!
-                                            </span>
-                                        </div>
-                                    </div><br><br><br>
-                                    <div class="row" [class.has-error]="gender.invalid && gender.touched">
-                                        <label for="Gender">Gender:</label>
-                                        <select formControlName="gender" class="form-select">
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <span *ngIf="gender.errors?.required">
-                                                choose the correct gender!!!
-                                            </span>
-                                        </select>
-                                    </div><br><br><br>
-                                    <div class="row" [class.has-error]="dateofbirth.invalid && dateofbirth.touched">
-                                        <label for="PatinetDOB" class="col-sm-2 col-form-label">DateofBirth:</label>
-                                        <input type="date" formControlName="dateofbirth" class="form-control">
-                                        <!-- <span *ngIf="dateofbirth.errors?.required">
-                                            choose the date of birth
-                                        </span> -->
-                                    </div><br><br><br>
-                                    <div class="row">
-                                        <label for="customFile">UploadsPhoto:</label>
-                                        <input type="file" #profilename formControlName="profilesnap" name="snap"
-                                            (change)="checkfile(profilename.value)" class="form-control" />
-                                        <div class="help-block text-danger" *ngIf="profilesnap.touched">
-                                            <span *ngIf="profilesnap.errors?.required">
-                                                Please select a your photocopies.
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="example-button-row">
-                                    <br><br>
-
-                                    <button class="btnspace" type="button" (click)="navigatenext()" mat-raised-button
-                                        color="primary">Next</button>
-
-                                </div>
-                            </div>
-                            <div *ngIf="step == 2">
-                                <div class="row">
-                                    <div class="row">
-                                        <label for="certification" class="row">Identityno:</label>
-
-                                        <input type="text" class="form-control" formControlName="certificateid"
-                                            [(ngModel)]="certifyno">
-                                        <!-- <span *ngIf="certificateid.errors?.required">
-                                                Please enter the doctor proffessional certification no.
-                                            </span> -->
-
-                                    </div><br><br><br>
-                                    <div class="row">
-                                        <label for="treatmentspecialist">specialist:</label>
-                                        <select formControlName="specialist" class="form-select">
-                                            <option *ngFor="let treatment of sicks" [value]="treatment">
-                                                {{treatment}}
-                                            </option>
-                                        </select>
-                                    </div><br><br><br>
-                                    <div class="row">
-                                        <label for="Degree in Specialization">specialization:</label>
-                                        <select formControlName="specialistdeg" class="form-select">
-                                            <option value="default">selectDeg</option>
-                                            <option *ngFor="let course of courses" [value]="course">
-                                                {{course}}
-                                            </option>
-                                        </select>
-                                    </div><br><br><br>
-                                    <div class="row" [class.has-error]="password.invalid && password.touched">
-
-                                        <label for="password">Password:</label>
-                                        <input type="password" class="form-control"
-                                            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" formControlName="password"
-                                            placeholder="password">
-                                        <div class="help-block text-danger" *ngIf="password.touched">
-                                            <div class="error"
-                                                *ngIf="(password.invalid || password.touched) && password.errors?.pattern">
-                                                Please Enter a Valid password and password should be 8
-                                                charactes,Atleast
-                                                one letter and one number</div>
-                                            <div class="error"
-                                                *ngIf="(password.invalid || password.touched) && password.errors?.required">
-                                                Please Enter Your Password</div>
-                                        </div>
-                                    </div><br><br><br>
-                                    <div class="row" [class.has-error]="cpassword.invalid && cpassword.touched">
-                                        <label for="password">confirmpassword:</label>
-                                        <input type="password" class="form-control" formControlName="cpassword"
-                                            placeholder="Enter confirm password">
-                                        <div class="help-block text-danger" *ngIf="cpassword.touched">
-
-                                            <div class="error" *ngIf="cpassword.errors?.required">
-                                                Please Enter Your confirmpassword as per the password</div>
-                                            <div class="error"
-                                                *ngIf="this.doctoradmingroup.password !== this.doctoradmingroup.cpassword">
-                                                confirm password should be Match with Pasword</div>
-                                        </div>
-                                    </div><br><br><br>
-                                    <div class="example-button-row">
-                                        <br><br>
-
-                                        <button class="btnspace" type="submit" mat-raised-button
-                                            color="primary">submit</button>
-
-                                    </div>
-                                    <label for="signup" class="text-dark"> Do Have a Account? <a
-                                            routerLinkActive="active" routerLink="/doclogin"
-                                            class="text-danger">Login</a></label>
-
-                                </div>
-                            </div>
-                        </form>
+            <div *ngIf="step == 1">
+                <div class="row">
+                    <div class="row" [class.has-error]="doctorname.invalid && doctorname.touched">
+                        <label for="Doctorname">Doctor's
+                            Name:</label>
+                        <input type="text" class="form-control" formControlName="doctorname" [(ngModel)]="honourname"
+                            placeholder="'DR.'Enter the DoctorsName">
+                        <div class="help-block text-danger" *ngIf="doctorname.invalid && doctorname.touched">
+                            <span *ngIf="doctorname.errors?.required">
+                                doctorname is REQUIRED!!!
+                            </span>
+                        </div>
+                    </div><br><br><br><br>
+                    <div class="row" [class.has-error]="email.invalid && email.touched">
+                        <label for="Doctoremail">Doctor's
+                            Email:</label>
+                        <input type="email" class="form-control" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                            (change)="emailcheck($event)" formControlName="email"
+                            placeholder="'DR.'Enter the DoctorsEmail">
+                        <div class="help-block text-danger" *ngIf="email.touched">
+                            <span *ngIf="email.errors?.required">
+                                Hi Doctor email is REQUIRED!!!
+                            </span>
+                            <span *ngIf="email.errors?.pattern">
+                                Please enter a valid Email address 'ex:validemail@gmail.com'
+                            </span>
+                        </div>
+                    </div><br><br><br><br>
+                    <div class="row" [class.has-error]="mobileno.invalid && mobileno.touched">
+                        <label for="Mobileno">Mobileno:</label>
+                        <input type="number" class="form-control" pattern="[789][0-9]{9}" formControlName="mobileno"
+                            placeholder="'DR.'Enter the Mobileno">
+                        <div class="help-block text-danger" *ngIf="mobileno.touched">
+                            <span *ngIf="mobileno.errors?.required">
+                                Please enter a mobile no!!!
+                            </span>
+                            <span *ngIf="mobileno.errors?.pattern">
+                                Hi Your mobile is not valid please enter a correct number!!!
+                            </span>
+                        </div>
+                    </div><br><br><br><br>
+                    <div class="row" [class.has-error]="gender.invalid && gender.touched">
+                        <label for="Gender">Gender:</label>
+                        <select formControlName="gender" class="form-select">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <span *ngIf="gender.errors?.required">
+                                choose the correct gender!!!
+                            </span>
+                        </select>
+                    </div><br><br><br><br>
+                    <div class="row" [class.has-error]="dateofbirth.invalid && dateofbirth.touched">
+                        <label for="PatinetDOB" class="col-sm-2 col-form-label">DateofBirth:</label>
+                        <input type="date" formControlName="dateofbirth" class="form-control">
+                        <!-- <span *ngIf="dateofbirth.errors?.required">
+                                choose the date of birth
+                            </span> -->
+                    </div><br><br><br><br>
+                    <div class="row">
+                        <label for="customFile">UploadsPhoto:</label>
+                        <input type="file" #profilename formControlName="profilesnap" name="snap"
+                            (change)="checkfile(profilename.value)" class="form-control" />
+                        <div class="help-block text-danger" *ngIf="profilesnap.touched">
+                            <span *ngIf="profilesnap.errors?.required">
+                                Please select a your photocopies.
+                            </span>
+                        </div>
                     </div>
+                    <div class="row button">
+                        <input type="submit" (click)="navigatenext()" value="Next">
+                    </div>
+                    <label for="signup" class="text-dark"> Do Have a Account? <a routerLinkActive="active"
+                            routerLink="/doclogin" class="text-danger">Login</a></label>
+                </div>
+
+
+            </div>
+            <div *ngIf="step == 2">
+                <div class="row">
+                    <div class="row">
+                        <label for="certification">Identityno:</label>
+
+                        <input type="text" formControlName="certificateid" [(ngModel)]="certifyno">
+                        <!-- <span *ngIf="certificateid.errors?.required">
+                                    Please enter the doctor proffessional certification no.
+                                </span> -->
+
+                    </div><br><br><br>
+                    <div class="row">
+                        <label for="treatmentspecialist">specialist:</label>
+                        <select formControlName="specialist" class="form-select">
+                            <option *ngFor="let treatment of sicks" [value]="treatment">
+                                {{treatment}}
+                            </option>
+                        </select>
+                    </div><br><br><br>
+                    <div class="row">
+                        <label for="Degree in Specialization">specialization:</label>
+                        <select formControlName="specialistdeg" class="form-select">
+                            <option value="default">selectDeg</option>
+                            <option *ngFor="let course of courses" [value]="course">
+                                {{course}}
+                            </option>
+                        </select>
+                    </div><br><br><br>
+                    <div class="row" [class.has-error]="password.touched">
+
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                            formControlName="password" placeholder="password">
+                        <div class="help-block text-danger" *ngIf="password.touched">
+                            <div class="error"
+                                *ngIf="(password.invalid || password.touched) && password.errors?.pattern">
+                                Please Enter a Valid password and password should be 8
+                                charactes,Atleast
+                                one letter and one number</div>
+                            <div class="error"
+                                *ngIf="(password.invalid || password.touched) && password.errors?.required">
+                                Please Enter Your Password</div>
+                        </div>
+                    </div><br><br><br>
+                    <div class="row" [class.has-error]="cpassword.invalid && cpassword.touched">
+                        <label for="password">confirmpassword:</label>
+                        <input type="password" class="form-control" formControlName="cpassword"
+                            placeholder="Enter confirm password">
+                        <div class="help-block text-danger" *ngIf="cpassword.touched">
+
+                            <div class="error" *ngIf="cpassword.errors?.required">
+                                Please Enter Your confirmpassword as per the password</div>
+                            <div class="error"
+                                *ngIf="this.doctoradmingroup.password !== this.doctoradmingroup.cpassword">
+                                confirm password should be Match with Pasword</div>
+                        </div>
+                    </div><br><br><br>
+                    <div class="example-button-row">
+                        <br><br>
+
+                        <button class="btnspace" type="submit" mat-raised-button color="primary"
+                            [disabled]="!doctoradmingroup.valid">submit</button>
+
+                    </div>
+                    <label for="signup" class="text-dark"> Do Have a Account? <a routerLinkActive="active"
+                            routerLink="/doclogin" class="text-danger">Login</a></label>
+
                 </div>
             </div>
-        </div>
+        </form>
     </div>
+</div>
