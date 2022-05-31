@@ -1,9 +1,5 @@
 <div *ngIf="divboolean == 1">
-    <div class="container">
-        <div class="col-sm-2">
-            <button (click)="getdetail()" class="btn btn-primary">My Patients</button>
-        </div>
-    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -24,11 +20,11 @@
                         <tr *ngFor="let list of mypatients">
 
                             <td>{{list.patientname}}</td>
-                            <td>{{list.requestId}}</td>
-                            <td>{{list.Treatmentcategory}}</td>
+                            <td>{{list.patientid}}</td>
+                            <td>{{list.treatmentcategory}}</td>
                             <td>{{list.symptoms}}</td>
                             <td><button class="btnspace getrow" mat-raised-button color="primary"
-                                    (click)="testformdisplay(list,2)">Generatereport</button>
+                                    (click)="testformdisplay(list,2)">UpdateRemedies</button>
                             </td>
                             <td><button class="btnspace getrow" mat-raised-button color="primary"
                                     (click)="addtestreport(list,3)">Add TestReport</button>
@@ -204,17 +200,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <button class="testbtn btn btn-primary" (click)="display(4)">Blood Test&nbsp;<i
+                <button class="testbtn btn btn-primary" (click)="display(4)">Urine Test&nbsp;<i
                         class="fa fa-plus"></i></button>
                 <p>&nbsp;</p>
-                <!-- <button class="testbtn btn btn-primary">Urine Test&nbsp;<i class="fa fa-plus"></i></button> -->
-                <p>&nbsp;</p>
-                <!-- <button class="testbtn btn btn-primary">X-Ray Test&nbsp;<i class="fa fa-plus"></i></button> -->
-                <p>&nbsp;</p>
-                <!-- <button class="testbtn btn btn-primary">Breath Test&nbsp;<i class="fa fa-plus"></i></button> -->
-                <p>&nbsp;</p>
-                <!-- <button class="testbtn btn btn-primary">Eye Test&nbsp;<i class="fa fa-plus"></i></button> -->
-                <p>&nbsp;</p>
+                <button class="testbtn btn btn-primary" (click)="display(5)">Bloodcount Test&nbsp;<i
+                        class="fa fa-plus"></i></button>
             </div>
 
         </div>
@@ -223,8 +213,12 @@
 
 <div *ngIf="divboolean == 4">
     <app-bloodreport (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentpage.id"
-        [reference]="'blood'">
+        [reference]="'urine'">
     </app-bloodreport>
 </div>
 
+<div *ngIf="divboolean == 5">
+    <app-bloodcount (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentpage.id"
+        [reference]="'bloodcount'"></app-bloodcount>
+</div>
 <br><br>

@@ -31,11 +31,11 @@
                                 Please enter a valid Email address 'ex:validemail@gmail.com'
                             </span>
                         </div>
-                    </div><br><br><br><br>
+                    </div><br><br><br><br><br>
                     <div class="row" [class.has-error]="mobileno.invalid && mobileno.touched">
                         <label for="Mobileno">Mobileno:</label>
-                        <input type="number" class="form-control" pattern="[789][0-9]{9}" formControlName="mobileno"
-                            placeholder="'DR.'Enter the Mobileno">
+                        <input type="text" class="form-control" required maxlength="10" pattern="[789][0-9]{9}"
+                            formControlName="mobileno" placeholder="'DR.'Enter the Mobileno">
                         <div class="help-block text-danger" *ngIf="mobileno.touched">
                             <span *ngIf="mobileno.errors?.required">
                                 Please enter a mobile no!!!
@@ -44,7 +44,7 @@
                                 Hi Your mobile is not valid please enter a correct number!!!
                             </span>
                         </div>
-                    </div><br><br><br><br>
+                    </div><br><br><br><br><br>
                     <div class="row" [class.has-error]="gender.invalid && gender.touched">
                         <label for="Gender">Gender:</label>
                         <select formControlName="gender" class="form-select">
@@ -57,13 +57,10 @@
                     </div><br><br><br><br>
                     <div class="row" [class.has-error]="dateofbirth.invalid && dateofbirth.touched">
                         <label for="PatinetDOB" class="col-sm-2 col-form-label">DateofBirth:</label>
-                        <input type="date" formControlName="dateofbirth" class="form-control">
-                        <!-- <span *ngIf="dateofbirth.errors?.required">
-                                choose the date of birth
-                            </span> -->
-                    </div><br><br><br><br>
+                        <input type="date" [max]="getToday()" formControlName="dateofbirth" class="form-control">
+                    </div><br><br><br><br><br><br>
                     <div class="row">
-                        <label for="customFile">UploadsPhoto:</label>
+                        <label for="customFile">Upload Photo:</label>
                         <input type="file" #profilename formControlName="profilesnap" name="snap"
                             (change)="checkfile(profilename.value)" class="form-control" />
                         <div class="help-block text-danger" *ngIf="profilesnap.touched">
@@ -71,49 +68,44 @@
                                 Please select a your photocopies.
                             </span>
                         </div>
-                    </div>
+                    </div><br><br><br><br><br>
                     <div class="row button">
                         <input type="submit" (click)="navigatenext()" value="Next">
                     </div>
                     <label for="signup" class="text-dark"> Do Have a Account? <a routerLinkActive="active"
                             routerLink="/doclogin" class="text-danger">Login</a></label>
                 </div>
-
-
             </div>
             <div *ngIf="step == 2">
                 <div class="row">
                     <div class="row">
-                        <label for="certification">Identityno:</label>
-
+                        <label for="certification">Certification No:</label>
                         <input type="text" formControlName="certificateid" [(ngModel)]="certifyno">
-                        <!-- <span *ngIf="certificateid.errors?.required">
-                                    Please enter the doctor proffessional certification no.
-                                </span> -->
-
-                    </div><br><br><br>
+                    </div><br><br><br><br>
                     <div class="row">
-                        <label for="treatmentspecialist">specialist:</label>
+                        <label for="treatmentspecialist">Specialist:</label>
                         <select formControlName="specialist" class="form-select">
+
                             <option *ngFor="let treatment of sicks" [value]="treatment">
                                 {{treatment}}
                             </option>
                         </select>
-                    </div><br><br><br>
+                    </div><br><br><br><br>
                     <div class="row">
-                        <label for="Degree in Specialization">specialization:</label>
+                        <label for="Degree in Specialization">Specialization in Degree:</label>
                         <select formControlName="specialistdeg" class="form-select">
                             <option value="default">selectDeg</option>
                             <option *ngFor="let course of courses" [value]="course">
                                 {{course}}
                             </option>
                         </select>
-                    </div><br><br><br>
+                    </div><br><br><br><br>
                     <div class="row" [class.has-error]="password.touched">
 
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                            formControlName="password" placeholder="password">
+                        <input type="password" (change)="passwordcheck($event)" class="form-control"
+                            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" formControlName="password"
+                            placeholder="password">
                         <div class="help-block text-danger" *ngIf="password.touched">
                             <div class="error"
                                 *ngIf="(password.invalid || password.touched) && password.errors?.pattern">
@@ -124,9 +116,10 @@
                                 *ngIf="(password.invalid || password.touched) && password.errors?.required">
                                 Please Enter Your Password</div>
                         </div>
-                    </div><br><br><br>
-                    <div class="row" [class.has-error]="cpassword.invalid && cpassword.touched">
-                        <label for="password">confirmpassword:</label>
+                    </div><br><br><br><br>
+                    <div class="row" (change)="checkcpassword($event)"
+                        [class.has-error]="cpassword.invalid && cpassword.touched">
+                        <label for="password">Confirmpassword:</label>
                         <input type="password" class="form-control" formControlName="cpassword"
                             placeholder="Enter confirm password">
                         <div class="help-block text-danger" *ngIf="cpassword.touched">

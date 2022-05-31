@@ -3,44 +3,34 @@
 
         <div class="contheight container">
             <div class="table-wrapper">
-                <!-- <table class="fl-table">  -->
                 <table class="table table-striped table-dark">
                     <thead>
                         <tr>
                             <th scope="col">RequestId</th>
                             <th scope="col">Patientname</th>
                             <th scope="col">Treatmentfor</th>
-                            <th scope="col">mobileno</th>
                             <th scope="col">Appointmentstatus</th>
                             <th scope="col">symptoms</th>
                             <th scope="col">Bookappointment</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let list of patientrequest">
 
-                            <td>{{list.requestId}}</td>
+                            <td>{{list.patientid}}</td>
                             <td>{{list.patientname}}</td>
-                            <td>{{list.Treatmentcategory}}</td>
-                            <td>{{list.mobileno}}</td>
+                            <td>treatmentconsulting</td>
                             <td>{{list.appointmentstatus}}</td>
                             <td>{{list.symptoms}}</td>
                             <td>
                                 <button class="btnspace getrow" mat-raised-button color="primary"
                                     (click)="open(content,list)">BookPatient</button>
                             </td>
-
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-
         </div>
-
-
         <ng-template #content let-modal>
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title"></h4>Timeallotment for Patient
@@ -63,9 +53,20 @@
                         </div>
                     </div><br>
                     <div class="form-group">
-                        <label for="text" class="col-sm-2 col-form-label">Treatmentcategory:</label>
+                        <label for="Treatment">Treatment For:</label>
+
+                        <select class="form-select" formControlName="Treatmentcategory" #treatment
+                            (change)="updatetreatment($event)">
+                            <option value="default">none</option>
+                            <option *ngFor="let treat of sicks" [value]="treat">{{treat}}</option>
+                        </select>
+
+                    </div><br>
+                    <div class="form-group">
+                        <label for="requestid" class="col-sm-2 col-form-label">Tokenid:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" formControlName="Treatmentcategory">
+                            <input type="text" class="form-control" placeholder="tokenname" [(ngModel)]="tokenname"
+                                formControlName="Tokenname">
                         </div>
                     </div><br>
                     <div class="form-group">
@@ -81,7 +82,7 @@
                         <div class="col-sm-10">
                             <div [ngSwitch]="doctors">
                                 <div *ngSwitchCase="'Orthology'">
-                                    <select formControlName="assigndoctor" (change)="selectdoctors($event)"
+                                    <select formControlName="assigndoctor" (change)="selectindex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -89,7 +90,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'skin'">
-                                    <select formControlName="assigndoctor" (change)="selectdoctors($event)"
+                                    <select formControlName="assigndoctor" (change)="selectindex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -97,7 +98,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'General'">
-                                    <select formControlName="assigndoctor" (change)="selectdoctors($event)"
+                                    <select formControlName="assigndoctor" (change)="selectindex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -105,7 +106,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'Dental'">
-                                    <select formControlName="assigndoctor" (change)="selectdoctors($event)"
+                                    <select formControlName="assigndoctor" (change)="selectindex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -113,7 +114,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'Eye'">
-                                    <select formControlName="assigndoctor" (change)="selectdoctors($event)"
+                                    <select formControlName="assigndoctor" (change)="selectindex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -121,7 +122,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'Nerves'">
-                                    <select formControlName="assigndoctor" (change)="selectdoctors($event)"
+                                    <select formControlName="assigndoctor" (change)="selectindex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -129,7 +130,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'MentalHealth'">
-                                    <select formControlName="assigndoctor" (change)="selectdoctors($event)"
+                                    <select formControlName="assigndoctor" (change)="selectindex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -137,11 +138,15 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'Heart'">
-                                    <select formControlName="assigndoctor" (change)="selectdoctors($event)"
+                                    <select formControlName="assigndoctor" (change)="selectindex($event)"
                                         class="form-select">
-                                        <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
+                                        <option *ngFor="let doctorlist of orthodoctors;let indexOfelement=index;"
+                                            [value]="doctorlist">
+                                            {{indexOfelement}}
                                             {{doctorlist}}
+
                                         </option>
+
                                     </select>
                                 </div>
                             </div>
@@ -151,7 +156,8 @@
 
                         <label for="PatinetDOB" class="col-sm-2 col-form-label">Dateofappointment:</label>
                         <div class="col-sm-10">
-                            <input type="date" formControlName="dateofappointment" class="form-control">
+                            <input type="date" formControlName="dateofappointment"
+                                min="{{currentDate | date:'yyyy-MM-dd'}}" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">

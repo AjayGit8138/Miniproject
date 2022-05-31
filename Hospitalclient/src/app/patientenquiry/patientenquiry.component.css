@@ -7,7 +7,8 @@
     background-color: rgb(185, 163, 147);
 }
 label{
-    font-size: 15px;
+  font-size: 20px;
+  margin: 10px;
 }
 body{
     background: #1abc9c;

@@ -4,7 +4,7 @@ import { ApiserviceService } from '../apiservice.service';
 declare var $: any;
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router,Params } from '@angular/router';
 import { AuthguardGuard } from '../shared/authguard.guard';
 import { AuthService } from '../shared/auth.service';
 
@@ -30,8 +30,9 @@ export class DashboardComponent implements OnInit {
   //for update new method
   patientid:any;
   patientrefid:any;
-
-  constructor(private toastr:ToastrService,private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router,private authserve:AuthService) { 
+  tabchange:any;
+  currentpage = {id:"number"}
+  constructor(private activeparams:ActivatedRoute, private toastr:ToastrService,private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router,private authserve:AuthService) { 
     this.bookingform = this.bookform.group({
         requestId:['',Validators.required],
         patientname:['',Validators.required],
@@ -40,6 +41,15 @@ export class DashboardComponent implements OnInit {
         assigndoctor:['',Validators.required],
         dateofappointment:['',Validators.required],
         timingforappointment:['',Validators.required]
+    })
+
+    this.activeparams.params.subscribe((data:Params)=>{
+      this.currentpage = {
+        id:data['id'],
+        
+       
+      }
+      console.log(this.currentpage);
     })
   }
   number:any;
@@ -99,7 +109,10 @@ export class DashboardComponent implements OnInit {
       })
     }
   }
-
+  linkchange(params:any)
+  {
+    this.tabchange = params;
+  }
   selectdoctors(event:any)
   {
      console.log(event.target.value);

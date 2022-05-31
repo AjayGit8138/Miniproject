@@ -36,20 +36,17 @@ object = {
   divboolean:number = 1;
   setdivision:number = 1;
 
-
   undertreatment = {
     doctor:'',
     Treatmentcategory:''
-
   };
+
   mypatients = [];
   constructor(private reportform:FormBuilder,private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private router:Router) {
-    // this.nofreport = this.currentpage.id + '-' + 'Testreport' + '-' + this.numbercount;
+    
     this.activeparams.params.subscribe((data:Params)=>{
       this.currentpage = {
         id:data['id'],
-        
-       
       }
       console.log(this.currentpage);
     })
@@ -142,11 +139,11 @@ object = {
   {
     
     this.divboolean = display;
-    this.testform.controls['patientId'].setValue(list.requestId);
+    this.testform.controls['patientId'].setValue(list.patientid);
     this.testform.controls['patientname'].setValue(list.patientname);
     this.testform.controls['reportby'].setValue(this.testgenerated);
-    this.patineid = list.requestId;
-    this.nofreport = list.requestId + '-' + 'Testreport' + '-' + this.numbercount;
+    this.patineid = list.patientid;
+    this.nofreport = list.patientid + '-' + 'Testreport' + '-' + this.numbercount;
     this.autocode(this.nofreport);
     this.testform.controls['totalreport'].setValue(this.nofreport);
   }
@@ -194,7 +191,7 @@ object = {
   {
     this.divboolean = showdiv;
     
-    this.object.id = list.requestId;
+    this.object.id = list.patientid;
     this.object.name = list.patientname;
     this.object.generatedby = this.testgenerated;
 
@@ -205,6 +202,8 @@ object = {
   {
     this.divboolean = event;
   }
+
+  //automatic talets fill in dropdown list
   setmedicine(event:any): void
   {
     this.tabletlist.tabletname = event.target.value;

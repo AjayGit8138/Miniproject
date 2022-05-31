@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ActivatedRoute,Params } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from '../apiservice.service';
 import { PatienauthService } from '../shared/patienauth.service';
 
@@ -13,15 +14,9 @@ import { PatienauthService } from '../shared/patienauth.service';
 })
 export class PatientloginComponent implements OnInit {
   patientloginform:FormGroup;
-
   
-  
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private activeparams:ActivatedRoute,private patientauth:PatienauthService) {
-   
-  
-    // this.serveapi.getconnection();
+  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private activeparams:ActivatedRoute,private patientauth:PatienauthService,private toastrService:ToastrService) {
     this.patientloginform = this.fb.group({
-    
       email:['',Validators.required],
       loginid:['',Validators.required],
       password:['',Validators.required]
@@ -37,6 +32,8 @@ export class PatientloginComponent implements OnInit {
   get password() {return this.patientloginform.get('password');}
   get loginid() {return this.patientloginform.get('loginid');}
 
+
+  //Login Authentication Check
   loginauth(loginval:any)
   {
     console.log("Login details",loginval);
@@ -55,13 +52,23 @@ export class PatientloginComponent implements OnInit {
       {
         localStorage.setItem('isPatientloggedIn','true');
         localStorage.setItem('token', loginval.loginid);  
+        this.showSuccess("Login Successfull")
         this.router.navigate(['patientdashboard/',loginval.loginid]);
       }
       else{
-        // this.toastr.warning("Hi Patient wrong authentication,Please enter correct Email and Password");
-        alert("Login authentication failed");
+        this.showError("Login Authentication Failed Invalid Password or Email Error");
+       
       }
+    }),((err)=>{
+      console.log("can't fetch data from the server");
     })
+  }
+//Toaster service for Notifications
+  public showSuccess(message:any): void {
+    this.toastrService.success(message);
+  }
+  public showError(message:any): void {
+    this.toastrService.error(message);
   }
   
 }

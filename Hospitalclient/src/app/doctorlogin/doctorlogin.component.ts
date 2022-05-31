@@ -14,7 +14,7 @@ import { DoctorauthService } from '../shared/doctorauth.service';
 })
 export class DoctorloginComponent implements OnInit {
   doctorloginformgroup:FormGroup;
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private toast:ToastrService,private doctorauth:DoctorauthService) {
+  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private doctorauth:DoctorauthService,private toastrService:ToastrService) {
     this.doctorloginformgroup = this.fb.group({
       loginid:['',Validators.required],
       email:['',Validators.required],
@@ -23,28 +23,20 @@ export class DoctorloginComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.showSuccess();
+ 
     this.doctorauth. doctorlogout();
   }
 get loginid(){return this.doctorloginformgroup.get('loginid');}
 get email(){return this.doctorloginformgroup.get('email');}
 
 
-showError() {
-  this.toast.error('everything is broken', 'Major Error', {
-  timeOut: 3000
-});
 
+public showSuccess(message:any): void {
+  this.toastrService.success(message);
 }
-warning(message:any)
-{
-  this.toast.warning(message);
+public showError(message:any): void {
+  this.toastrService.error(message);
 }
-
-showSuccess() {
-  this.toast.success('Hello world!', 'Toastr fun!');
-}
-
 doctorloginauth(loginval:any)
 {
   this.serveapi.checkdoctorlogin(loginval.email).subscribe((data)=>{
@@ -57,14 +49,12 @@ doctorloginauth(loginval:any)
     {
       localStorage.setItem('isdoctorLoggedIn','true');
         localStorage.setItem('token', loginval.loginid);  
+        this.showSuccess("Login Successfull");
       this.router.navigate(['treat/mypatient',loginval.loginid]);
     }
     else{
-      this.warning("authentication failed");
-      alert("Error Email or Password authentication failed!!!!");
-      // this.toast.success("Hi");
-      // this.toast.warning("Hi Email or password wrong authentication,Please enter correct Email and Password");
-    }
+      this.showError("Error Email or Password authentication failed!!!!");
+      }
   
   })
 }

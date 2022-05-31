@@ -19,7 +19,7 @@ var getlogindetails =
         {
             var emailquery ={
                 "selector": {
-                   "category": "patient"
+                   "type": "Patient"
                 }
              }
             value = DbHospital.hospitaldb.find(emailquery).then((data)=>{

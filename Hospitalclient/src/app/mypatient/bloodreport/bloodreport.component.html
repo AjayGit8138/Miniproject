@@ -64,7 +64,6 @@
                                                         Acetone:</label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="acetone" placeholder="sugarvalue">
-
                                                 </div><br>
                                             </div>
                                             <div>
@@ -75,27 +74,21 @@
                                                     </label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="bloodsugarlevels" placeholder="sugarvalue">
-
                                                 </div><br>
                                             </div>
-
                                             <div>
                                                 <div class="row col-4">
                                                     <button type="submit" style="height: 60px;"
                                                         class="btn btn-primary">GenerateBoodreport
                                                     </button>
-
                                                 </div><br>
-
                                             </div>
-
                                         </form>
                                         <div class="row col-4">
                                             <button style="height: 60px;" (click)="exit()" class="btn btn-primary">Back
                                                 to
                                                 Doctoradmin
                                             </button>
-
                                         </div><br>
                                     </div>
                                 </div>
@@ -152,12 +145,9 @@
         </div>
         <hr>
         <div class="container">
-
-
             <table *ngFor="let items of makepdf" class="table table-dark">
                 <thead>
                     <tr>
-
                         <th scope="col">Report</th>
                         <th scope="col">Acetone</th>
                         <th scope="col">Bloodsugarlevels</th>
@@ -170,13 +160,9 @@
                         <td>{{items.acetone}}</td>
                         <td>{{items.bloodsugarlevels}}</td>
                         <td>{{items.urinsugar}}</td>
-
-
                     </tr>
-
                 </tbody>
             </table>
-
             <table>
                 <tr *ngFor="let key of arrayofkey">
                     <th scope="col">{{key}}</th>
@@ -185,11 +171,6 @@
                     </td>
                 </tr>
             </table>
-
         </div>
         <button class="btn btn-primary" (click)="openPDF()">generatepdf</button>
     </div>
-
-    <input (change)="fileChange($event)" type="file" name="file" class="custom-file-input" id="inputGroupFile01"
-        aria-describedby="inputGroupFileAddon01">
-    <span class="input-group-text upload" (click)="upload()" id="btnUpload">Upload</span>

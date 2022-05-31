@@ -23,3 +23,8 @@ nav .links a:focus{
 .showdeactive{
     border-bottom: none;
 }
+.active{
+	border-bottom: 2px solid salmon;
+	font-size: 20px;
+	color: salmon;
+}

@@ -45,19 +45,7 @@ export class TestanalysisComponent implements OnInit {
     //Auto generation code for testing report for patient
     })
 
-//  for(var i=0;i<50;i++)
-//       {
-//         this.numbercount = i;
-//         this.nofreport = this.currentpage.id + '-' + 'Testreport' + '-' + this.numbercount;
-//         console.log("auto generate code",this.nofreport);
-//         this.serveapi.checkpatientlogin(this.nofreport).subscribe((response)=>{
-//           console.log("autogenerate reports",response);
-            
-//         })
-        
-      
-//       }
-//       console.log("increamet count",this.increamentcount);
+
     this.testform = this.reportform.group({
         patientId:['',Validators.required],
         patientname:['',Validators.required],
@@ -69,7 +57,6 @@ export class TestanalysisComponent implements OnInit {
         dietplan:['',Validators.required],
         dosage:['',Validators.required],
         tabletscategory:['',Validators.required],
-        // tablets:['',Validators.required],
         medicineone:['',Validators.required],
         medicinetwo:['',Validators.required],
         medicinethree:['',Validators.required]

@@ -10,11 +10,14 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class DoctoradminComponent implements OnInit {
   doctoradmingroup:FormGroup;
+  validpass:boolean;
   filename:string = "";
+  passwordmatch:any;
+  cpasswordcheck:any;
   certifyno:string = "DOC-";
   honourname:string = "DR.";
   profilepath:string = "../src/images/";
-  sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology","MentalHealth"];
+  sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
   courses = ['MBBS,MD in Genereal Medicine','MBBS,MS in Obstetrics','MBBS,MD,DM in Cardiology','MBBS,MS,MCH in Vascular Surgery','MBBS in ENT (Ear, Nose and Throat)','MBBS in Ophthalmology','MBBS in General Medicine','MBBS in Orthopaedics','MBBS in General Surgery','MBBS in Anaesthesiology','MBBS in Obstetrics & Gynaecology','MBBS in Psychiatry','MBBS in Paediatrics']
   constructor(private fb:FormBuilder,private serveapi:ApiserviceService) {
     this.doctoradmingroup = this.fb.group({
@@ -59,20 +62,42 @@ export class DoctoradminComponent implements OnInit {
           this.doctoradmingroup.reset();
         }
     })
-    
+}
+passwordcheck(e:any)
+{
+  this.passwordmatch = e.target.value;
+  console.log("password",this.passwordmatch);
+}
+checkcpassword(e:any)
+{
+  this.cpasswordcheck = e.target.value;
+  console.log("cpassword",this.cpasswordcheck);
+  if(this.passwordmatch == this.cpasswordcheck)
+  {
+    this.validpass = true;
+    console.log("True",this.validpass);
+  }
+  else
+  {
+    this.validpass = false;
+    alert("Confirm Password doesn't Match with Orginal Password Please enter correctpassword");
+    this.doctoradmingroup.controls['cpassword'].setValue('');
+  }
+}
+
+getToday(): string {
+  return new Date().toISOString().split('T')[0]
 }
   doctorprofile(Formvalue:any)
   {
     Formvalue.profilesnap = this.filename;
     this.serveapi.storedoctorprofile(Formvalue).subscribe(resdata=>{
       console.log("Hi doctor information is inserted",resdata);
-     
     })
     this.doctoradmingroup.reset();
     alert("Doctor Profile is added succesfully");
     console.log(Formvalue);
   }
-
   get doctorname() {return this.doctoradmingroup.get('doctorname');}
   get email() {return this.doctoradmingroup.get('email');}
   get mobileno() {return this.doctoradmingroup.get('mobileno');}
@@ -83,10 +108,4 @@ export class DoctoradminComponent implements OnInit {
   get  cspecialistdeg() {return this.doctoradmingroup.get('specialistdeg');}
   get  password() {return this.doctoradmingroup.get('password');}
   get  cpassword() {return this.doctoradmingroup.get('cpassword');}
-
-
-
-
-
-
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-patientsignup',
@@ -8,9 +8,26 @@ import { FormGroup } from '@angular/forms';
 })
 export class PatientsignupComponent implements OnInit {
   patientsignupform:FormGroup
-  constructor() { }
+  constructor(private request:FormBuilder) {
 
+    this.patientsignupform = this.request.group({
+      patientid:['',Validators.required],
+      appointmentstatus:['',Validators.required],
+      Symptoms:['',Validators.required]
+    })
+   }
+  sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
+selected:string= "";
+patientcount:any;
   ngOnInit(): void {
   }
-
+  public updatetreatment(e:any)
+  {
+    var genid;
+    this.selected = e.target.value;
+  }
+  loginauth(fromvalue:NgForm)
+  {
+      console.log("Formvalues",fromvalue);
+  }
 }

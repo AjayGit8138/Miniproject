@@ -1,5 +1,5 @@
 import { getNumberOfCurrencyDigits } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {Http, Headers} from '@angular/http';
@@ -17,6 +17,8 @@ export class ApiserviceService {
     
    }
 
+
+   //All API calls service to the Backend connection
    setloggedIn(value:boolean)
    {
      this.loggedInStatus = value;
@@ -85,6 +87,31 @@ export class ApiserviceService {
   getadmin(request:any)
   {
     return this.http.get<any>('http://localhost:8000/admin/'+request);
+  }
+  postconsulting(consulting:any)
+  {
+    return this.http.post<any>('http://localhost:8000/consulting',consulting);
+  }
+  getadmittedpatients()
+  {
+    return this.http.get<any>('http://localhost:8000/admittedpatients');
+  }
+  generatebloodcountreport(bloodcountreport:any)
+  {
+     return this.http.post<any>('http://localhost:8000/bloodcountreport',bloodcountreport)
+  }
+  getfile(report:any)
+  {
+    console.log("report",report);
+    var body = {filename:report};
+    return this.http.post(`http://localhost:8000/download`, body, {
+      responseType : 'blob',
+  });
+    
+  }
+  getdoctor(doctor:any)
+  {
+    return this.http.get<any>('http://localhost:8000/senddoctor/'+doctor);
   }
 }
 

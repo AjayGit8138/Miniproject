@@ -19,6 +19,10 @@ import { TestanalysisComponent } from './testanalysis/testanalysis.component';
 import { TreatmentdivisionComponent } from './treatmentdivision/treatmentdivision.component';
 import { DoctorauthGuard } from './shared/doctorauth.guard';
 import { PatientGuard } from './shared/patient.guard';
+import { SymptomsformComponent } from './patientdashboard/symptomsform/symptomsform.component';
+import { DisplayreportComponent } from './patientdashboard/displayreport/displayreport.component';
+import { MenuComponent } from './dashboard/menu/menu.component';
+import { YourdoctorComponent } from './patientdashboard/yourdoctor/yourdoctor.component';
 
 const routes: Routes = [
   {path:'enquiry',component:PatientenquiryComponent},
@@ -27,16 +31,26 @@ const routes: Routes = [
   {path:'patientregister',component:PatientenquiryComponent},
   {path:'adminauth',component:AdminComponent},
   {path:'doclogin',component:DoctorloginComponent},
-  {path:'docdash',component:DashboardComponent,canActivate : [AuthguardGuard] ,
+  {path:'docdash/:id',component:DashboardComponent,canActivate : [AuthguardGuard] ,
   
     children:[
       {path:'enquirypatients',component:PatientlistComponent},
       {path:'doclist',component:DoctorlistComponent},
+      {path:'menu',component:MenuComponent},
       {path:'',redirectTo:'enquirypatients', pathMatch: 'full' },
     ],
     
   },
-  {path:'patientdashboard/:id',component:PatientdashboardComponent,canActivate : [PatientGuard]},
+  {path:'patientdashboard/:id',component:PatientdashboardComponent,canActivate : [PatientGuard],
+      children:[
+        {path:'enquiryform/:id/:name',component:SymptomsformComponent},
+        {path:'displayreport/:id',component:DisplayreportComponent},
+        {path:'yourdoctor/:id',component:YourdoctorComponent},
+        // {path:'',redirectTo:'displayreport/:id', pathMatch: 'full' },
+
+        
+      ]
+},
   {path:'home',component:HomeComponent},
   {path:'specialists',component:SpecialityComponent},
  

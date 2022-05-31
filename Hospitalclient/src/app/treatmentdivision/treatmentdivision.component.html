@@ -1,13 +1,13 @@
 <nav>
     <ul class="links">
 
-        <li class="nav-item"><a [ngClass]="tabchange == 1?'showactive':'showdeactive'" routerLink="mypatient"
-                routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        <li class="nav-item"><a [ngClass]="tabchange == 1?'showactive':'showdeactive'" (click)="selectab(1)"
+                [routerLink]="['mypatient',this.currentpage.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
             true}">My Patients
             </a>
         </li>
 
-        <li class="nav-item"><a (click)="doctorlogout()">Logout</a>
+        <li class="nav-item"><a (click)="doctorlogout()" routerLink="active">Logout</a>
         </li>
     </ul>
     <label for="nav-toggle" class="icon-burger">
@@ -16,15 +16,6 @@
         <div class="line"></div>
     </label>
 </nav>
-
-
-
-<div *ngIf="tabchange == 2">
-    <div class="jumbotron">
-
-    </div>
-</div>
-
 <div class="container">
     <div class="row">
         <router-outlet></router-outlet>

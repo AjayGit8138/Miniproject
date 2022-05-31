@@ -32,15 +32,7 @@ export class TreatmentdivisionComponent implements OnInit {
           
    }
   ngOnInit(): void {
-    // this.serveapi.checkdoctorlogin(this.currentpage.id).subscribe((data)=>{
-    //   console.log("Logged doctor details",data);
-    //   console.log("Doctor-Name",data.doctorname);
-    //   console.log("category",data.specialist);
-    //   this.undertreatment.doctor = data.doctorname;
-    //   this.undertreatment.Treatmentcategory = data.specialist;
-    // })
-    // this.tabchange = 1;
-    // this.logindocid = this.currentpage.id;
+   this.tabchange = 1;
   }
 
   tabselect(params:any)
@@ -53,13 +45,7 @@ export class TreatmentdivisionComponent implements OnInit {
   
   gettreatmentlist(){
     
-    // this.serveapi.checkdoctorlogin(this.currentpage.id).subscribe((data)=>{
-    //   console.log("Logged doctor details",data);
-    //   console.log("Doctor-Name",data.doctorname);
-    //   console.log("category",data.specialist);
-    //   this.undertreatment.doctor = data.doctorname;
-    //   this.undertreatment.Treatmentcategory = data.specialist;
-    // })
+    
     this.getdetail();
     
   }
@@ -87,4 +73,9 @@ export class TreatmentdivisionComponent implements OnInit {
     this.authserve.doctorlogout();  
     this.route.navigate(['/home']);  
   } 
+
+  selectab(divselect:any)
+  {
+    this.tabchange = divselect;
+  }
 }

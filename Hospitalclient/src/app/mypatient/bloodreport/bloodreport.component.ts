@@ -60,10 +60,6 @@ arrayofkey = [];
       acetone:['',Validators.required],
       bloodsugarlevels:['',Validators.required]
     })
-  
-      // this.bloodreport.controls['patientId'].setValue(this.bloodtest.id);
-      // this.bloodreport.controls['patientname'].setValue(this.bloodtest.name);
-      // this.bloodreport.controls['reportby'].setValue(this.bloodtest.generatedby);
   }
 
   
@@ -72,20 +68,16 @@ arrayofkey = [];
     console.log("doctorid",this.doctorid)
     this.bloodreport.controls['patientId'].setValue(this.bloodtest.id);
     this.bloodreport.controls['patientname'].setValue(this.bloodtest.name);
-    
     this.bloodtestreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
     this.autocode(this.bloodtestreport);
     console.log("autogenerate blood",this.bloodtestreport);
     this.bloodreport.controls['reportby'].setValue(this.bloodtest.generatedby);
     this.bloodreport.controls['totalreport'].setValue(this.bloodtestreport);
-
     this.currentdate = new Date();
-   
   }
 
   submitbooldsample(formvalue:NgForm,ref:any)
   {
-    // this.autocode(this.bloodtestreport);
       console.log("Formvalues",formvalue);
       this.makepdf.push(formvalue);
       this.arrayofkey = Object.keys(this.makepdf[0]);
@@ -100,7 +92,7 @@ arrayofkey = [];
       })
   }
 
-  
+  //autogenerate test report code based on previous report
   autocode(params:any)
   {
     console.log("samplereport",params);
@@ -128,19 +120,8 @@ arrayofkey = [];
   {
    this.sendData.emit(1);
   }
-  // generatepdf()
-  // {
-  //     var pdf = document.getElementById('print');
-  //     html2canvas(pdf).then((canvas=>{
-  //       var imgdata = canvas.toDataURL('images/png');
-  //       var doc = new js();
-  //       doc.addimage(imgdata,0,0,208,500);
-  //       this.defaultOptions.output = this.pdfname;
-  //       doc.save(this.defaultOptions.output);
 
-  //     }))
-  // }
-
+  //Pdf Generation Implementation
   public openPDF(): void {
     let DATA: any = document.getElementById('print');
     html2canvas(DATA).then((canvas) => {
@@ -165,6 +146,14 @@ arrayofkey = [];
     this.serveapi.post(formdata)
   .subscribe((response) => {
        console.log('response received is ', response);
+  })
+}
+
+download()
+{
+  var item = 'WIN_20220404_12_24_49_Pro.jpg';
+  this.serveapi.getfile(item).subscribe((data)=>{
+    console.log("Data downloading",data);
   })
 }
 upload() {

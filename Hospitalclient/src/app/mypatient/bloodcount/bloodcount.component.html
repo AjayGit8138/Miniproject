@@ -1,0 +1,199 @@
+<div>
+    <div>
+        <div class="col-md-12">
+
+            <div class="container">
+                <div class="row">
+                    <div class="report container">
+                        <div class="row">
+                            <div class="jumbo jumbotron">
+                                <div class="col-md-12">
+                                    <div class="mx-auto col-md-10">
+                                        <form [formGroup]="bloodcount"
+                                            (ngSubmit)="submitbooldsample(this.bloodcount.value,'blood')">
+                                            <div>
+                                                <div class="row">
+                                                    <label for="Loginid"
+                                                        class="text-light col-sm-2 col-form-label">PatientId:</label>
+                                                    <input type="text-light" readonly class="form-control"
+                                                        id="inputPassword3" formControlName="patientId"
+                                                        placeholder="Enter the Register LoginId">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="Patientname"
+                                                        class="text-light col-sm-2 col-form-label">Patientname:</label>
+                                                    <input type="text-light" readonly class="form-control"
+                                                        formControlName="patientname"
+                                                        placeholder="Enter the Patientname">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="reportgeneratedby"
+                                                        class="text-light col-sm-2 col-form-label">Reportgenreatedby:</label>
+                                                    <input type="text-light" readonly class="form-control input-lg"
+                                                        formControlName="reportby" placeholder="reportgeneratedby">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="reportgeneratedby"
+                                                        class="text-light col-sm-2 col-form-label">Bloodreport:</label>
+                                                    <input type="text-light" class="form-control"
+                                                        formControlName="totalreport" placeholder="noforeport">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="Test" class="text-light col-sm-2 col-form-label">
+                                                        RBC:</label>
+                                                    <input type="text-light" class="form-control" formControlName="Rbc"
+                                                        placeholder="rbc">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="Test"
+                                                        class="text-light col-sm-2 col-form-label">Hemoglobin:
+                                                    </label>
+                                                    <input type="text-light" class="form-control"
+                                                        formControlName="hemoglobin" placeholder="hemoglobin">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="Blood sugar levels"
+                                                        class="text-light col-sm-2 col-form-label">Hemocrit
+                                                    </label>
+                                                    <input type="text-light" class="form-control"
+                                                        formControlName="hemocrit" placeholder="hemocrit">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="Blood sugar levels"
+                                                        class="text-light col-sm-2 col-form-label">Mcv
+                                                    </label>
+                                                    <input type="text-light" class="form-control" formControlName="mcv"
+                                                        placeholder="mcv">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="Blood sugar levels"
+                                                        class="text-light col-sm-2 col-form-label">MCH
+                                                    </label>
+                                                    <input type="text-light" class="form-control" formControlName="mch"
+                                                        placeholder="mch">
+
+                                                </div><br>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <label for="Blood sugar levels"
+                                                        class="text-light col-sm-2 col-form-label">rdw
+                                                    </label>
+                                                    <input type="text-light" class="form-control" formControlName="rdw"
+                                                        placeholder="rdw">
+
+                                                </div><br>
+                                            </div>
+
+                                            <div>
+                                                <div class="row col-4">
+                                                    <button type="submit" style="height: 60px;"
+                                                        class="btn btn-primary">GenerateBoodreport
+                                                    </button>
+
+                                                </div><br>
+
+                                            </div>
+
+                                        </form>
+                                        <div class="row col-4">
+                                            <button style="height: 60px;" (click)="exit()" class="btn btn-primary">Back
+                                                to
+                                                Doctoradmin
+                                            </button>
+
+                                        </div><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="print" class="testreportlayout">
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <h1>GeneralCare Multispeciality Hospital</h1><br>
+                <h2>Address:</h2>
+                <h2>Plotno:34/102,Mattuthavani,Melur Main Road</h2>
+                <h2>Madurai</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-dark">PatentId <span>:</span></h1>
+            </div>
+            <div class="col-md-6">
+                <h1>{{this.bloodtest.id}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-dark">PatientName <span>:</span></h1>
+            </div>
+            <div class="col-md-6">
+                <h1>{{this.bloodtest.name}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-dark">Doctorname <span>:</span></h1>
+            </div>
+            <div class="col-md-6">
+                <h1>{{this.bloodtest.generatedby}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-dark">Date and Time<span>:</span></h1>
+            </div>
+            <div class="col-md-6">
+                <h1>{{currentdate}}</h1>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <table class="table card">
+                <tr *ngFor="let key of arrayofkey">
+                    <th scope="col">
+                        <h1 class="text-info">{{key | uppercase}}</h1>
+                    </th>
+                    <td *ngFor="let data of makepdf">
+                        <h1>{{data[key]}}</h1>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+    <button class="btn btn-primary" (click)="openPDF()">generatepdf</button>

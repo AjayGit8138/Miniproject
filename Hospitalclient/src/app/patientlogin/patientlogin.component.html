@@ -1,58 +1,10 @@
-<!-- <div class="formfield d-flex align-items-center light-blue-gradient" style="height: 100vh;">
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <div class="col-md-6">
-                <div class="card rounded-0 shadow">
-                    <div class="card-body">
-                        <form [formGroup]="patientloginform" (ngSubmit)="loginauth(this.patientloginform.value)">
-                            <div class="row">
-                                <div class="row" [class.has-error]="loginid.invalid && loginid.touched">
-                                    <label for="Loginid" class="col-sm-2 col-form-label">LoginId:</label>
-                                    <input type="text" class="form-control" id="inputPassword3"
-                                        formControlName="loginid" placeholder="Enter the Register LoginId">
-                                    <div class="help-block text-danger" *ngIf="loginid.touched">
-                                        <span *ngIf="loginid.errors?.required">
-                                            LoginId is REQUIRED as per Regitered account!!!
-                                        </span>
-                                    </div>
-                                </div><br><br><br>
-                                <div class="row" [class.has-error]="email.invalid && email.touched">
-                                    <label for="Email">Email:</label>
-                                    <input type="email" class="form-control" formControlName="email"
-                                        placeholder="Enter the Emailaddress">
-                                    <div class="help-block text-danger" *ngIf="email.invalid && email.touched">
-                                        Enter a Valid Email Address!!!
-                                    </div>
-                                </div><br><br><br>
-                                <div class="row">
-                                    <label for="password">Password:</label>
-                                    <input type="password" class="form-control" formControlName="password"
-                                        placeholder="password">
-                                </div>
-                            </div>
-                            <section>
-                                <div class="example-button-row">
-                                    <br><br>
-                                    <button class="btnspace" type="submit" mat-raised-button
-                                        color="primary">Submit</button>
-                                </div>
-                            </section>
-                            <label for="signup" class="text-dark"> Do't Have a Account? <a routerLink="/patientregister"
-                                    class="text-danger">Register</a></label>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
 <div class="container">
     <div class="wrapper">
         <div class="title"><span>Patient Login </span></div>
         <form [formGroup]="patientloginform" (ngSubmit)="loginauth(this.patientloginform.value)">
 
             <div class="row" [class.has-error]="loginid.invalid && loginid.touched">
-                <label for="Loginid">LoginId:</label>
+                <label for="Loginid">Login Id:</label>
                 <input type="text" formControlName="loginid" placeholder="Enter the Register LoginId">
                 <div class="help-block text-danger" *ngIf="loginid.touched">
                     <span *ngIf="loginid.errors?.required">
@@ -61,7 +13,9 @@
                 </div>
             </div><br><br><br>
             <div class="row" [class.has-error]="email.invalid && email.touched">
+
                 <label for="Email">Email:</label>
+
                 <input type="email" formControlName="email" placeholder="Enter the Emailaddress">
                 <div class="help-block text-danger" *ngIf="email.invalid && email.touched">
                     Enter a Valid Email Address!!!
@@ -69,15 +23,18 @@
             </div><br><br><br>
             <div>
                 <div class="row">
+
                     <label for="password">Password:</label>
-                    <input type="password" formControlName="password" placeholder="password">
+                    <input type="password" formControlName="password" placeholder="Enter Your Password">
                 </div>
             </div><br>
+            <br>
             <div class="row button">
+
                 <input type="submit" value="Login">
             </div>
 
-            <label for="signup" class="text-dark"> Do't Have a Account? <a routerLink="/patientregister"
+            <label for="signup" class="text-dark"> Don't Have a Account? <a routerLink="/patientregister"
                     class="text-danger">Register</a></label>
 
         </form>

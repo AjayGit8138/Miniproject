@@ -38,6 +38,11 @@ import { PatientlistComponent } from './dashboard/patientlist/patientlist.compon
 import { DoctorlistComponent } from './dashboard/doctorlist/doctorlist.component';
 import { PatientrackComponent } from './patientdashboard/patientrack/patientrack.component';
 import { PatientsignupComponent } from './patientsignup/patientsignup.component';
+import { SymptomsformComponent } from './patientdashboard/symptomsform/symptomsform.component';
+import { DisplayreportComponent } from './patientdashboard/displayreport/displayreport.component';
+import { BloodcountComponent } from './mypatient/bloodcount/bloodcount.component';
+import { MenuComponent } from './dashboard/menu/menu.component';
+import { YourdoctorComponent } from './patientdashboard/yourdoctor/yourdoctor.component';
 
 
 
@@ -64,11 +69,20 @@ import { PatientsignupComponent } from './patientsignup/patientsignup.component'
     PatientlistComponent,
     DoctorlistComponent,
     PatientrackComponent,
-    PatientsignupComponent
+    PatientsignupComponent,
+    SymptomsformComponent,
+    DisplayreportComponent,
+    BloodcountComponent,
+    MenuComponent,
+    YourdoctorComponent
   ],
   imports: [
     BrowserModule,NgbModalModule,MatTabsModule,
-    AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,MatSidenavModule,ToastrModule.forRoot(),
+    AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,MatSidenavModule, ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 15000, // 15 seconds
+      progressBar: true,
+    }),
     BrowserAnimationsModule,MatToolbarModule, NgbModule,MatCardModule,MatFormFieldModule,MatInputModule,MatButtonModule
   ],
   providers: [],

@@ -1,0 +1,44 @@
+<div *ngIf="divBoolean == 1">
+    <div class="container">
+        <div class="row">
+            <div class="jumbo jumbotron">
+                <div class="card">
+                    <h1 class="text-success">Patient Medical Reports</h1>
+                </div>
+                <div class="list-group">
+                    <ul class="list-group">
+                        <div *ngFor="let items of patienttestreports">
+                            <li class="list-group-item">{{items.totalreport}}<button
+                                    (click)="displaytestreport(items,2)"
+                                    class="viewreport btn btn-primary">view</button></li>
+
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="divBoolean == 2">
+
+
+    <table class="table card">
+        <tr *ngFor="let item of showobject | operation">
+
+            <th scope="col">
+                <h1 class="text-info">{{item.key | uppercase}}</h1>
+            </th>
+            <hr>
+
+            <td>
+                <h1>{{item.value}}</h1>
+            </td>
+
+        </tr>
+    </table>
+    <div class="container">
+        <button class="viewbtn btn btn-primary" (click)="showdiv(1)">view another report</button>
+    </div>
+</div>
+<!-- <app-yourdoctor></app-yourdoctor> -->

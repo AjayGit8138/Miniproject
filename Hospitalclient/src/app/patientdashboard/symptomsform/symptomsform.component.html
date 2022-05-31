@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="wrapper">
+        <div class="title"><span>Consulting Form</span></div>
+        <form [formGroup]="patientsignupform" (ngSubmit)="loginauth(this.patientsignupform.value)">
+            <div class="row">
+                <label for="patientId">Patien Id:</label>
+                <input type="text" placeholder="pateintID" readonly formControlName="patientid">
+            </div><br>
+            <div class="row">
+                <label for="patientId">Patient Name:</label>
+                <input type="text" placeholder="patientname" readonly formControlName="patientname">
+            </div><br>
+            <div class="row">
+                <label for="Appointmentstatus">Email:</label>
+                <input type="text" placeholder="email" formControlName="email">
+            </div><br>
+            <div class="row">
+                <label for="Appointmentstatus">Appointment Status:</label>
+                <input type="text" placeholder="appointmentstatus" readonly [(ngModel)]="status"
+                    formControlName="appointmentstatus">
+            </div><br>
+            <div class="row">
+                <label for="SysmptomsQuery">Enter the
+                    Symptoms:</label>
+                <textarea class="form-control" formControlName="Symptoms" id="Textarea" rows="3"></textarea>
+            </div><br><br>
+
+            <div class="row button">
+                <input type="submit" value="GetAppointment">
+            </div>
+
+
+        </form>
+    </div>
+</div>

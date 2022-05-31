@@ -5,18 +5,20 @@
 
 
             <div class="row" [class.has-error]="patientname.invalid && patientname.touched">
-                <label for="PatentName">PatientName:</label>
+
+                <label for="PatentName">Patient Name:</label>
 
                 <input type="text" id="inputPassword3" formControlName="patientname" pattern="^[a-z0-9_-]{8,15}$"
-                    placeholder="Enter the PatientName">
+                    placeholder="Enter the Patient Name">
                 <div class="help-block text-danger" *ngIf="patientname.touched">
                     <span *ngIf="patientname.errors?.required">
                         PatientName is REQUIRED!!!
                     </span>
                 </div>
 
-            </div><br>
+            </div><br><br>
             <div class="row" [class.has-error]="age.invalid && age.touched">
+
                 <label for="Age">Age:</label>
 
                 <input type="number" placeholder="Enter the Patient Age" formControlName="age">
@@ -26,48 +28,68 @@
                     </span>
                 </div>
 
-            </div><br>
+            </div><br><br>
             <div class="row" [class.has-error]="dateofbirth.invalid && dateofbirth.touched">
-                <label for="PatinetDOB">Dob:</label>
 
-                <input type="date" formControlName="dateofbirth" class="form-control">
+                <label for="PatinetDOB">Date of Birth:</label>
+
+                <input type="date" formControlName="dateofbirth" [max]="getToday()" class="form-control">
             </div>
             <div class="help-block text-danger" *ngIf="dateofbirth.touched">
                 <span *ngIf="dateofbirth.errors?.required">
                     Hi'Patient DateofBirth is REQUIRED!!!
                 </span>
 
-            </div><br>
+            </div><br><br>
             <div class="row" [class.has-error]="mobileno.invalid && mobileno.touched">
-                <label for="Mobileno">Mobileno:</label>
 
-                <input type="number" formControlName="mobileno" class="form-control" pattern="[789][0-9]{9}"
-                    placeholder="Enter the Mobileno">
-            </div>
+                <label for="Mobileno">Mobile No:</label>
+
+                <input type="text" formControlName="mobileno" required maxlength="10" class="form-control"
+                    pattern="[789][0-9]{9}" placeholder="Enter the Mobile No">
+                <div class="help-block text-danger" *ngIf="mobileno.touched">
+                    <span *ngIf="mobileno.errors?.required">
+                        Please enter a mobile no!!!
+                    </span>
+                    <span *ngIf="mobileno.errors?.pattern">
+                        Hi Your mobile is not valid please enter a correct number!!!
+                    </span>
+                </div>
+            </div><br><br>
             <div class="row" [class.has-error]="esino.invalid && esino.touched">
+
                 <label for="Esino">ESI-No:</label>
 
-                <input type="number" (change)="setesino($event)" formControlName="esino" placeholder="Enter the ESI-NO">
-            </div>
+                <input type="text" required maxlength="12" (change)="setesino($event)" formControlName="esino"
+                    placeholder="Enter the ESI-NO">
+            </div><br><br>
             <div class="help-block text-danger" *ngIf="esino.touched">
                 <span *ngIf="esino.errors?.required">
                     Hi'Patient Esi-No Must is REQUIRED!!!
                 </span>
 
             </div><br>
-            <div class="row">
-                <label for="Aadharno">AadharNo:</label>
+            <div class="row" [class.has-error]="aadharno.invalid && aadharno.touched">
 
-                <input type="number" id="requestid" (change)="setrequestid($event)" formControlName="aadharno"
-                    placeholder="Enter the aaharno as per aadhar-card">
+                <label for="Aadharno">Aadhar No:</label>
 
-            </div><br>
+                <input type="text" required maxlength="12" id="requestid" maxlength="12" (change)="setrequestid($event)"
+                    formControlName="aadharno" placeholder="Enter the Aaharno as per Aadhar-card">
+                <div class="help-block text-danger" *ngIf="aadharno.touched">
+                    <span *ngIf="aadharno.errors?.required">
+                        Hi'Patient Aadharno Must is REQUIRED!!!
+                    </span>
+
+                </div>
+
+            </div><br><br>
             <div class="row" [class.has-error]="email.invalid && email.touched">
+
                 <label for="Email">Email:</label>
 
                 <input type="email" (change)="emailcheck($event)" formControlName="email"
-                    pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" placeholder="Enter the Emailaddress">
-            </div>
+                    pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" placeholder="Enter the Email Address">
+            </div><br><br>
             <div class="help-block text-danger" *ngIf="email.invalid && email.touched">
                 <span *ngIf="email.errors?.required">
                     Hi Doctor email is REQUIRED!!!
@@ -76,35 +98,23 @@
                     Please enter a valid Email address 'ex:validemail@gmail.com'
                 </span>
 
-            </div><br>
-            <div class="row">
-                <label for="Treatment">Treatment For:</label>
+            </div>
 
-                <select class="form-select" formControlName="Treatmentcategory" #treatment
-                    (change)="updatetreatment($event)">
-                    <option value="default">none</option>
-                    <option *ngFor="let treat of sicks" [value]="treat">{{treat}}</option>
-                </select>
-
-            </div><br>
             <div>
                 <div class="row">
-                    <label for="requestid">RequestId:</label>
+
+                    <label for="requestid">Patient Id:</label>
 
                     <input type="text" formControlName="requestId" class="form-control" [(ngModel)]="requestid">
                 </div>
             </div><br>
-            <div class="row">
-                <label for="category">category:</label>
 
-                <input type="text" [readonly]="true" formControlName="category" class="form-control" [(ngModel)]="type">
-
-            </div><br>
             <div class="row" [class.has-error]="password.touched">
+
                 <label for="password">Password:</label>
 
-                <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" formControlName="password"
-                    placeholder="password">
+                <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" (change)="passwordcheck($event)"
+                    formControlName="password" placeholder="Enter Your Password">
                 <div class="help-block text-danger" *ngIf="password.touched">
                     <div class="error" *ngIf="(password.invalid || password.touched) && password.errors?.pattern">
                         Please Enter a Valid password and password should be 8
@@ -114,25 +124,19 @@
                         Please Enter Your Password</div>
                 </div>
             </div><br><br>
-            <div class="row" [class.has-error]="cpassword.touched">
-                <label for="password">confirmpassword:</label>
+            <div class="row" [class.has-error]="cpassword.invalid">
 
-                <input type="password" formControlName="cpassword" placeholder="Enter confirm password">
+                <label for="password">Confirm password:</label>
+
+                <input type="password" (change)="checkcpassword($event)" formControlName="cpassword"
+                    placeholder="Enter Your Confirm Password">
                 <div class="help-block text-danger" *ngIf="cpassword.invalid && cpassword.touched">
 
                     <div class="error" *ngIf="cpassword.errors?.required">
                         Please Enter Your confirmpassword as per the password</div>
-                    <div class="error" *ngIf="this.patientinquiryform.password !== this.patientinquiryform.cpassword">
-                        confirm password should be Match with Pasword</div>
-
-
+                    <div class="error" *ngIf="validpass == false ">
+                        confirm password should be Match with Password</div>
                 </div>
-
-            </div><br><br>
-            <div class="row">
-                <label for="SysmptomsQuery">Enter the
-                    Sysmptoms:</label>
-                <textarea class="form-control" formControlName="symptoms" id="Textarea" rows="3"></textarea>
             </div><br><br>
             <section>
                 <div class="example-button-row">

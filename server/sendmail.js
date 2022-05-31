@@ -7,18 +7,6 @@ var sender = nodemail.createTransport({
         pass:'akhosp@123'
     }
 })
-
-
-// sender.sendMail(composemail,function(err,res){
-//     if(err)
-//     {
-//         console.log("Mail not sent",err);
-//     }
-//     else{
-//         console.log("Mail sent");
-//     }
-// })
-
 var mail = async (mailparams,information)=>{
     console.log(mailparams);
     var returnobject  = new Promise((resolve,reject)=>{

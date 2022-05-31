@@ -3,24 +3,21 @@
         <div class="title"><span>Login Form</span></div>
         <form [formGroup]="adminauth" (ngSubmit)="Adminauth(this.adminauth.value)">
             <div class="row" [class.has-error]="loginid.invalid && loginid.touched">
-                <i class="fa fa-user"></i>
+                <i></i>
                 <input type="text" formControlName="loginid" placeholder="LoginId" required>
                 <div class="help-block text-danger" *ngIf="loginid.invalid && loginid.touched">
                     <span *ngIf="loginid.errors?.required">
                         LoginId is REQUIRED!!!
                     </span>
-
                 </div>
-
             </div><br><br>
             <div class="row" [class.has-error]="password.invalid && password.touched">
-                <i class="fas fa-lock"></i>
+                <i></i>
                 <input type="password" formControlName="password" placeholder="Password" required>
                 <div class="help-block text-danger" *ngIf="password.invalid && password.touched">
                     <span *ngIf="password.errors?.required">
                         Hi Admin Password is REQUIRED!!!
                     </span>
-
                 </div>
             </div><br><br>
             <div class="row button">

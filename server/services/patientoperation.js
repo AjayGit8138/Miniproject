@@ -45,6 +45,9 @@ var bookappointment = (updateparams,referenceid)=>{
                     doc.time = updateparams.timingforappointment;
                     doc.doctor = updateparams.doctorassign;
                     doc.dateofappointment = updateparams.dateofappointment;
+                    doc.treatmentcategory = updateparams.treatmentcategory;
+                    doc.tokenname = updateparams.tokenname;
+                    doc.docid = updateparams.doctorid;
                     console.log("patientdata",doc);
                    
                     patientdata.push(doc);
@@ -62,7 +65,7 @@ var bookappointment = (updateparams,referenceid)=>{
                                  console.log("Mail Not sent successfully",err);
                              })
                             }
-                           return "patient Appointment is Booked successfully";
+                           return "patient Appointment is Booked successfully and Mail sent to the Patient";
 
                         }
                         else{
@@ -98,6 +101,22 @@ var availability = (getparams)=>{
         }
     })
  
+}
+var enquiryrequest=(params)=>{
+    return new Promise((resolve,reject)=>{
+        if(params == undefined){
+            reject();
+        }
+        else{
+            var equiryDetail = storedb.hospitaldb.insert(params).then((data)=>{
+                generatelog.info("Updation equiry Process is successfully generated");
+                return data;
+            }).catch((err)=>{
+                generatelog.error("Can't update the enquiry process to your record");
+            })
+            return resolve(equiryDetail);
+        }
+    })
 }
 
 //gettestreport from database
@@ -176,4 +195,47 @@ var gettestreport = (getreference)=>{
     })
   
 }
-module.exports = {getbookrequest,bookappointment,availability,gettestreport,patientdelete,newpatinetrecord};
+
+var admitted = ()=>{
+    var admittedcounts = {
+        selector:{
+            "appointmentstatus": "YES",
+            "type":"patient-request"
+        }
+    }
+    return new Promise((resolve,reject)=>{
+        var totalcount = storedb.hospitaldb.find(admittedcounts).then((data)=>{
+            return data;
+        }).catch((err)=>{
+            generatelog.error("Cant fetch the records from the server");
+        })
+        return resolve(totalcount);
+    })
+}
+
+var getdoctor = (object)=>{
+    return new Promise((resolve,reject)=>{
+        var finddoctor = {
+            selector:{
+                "patientid":object,
+                "type":"patient-request"
+            }
+        }
+        var getdatail = storedb.hospitaldb.find(finddoctor).then((data)=>{
+            console.log("response details",data.docs.length);
+            for(var i=0;i<data.docs.length;i++)
+            {
+               var doctordetail =  storedb.hospitaldb.get(data.docs[i].docid).then((data)=>{
+                    console.log("Data items",data);
+                    return data;
+                }).catch((err)=>{
+                    console.log("err",err);
+                })
+            }
+            return doctordetail;
+            
+        })
+        return resolve(getdatail);
+    }) 
+}
+module.exports = {getdoctor,admitted,enquiryrequest,getbookrequest,bookappointment,availability,gettestreport,patientdelete,newpatinetrecord};

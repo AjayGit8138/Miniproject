@@ -1,18 +1,20 @@
 <nav>
     <ul class="links">
-        <li class="nav-item"><a [ngClass]="divBoolean == 1?'showactive':'showdeactive'" (click)="showdiv(1)"
-                routerLinkActive="active">Patient appointement
-                details
+        <li class="nav-item"><a [routerLink]="['displayreport',this.currentpage.id]" routerLinkActive="active">Medical
+                Status
             </a>
         </li>
-        <li class="nav-item"><a [ngClass]="divBoolean == 2?'showactive':'showdeactive'" (click)="showdiv(2)"
+        <li class="nav-item"><a [routerLink]="['enquiryform',this.currentpage.id,this.patientname]" (click)="showdiv(4)"
                 routerLinkActive="active">Patient
-                Medicinal status
+                Enquiryform
             </a>
         </li>
-        <li class="nav-item"><a class="active" (click)="Logout()" routerLinkActive="active">Logout</a>
-        </li>
+        <li class="nav-item"><a routerLinkActive="active" [routerLink]="['yourdoctor',this.currentpage.id]">Your doctor
 
+            </a>
+        </li>
+        <li class="nav-item"><a (click)="Logout()" routerLinkActive="active">Logout</a>
+        </li>
     </ul>
     <label for="nav-toggle" class="icon-burger">
         <div class="line"></div>
@@ -20,19 +22,11 @@
         <div class="line"></div>
     </label>
 </nav>
-
 <div class="container">
-    <div *ngIf="divBoolean == 1">
-        <div class="jumbo jumbotron">
-            <h1>Appointment details</h1>
-            <div *ngFor="let detail of appointstatus">
-                <h2 class="text-light">Doctor For You:{{detail.doctor}}</h2>
-                <h2 class="text-light">TimeofAppointment:{{detail.time}}</h2>
-                <h2 class="text-light">Dateofappointment:{{detail.dateofappointment}}</h2>
-            </div>
+    <router-outlet></router-outlet>
+</div>
+<div class="container">
 
-        </div>
-    </div>
     <div *ngIf="divBoolean == 2">
         <div class="container">
             <div class="row">
@@ -53,8 +47,6 @@
         </div>
     </div>
 </div>
-
-
 <div *ngIf="divBoolean == 3">
 
     <div *ngFor="let item of showobject | operation">

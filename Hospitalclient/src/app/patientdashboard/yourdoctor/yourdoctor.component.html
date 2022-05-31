@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="wrapper">
+        <div class="title"><span>Doctor Appointment</span></div>
+        <form [formGroup]="direct" (ngSubmit)="bookdirectappointment(this.direct.value)">
+            <div class="row">
+                <label for="patientId">Patientid:</label>
+                <input type="text" placeholder="patientid" readonly formControlName="patientid">
+            </div><br>
+            <div class="row">
+                <label for="doctorname">Doctorname:</label>
+                <input type="text" placeholder="doctorname" readonly formControlName="doctorname">
+            </div><br>
+            <div class="row">
+                <label for="patientId">specialist:</label>
+                <input type="text" placeholder="specialist" readonly formControlName="specialist">
+            </div><br>
+            <div class="row">
+
+                <label for="Bookdirectappointment">Bookdirectconsulting:</label>
+
+                <input type="date" id="timepicker" min="{{currentDate | date:'yyyy-MM-dd'}}"
+                    formControlName="appointment" class="form-control">
+
+            </div><br><br>
+            <div class="row">
+                <label for="settime">Timeallocation:</label>
+
+
+                <input type="time" class="form-control" id="timeinput" formControlName="appointmenttime">
+
+            </div><br><br>
+
+            <div class="row button">
+                <input type="submit" value="BookTiming">
+            </div>
+
+
+        </form>
+    </div>
+</div>

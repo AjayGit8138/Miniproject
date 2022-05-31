@@ -19,6 +19,7 @@ export class PatientdashboardComponent implements OnInit {
   numbercount:number = 1;
   closeResult = '';
   showrecord:number = 1;
+  patientname:any;
 
   showobject = {
     symptoms:'',
@@ -35,6 +36,7 @@ export class PatientdashboardComponent implements OnInit {
     this.activeparams.params.subscribe((data:Params)=>{
       this.currentpage = {
         id:data['id'],
+        
        
       }
       console.log(this.currentpage);
@@ -52,6 +54,7 @@ export class PatientdashboardComponent implements OnInit {
         for(var i=0;i<this.appointstatus.length;i++)
         {
               console.log(this.appointstatus[i]);
+              this.patientname = this.appointstatus[i].patientname;
         }
       
         

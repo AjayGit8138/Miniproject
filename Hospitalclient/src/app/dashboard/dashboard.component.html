@@ -2,23 +2,17 @@
     <nav>
         <input id="nav-toggle" type="checkbox">
         <ul class="links">
-            <!-- <li class="nav-item"> <a class="active" (click)="display(1)">Admission
-                    Request</a></li> -->
+            <li class="nav-item"> <a routerLink="menu" routerLinkActive="active">Menu
+                </a>
+            </li>
             <li class="nav-item"> <a routerLink="enquirypatients" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">Admission
                     Request</a></li>
-            <!-- <li class="nav-item"> <a class="active" (click)="display(2)">Total
+            <li class="nav-item"> <a [ngClass]="tabchange == 3?'showactive':'showdeactive'" (click)="linkchange(3)"
+                    routerLink="doclist" routerLinkActive="active">Total
                     Doctors List
-
-                </a>
-            </li> -->
-            <li class="nav-item"> <a class="active" routerLink="doclist" routerLinkActive="active">Total
-                    Doctors List
-
                 </a>
             </li>
-
-
             <li class="nav-item"> <a (click)="redirectlink()">Logout
 
                 </a> </li>
@@ -29,10 +23,6 @@
             <div class="line"></div>
         </label>
     </nav>
-
-
-
-
 
     <div class="container">
         <router-outlet></router-outlet>

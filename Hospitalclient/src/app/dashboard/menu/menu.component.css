@@ -1,0 +1,40 @@
+@import url("http://fonts.googleapis.com/css?family=Oswald:400,300,700");
+.card {
+ 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin: 50px;
+    width: 350px;
+  }
+  .flexcard{
+      display: flex;
+      flex-direction: row;
+      margin-top: 200px;
+  }
+  body {
+    font-family: 'Oswald', sans-serif !important;
+  }
+ 
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  .request{
+      background-image: url('../../../images/request.png');
+      background-repeat: no-repeat;
+      background-position: center;
+
+  }
+  .counts{
+      font-size: 50px;
+  }
+  .doctors{
+      background-image: url('../../../images/doctors.png');
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+  .patient{
+      background-image: url('../../../images/patient.png');
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+

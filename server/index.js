@@ -11,36 +11,37 @@ const patienparse = require('./services/patientoperation');
 const generatelogger = require('./logger/logger');
 const controller = require('./controller/doctorcontroller');
 const cookieParser = require('cookie-parser');
-const { stream } = require('./logger/logger');
-const jwt = require('jsonwebtoken');
+
+
 var fs = require('fs');
 const multer = require('multer');
 const logger = require('./logger/logger');
+const path = require('path');
 
-//includes imports ends
+
 app.use(connection.static('public'));
 app.use(bodyparser.json());
-// app.use(cors({
-//     origin:'http://localhost:4200'}));
+
 
     app.use(cors({origin: [
       "http://localhost:4200"
     ], credentials: true}));
 
-//set session and cookies for user
+
 
 app.use(cookieParser());
 
 
 
-app.get('/', function(req, res){
-   if(req.session.page_views){
-      req.session.page_views++;
-      res.send("You visited this page " + req.session.page_views + " times");
-   } else {
-      req.session.page_views = 1;
-      res.send("Welcome to this page for the first time!");
-   }
+app.get('/admittedpatients', function(req, res){
+      patienparse.admitted().then((data)=>{
+        if(data)
+        {
+          res.json(data);
+        }
+      }).catch((err)=>{
+        generatelogger.error("can't fetch the details from the server");
+      })
 });
 
 const storage = multer.diskStorage({
@@ -74,8 +75,9 @@ app.get('/totalpatients/:id/:refid',(req,res,value)=>{
     console.log(req.params.refid);
     var fetchdata ={
       "selector": {
-         "Treatmentcategory": req.params.refid,
-         "doctor": req.params.id
+         "treatmentcategory": req.params.refid,
+         "doctor": req.params.id,
+         "type":"patient-request"
       }
    }
     
@@ -98,14 +100,10 @@ app.post('/storepatient',(req,res,next)=>{
       email:req.body.email,
       esino:req.body.esino,
       aadharno:req.body.aadharno,
-      Treatmentcategory:req.body.Treatmentcategory,
       requestId:req.body.requestId,
-      category:req.body.category,
       password:req.body.password,
-      cpassword:req.body.cpassword,
-      symptoms:req.body.symptoms,
-      appointmentstatus:"NO",
-      requestdate:new Date()
+     
+      type:"Patient"
     }
     console.log("from form",storeobject);
     controller.storepatientdata(storeobject).then((data)=>{
@@ -168,7 +166,7 @@ app.post('/savedoctorprofile',(req,res,next)=>{
 app.get('/bookrequested',(req,res,next)=>{
   var data = {
     selector:{
-        "category":"patient",
+        "type":"patient-request",
         "appointmentstatus":"NO"
     }
 }
@@ -242,6 +240,9 @@ app.put('/updatepatienrecord/:updateobject',(req,res,next)=>{
     var patientid = req.params.updateobject;
     console.log("******",patientid);
     var updatepatient = {
+      tokenname:req.body.Tokenname,
+      doctorid:req.body.docid,
+      treatmentcategory:req.body.Treatmentcategory,
       doctorassign:req.body.assigndoctor,
       appointmentstatus:req.body.appointstatus,
       timingforappointment:req.body.timingforappointment,
@@ -309,7 +310,8 @@ app.post('/bloodreport',(req,res)=>{
       patientId:req.body.patientId,
       patientname:req.body.patientname,
       reportby:req.body.reportby,
-      urinsugar:req.body.urinsugar
+      urinsugar:req.body.urinsugar,
+      type:"test-report"
           } 
       console.log("Save testReport",object);
       controller.reportgeneration(object).then((data)=>{
@@ -324,6 +326,45 @@ app.post('/bloodreport',(req,res)=>{
     console.log("Error from server",err);
     res.send("Server Down Cant fetch Details");
 })
+})
+
+//blood Count Report
+app.post('/bloodcountreport',(req,res)=>{
+
+  var object = {
+      totalreport:req.body.totalreport,
+      Rbc:req.body.Rbc,
+      hemocrit:req.body.hemocrit,
+      hemoglobin:req.body.hemoglobin,
+      mch:req.body.mch,
+      mcv:req.body.mcv,
+      patientId:req.body.patientId,
+      patientname:req.body.patientname,
+      rdw:req.body.rdw,
+      reportby:req.body.reportby,
+      type:"test-report"
+          } 
+      console.log("Save testReport",object);
+      controller.reportgeneration(object).then((data)=>{
+      console.log("Successfully data received from server",data);
+      generatelogger.info("Testreport is successfully generated into server from indexjs");
+      if(data){
+        res.status(200).send({
+          message:"Patient Record is successfully generated"
+        })
+      }
+  }).catch((err)=>{
+    console.log("Error from server",err);
+    res.send("Server Down Cant fetch Details");
+})
+})
+
+app.post('/download',(req,res,next)=>{
+  console.log("filename",req.body.filename);
+
+  filepath = path.join(__dirname,'./uploads/')  + req.body.filename;
+  console.log("filepath",filepath);
+  res.sendFile(filepath);
 })
 app.get('/getreport/:id',(req,res)=>{
      console.log("Get  testReport",req.params.id);
@@ -357,8 +398,35 @@ app.delete('/deletepatient/:id/:rev',((req,res)=>{
 }))
 
 //file upload
-
-
+app.post('/consulting',(req,res)=>{
+  var requestBook = {
+    patientid:req.body.patientid,
+    patientname:req.body.patientname,
+    email:req.body.email,
+    appointmentstatus:req.body.appointmentstatus,
+    symptoms:req.body.Symptoms,
+    type:"patient-request"
+  }
+  patienparse.enquiryrequest(requestBook).then((data)=>{
+    if(data)
+    {
+      res.status(200).send({
+        message:"Patient Enquiry request is updated successfully"
+      })
+    }
+  }).catch((err)=>{
+    generatelogger.error("Pateint enquire process is rejected");
+  })
+})
+app.get('/senddoctor/:id',(req,res)=>{
+  console.log("senddoctor",req.params.id);
+  patienparse.getdoctor(req.params.id).then((data)=>{
+    console.log("Collect data from server",data);
+    res.json(data);
+  }).catch((err)=>{
+    generatelogger.error("doctor not available",err);
+  })
+})
 
 app.listen(port, (err) => {
     if (err) {
