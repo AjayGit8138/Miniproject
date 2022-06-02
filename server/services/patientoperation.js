@@ -27,20 +27,15 @@ const getbookrequest = (bookingrequest)=>{
 
 //update booking details
 const bookappointment = (updateparams,referenceid)=>{
-     var bool = 1;
+    
     return new Promise((resolve,reject)=>{
         if(updateparams === undefined || referenceid === undefined)
         {
             reject();
         }
         else{
-            
-            
-
-
-         var bookstats =    storedb.hospitaldb.get(referenceid,function(err,doc){
+         const bookstats =    storedb.hospitaldb.get(referenceid,function(_err,doc){
                     var patientdata = [];
-                    // var revision = doc._rev;
                     doc.appointmentstatus = updateparams.appointmentstatus;
                     doc.time = updateparams.timingforappointment;
                     doc.doctor = updateparams.doctorassign;
@@ -52,7 +47,7 @@ const bookappointment = (updateparams,referenceid)=>{
                    
                     patientdata.push(doc);
                     console.log("New updated patient data",patientdata.push(updateparams));
-                    storedb.hospitaldb.insert(doc,referenceid,function(err,body){
+                    storedb.hospitaldb.insert(doc,referenceid,function(err,_body){
                         if(!err)
                         {
                             console.log("Updated successfully");
@@ -60,9 +55,9 @@ const bookappointment = (updateparams,referenceid)=>{
                              {
                                 tomail.mail(doc.email,updateparams).then((data)=>{
                                          console.log("Mail Successfully sent",data);
-                                      }).catch((err)=>{
+                                      }).catch((error)=>{
                                           generatelog.error("Mail not sent properly to the patient some bad request occurs");
-                                 console.log("Mail Not sent successfully",err);
+                                 console.log("Mail Not sent successfully",error);
                              })
                             }
                            return "patient Appointment is Booked successfully and Mail sent to the Patient";
@@ -88,7 +83,7 @@ const availability = (getparams)=>{
         }
         else{
            
-           var retval = storedb.hospitaldb.find(getparams).then((data)=>{
+           const retval = storedb.hospitaldb.find(getparams).then((data)=>{
                    console.log("Data successfully get from server",data);
                    generatelog.info("Patient data is successfully fetched from server");
                    return data;
@@ -108,11 +103,11 @@ const enquiryrequest=(params)=>{
             reject();
         }
         else{
-            var equiryDetail = storedb.hospitaldb.insert(params).then((data)=>{
+            const equiryDetail = storedb.hospitaldb.insert(params).then((data)=>{
                 generatelog.info("Updation equiry Process is successfully generated");
                 return data;
             }).catch((err)=>{
-                generatelog.error("Can't update the enquiry process to your record");
+                generatelog.error("Can't update the enquiry process to your record",err);
             })
             return resolve(equiryDetail);
         }
@@ -127,12 +122,12 @@ const gettestreport = (getreference)=>{
              return reject(getreference);
         }
         else{
-           var query ={
+           const query ={
              selector: {
                 "totalreport": getreference
                 }
            }
-           var retval = storedb.hospitaldb.find(query).then((data)=>{
+           const retval = storedb.hospitaldb.find(query).then((data)=>{
                 console.log("Get patient test report from server",data);
                 generatelog.info("Patient test report from server");
                 return data;
@@ -154,12 +149,12 @@ const gettestreport = (getreference)=>{
             return reject(object);
        }
        else{
-          var delval =  storedb.hospitaldb.get(object.id,function(err,doc){
+          const delval =  storedb.hospitaldb.get(object.id,function(_err,doc){
                console.log("want to delete a data from database",doc);
                if(doc)
                {
-                   storedb.hospitaldb.destroy(object.id,object.rev,function(err,body){
-                       if(!err)
+                   storedb.hospitaldb.destroy(object.id,object.rev,function(error,_body){
+                       if(!error)
                        {
                            console.log("Deleted successfully");
                        }
@@ -182,13 +177,13 @@ const gettestreport = (getreference)=>{
             reject();
         }
         else{
-              var storedata =   storedb.hospitaldb.insert(patientobject).then((data) => {
+              const storedata =   storedb.hospitaldb.insert(patientobject).then((data) => {
                 console.log("Data Inserted into Clouddatabase",data); 
                 generatelog.info("Patient Record is Inserted successfully Into the server");
                 return data;
               }).catch((err) => {
               console.log("Can't able to Insert the patient record into the database");
-              generatelog.error("Can't able to Insert the patient record into the database");
+              generatelog.error("Can't able to Insert the patient record into the database",err);
             });
             return resolve(storedata);
         }
@@ -197,43 +192,42 @@ const gettestreport = (getreference)=>{
 }
 
 const admitted = ()=>{
-    var admittedcounts = {
+    const admittedcounts = {
         selector:{
             "appointmentstatus": "YES",
             "type":"patient-request"
         }
     }
-    return new Promise((resolve,reject)=>{
-        var totalcount = storedb.hospitaldb.find(admittedcounts).then((data)=>{
+    return new Promise((resolve,_reject)=>{
+        const totalcount = storedb.hospitaldb.find(admittedcounts).then((data)=>{
             return data;
         }).catch((err)=>{
-            generatelog.error("Cant fetch the records from the server");
+            generatelog.error("Cant fetch the records from the server",err);
         })
         return resolve(totalcount);
     })
 }
 
 const getdoctor = (object)=>{
-    return new Promise((resolve,reject)=>{
-        var finddoctor = {
+    return new Promise((resolve,_reject)=>{
+        const finddoctor = {
             selector:{
                 "patientid":object,
                 "type":"patient-request"
             }
         }
-        var getdatail = storedb.hospitaldb.find(finddoctor).then((data)=>{
+        const getdatail = storedb.hospitaldb.find(finddoctor).then((data)=>{
             console.log("response details",data.docs.length);
-            for(var i=0;i<data.docs.length;i++)
+            for(const element of data.docs)
             {
-               var doctordetail =  storedb.hospitaldb.get(data.docs[i].docid).then((data)=>{
-                    console.log("Data items",data);
-                    return data;
+                storedb.hospitaldb.get(element.docid).then((responsedata)=>{
+                    console.log("Data items",responsedata);
+                    return responsedata;
                 }).catch((err)=>{
                     console.log("err",err);
                 })
             }
-            return doctordetail;
-            
+           
         })
         return resolve(getdatail);
     }) 
