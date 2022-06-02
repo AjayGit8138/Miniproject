@@ -30,7 +30,7 @@ app.use(cors({origin: [
 ], credentials: true}));
 
 
-app.get('/admittedpatients', function(req, res){
+app.get('/admittedpatients', function(_req, res){
       patienparse.admitted().then((data)=>{
         if(data)
         {
@@ -45,11 +45,11 @@ app.get('/admittedpatients', function(req, res){
 });
 
 const storage = multer.diskStorage({
-  destination:function(req,file,cb){
+  destination:function(_req,_file,cb){
     cb(null,"uploads");
   },
-  filename:function(req,file,cb){
-    originalname = file.originalname;
+  filename:function(_req,file,cb){
+   let originalname = file.originalname;
     console.log("orginal name",originalname);
     cb(null,originalname);
     console.log("orginal name",originalname);
@@ -70,7 +70,7 @@ app.post('/upload', upload.single("file"), (req, res) => {
  
 });
 
-app.get('/totalpatients/:id/:refid',(req,res,value)=>{
+app.get('/totalpatients/:id/:refid',(req,res)=>{
     console.log("Request sent By Treatment Category"+req.params.id);
     console.log(req.params.refid);
     const fetchdata ={
@@ -98,7 +98,7 @@ app.get('/totalpatients/:id/:refid',(req,res,value)=>{
     })
 })
 //store Patient data into the database
-app.post('/storepatient',(req,res,next)=>{
+app.post('/storepatient',(req,res)=>{
   console.log("validation");
   
   const { error } = schema.validate(req.body)
@@ -136,7 +136,7 @@ app.post('/storepatient',(req,res,next)=>{
     }
 })
 //checklogin authentication for patient
-app.get('/checkpatientlogin/:objectid',(req,res,next)=>{
+app.get('/checkpatientlogin/:objectid',(req,res)=>{
   console.log(req.params.objectid);
   dbconnect.getlogindetails(req.params.objectid).then((data)=>{
       console.log("from router ",data);
@@ -181,7 +181,7 @@ app.get('/gettablets/:id',(req,res)=>{
           })
 })
 //save doctor Profile into the server
-app.post('/savedoctorprofile',(req,res,next)=>{
+app.post('/savedoctorprofile',(req,res)=>{
           const {error} = schemadoctor.validate(req.body);
           if(error == undefined)
           {
@@ -204,14 +204,14 @@ app.post('/savedoctorprofile',(req,res,next)=>{
       }
 })
 
-app.get('/bookrequested',(req,res,next)=>{
-  var data = {
+app.get('/bookrequested',(_req,res)=>{
+  const book = {
     selector:{
         "type":"patient-request",
         "appointmentstatus":"NO"
     }
 }
-      controller.bookingstat(data).then((data)=>{
+      controller.bookingstat(book).then((data)=>{
         console.log("waiting for book details",data);
         if(data.bookmark == 'nil')
         {
@@ -229,7 +229,7 @@ app.get('/bookrequested',(req,res,next)=>{
       })
 })
 
-app.get('/doctorloginauth/:objectid',(req,res,next)=>{
+app.get('/doctorloginauth/:objectid',(req,res)=>{
  
   console.log("session address",req.params.objectid);
 
@@ -276,18 +276,18 @@ app.post('/admin',(req,res)=>{
   }
 })
 
-app.get('/getdoctordetails/:id',(req,res,next)=>{
-  var data;
+app.get('/getdoctordetails/:id',(req,res)=>{
+  let doctorSearch;
   if(req.params.id == 'Doctor')
   {
-  data = {
+  doctorSearch = {
     selector:{
         "type":req.params.id,
     }
     }
   }
   else{
-    data = {
+    doctorSearch = {
       selector:{
         "type":"Doctor",
         "specialist":req.params.id
@@ -296,7 +296,7 @@ app.get('/getdoctordetails/:id',(req,res,next)=>{
   }
   if(data)
   {
-    controller.docslist(data).then((data)=>{
+    controller.docslist(doctorSearch).then((data)=>{
       console.log("Doctors available in Hospital",data);
       if(data.bookmark == 'nil')
       {
@@ -317,7 +317,7 @@ app.get('/getdoctordetails/:id',(req,res,next)=>{
   }
 })
 
-app.put('/updatepatienrecord/:updateobject',(req,res,next)=>{
+app.put('/updatepatienrecord/:updateobject',(req,res)=>{
     const patientid = req.params.updateobject;
     console.log("******",patientid);
     const updatepatient = {
@@ -419,12 +419,12 @@ app.post('/bloodreport',(req,res)=>{
   const {error} = urinetestreport.validate(req.body);
     if(error)
     {
-      const reportvalidation = {
+      const medicalvalidate = {
         status:422,
         message:"Data not found"
       }
       console.log("Error validation",error);
-      errorlog.error("Error" + `${reportvalidation.message}` + "statuscode:-" + `${reportvalidation.status}`);
+      errorlog.error("Error" + `${medicalvalidate.message}` + "statuscode:-" + `${medicalvalidate.status}`);
     }
     else{
   const object = {
@@ -516,10 +516,10 @@ app.post('/bloodcountreport',(req,res)=>{
   }
 })
 
-app.post('/download',(req,res,next)=>{
+app.post('/download',(req,res)=>{
   console.log("filename",req.body.filename);
 
-  filepath = path.join(__dirname,'./uploads/')  + req.body.filename;
+  const filepath = path.join(__dirname,'./uploads/')  + req.body.filename;
   console.log("filepath",filepath);
   res.sendFile(filepath);
 })
@@ -581,7 +581,7 @@ app.post('/consulting',(req,res)=>{
       })
     }
   }).catch((err)=>{
-    generatelogger.error("Pateint enquire process is rejected");
+    generatelogger.error("Pateint enquire process is rejected",err);
   })
 })
 app.get('/senddoctor/:id',(req,res)=>{
