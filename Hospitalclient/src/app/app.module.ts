@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule,NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
@@ -24,7 +24,7 @@ import { PatientdashboardComponent } from './patientdashboard/patientdashboard.c
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
 import { SpecialityComponent } from './speciality/speciality.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AdminComponent } from './admin/admin.component';
 import { TreatmentdivisionComponent } from './treatmentdivision/treatmentdivision.component';
 import { TestanalysisComponent } from './testanalysis/testanalysis.component';

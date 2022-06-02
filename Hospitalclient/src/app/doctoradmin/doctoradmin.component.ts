@@ -40,8 +40,7 @@ export class DoctoradminComponent implements OnInit {
    }
   step:any = 1;
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
-  
+      console.log("Print Hello");
   }
 
   checkfile(event:any)

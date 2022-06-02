@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit {
     this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
       console.log("Get specialized doctor data from server",data);
       //push doctors as per the specialization into the array
-      var arraylength = data.docs.length;
+      const arraylength = data.docs.length;
       console.log("arraylength",arraylength);
 
       for(let i=0;i<arraylength;i++)
