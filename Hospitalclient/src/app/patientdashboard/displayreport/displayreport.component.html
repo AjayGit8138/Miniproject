@@ -23,7 +23,7 @@
 <div *ngIf="divBoolean == 2">
 
 
-    <table class="table card">
+    <table aria-label="report" class="table card">
         <tr *ngFor="let item of showobject | operation">
 
             <th scope="col">
@@ -41,4 +41,3 @@
         <button class="viewbtn btn btn-primary" (click)="showdiv(1)">view another report</button>
     </div>
 </div>
-<!-- <app-yourdoctor></app-yourdoctor> -->

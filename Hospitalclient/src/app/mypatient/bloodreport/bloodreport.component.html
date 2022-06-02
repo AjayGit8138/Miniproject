@@ -186,7 +186,7 @@
         </div>
         <hr>
         <div class="container">
-            <table *ngFor="let items of makepdf" class="table table-dark">
+            <table aria-label="report" *ngFor="let items of makepdf" class="table table-dark">
                 <thead>
                     <tr>
                         <th scope="col">Report</th>
@@ -204,7 +204,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table>
+            <table aria-label="report">
                 <tr *ngFor="let key of arrayofkey">
                     <th scope="col">{{key}}</th>
                     <td *ngFor="let data of makepdf">
