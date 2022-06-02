@@ -1,19 +1,14 @@
 const DbHospital = require('./nanodb');
-var validator = require("email-validator");
+const validator = require("email-validator");
 const generatelogger = require('../logger/logger');
-
-
-
-const { request } = require('express');
-var retval;
 
 var getlogindetails = 
     async (getobject)=>{
       
-        var value;
+    let value;
     // {selector:{"requestId":"skin9898"}}
     console.log(getobject);
-        var mailcheck =  validator.validate(getobject);
+        const mailcheck =  validator.validate(getobject);
         console.log("Yes this is a Email",mailcheck);
         if(mailcheck)
         {
