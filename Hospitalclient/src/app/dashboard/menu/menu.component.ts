@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
       console.log("Total admitted patients in our hospital",data.data.docs);
       this.admittedpatients = data.data.docs.length;
     }),((err)=>{
-        console.log("Admitted Patients Details Not To fetch from a Server");
+        console.log("Admitted Patients Details Not To fetch from a Server",err);
     })
   }
 

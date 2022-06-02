@@ -62,7 +62,7 @@ export class PatientloginComponent implements OnInit {
        
       }
     }),((err)=>{
-      console.log("can't fetch data from the server");
+      console.log("can't fetch data from the server",err);
     })
   }
 //Toaster service for Notifications

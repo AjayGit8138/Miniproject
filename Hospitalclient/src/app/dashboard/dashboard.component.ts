@@ -158,14 +158,14 @@ export class DashboardComponent implements OnInit {
     }
 
     savebookingstatus(bookinformation:any){
-        console.log(bookinformation);
+     
         bookinformation.timingforappointment = this.timeclock;
         this.serveapi.bookappointment(bookinformation,this.patientid).subscribe((data)=>{
           console.log("Updated patient data is successfully loaded:",data);
           alert(data.message);
           window.location.reload();
         }),((err)=>{
-          console.log("something Bad request data is not stored Properly into database");
+          console.log("something Bad request data is not stored Properly into database",err);
         })
     }
 
