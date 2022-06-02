@@ -1,4 +1,4 @@
-const doctorschema = require('../model/doctorprofile');
+
 const storedb = require('../db/nanodb');
 const validator = require("email-validator");
 var profile = {};
@@ -7,21 +7,22 @@ const {doctorauthentication} = require('../validatior');
 
 
 const adminlogin = (adminvalidataion)=>{
+    let isAdminAvail;
     return new Promise((resolve,reject)=>{
         if(adminvalidataion == undefined)
         {
             reject();
         }
         else{
-            var adminquery = {
+            const adminquery = {
                 selector:{
                     "type":"Admin"
                 }
             }
-            var isAdminAvail = storedb.hospitaldb.find(adminquery).then((data)=>{
+            isAdminAvail = storedb.hospitaldb.find(adminquery).then((data)=>{
                 return data;
             }).catch((err)=>{
-                generatelog.error("Not available");
+                generatelog.error("Not available",err);
             })
         }
         return resolve(isAdminAvail);
@@ -34,10 +35,12 @@ const adminlogin = (adminvalidataion)=>{
 
     var mailcheck =  validator.validate(searchadmin);
         console.log("Yes this is a Email",mailcheck);
-        return new Promise((resolve,reject)=>{
+        let value;
+
+        return new Promise((resolve,_reject)=>{
             if(mailcheck)
             {
-                var emailquery = {
+                const emailquery = {
                     selector:{
                         "email":searchadmin,
                         "type":"Doctor"
@@ -61,7 +64,7 @@ const adminlogin = (adminvalidataion)=>{
                 }
             }
            
-          var value =   storedb.hospitaldb.find(searchbyid).then(data=>{
+          value =   storedb.hospitaldb.find(searchbyid).then(data=>{
                 console.log("found data",data);
                
                 return data;

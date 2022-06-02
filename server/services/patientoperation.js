@@ -12,7 +12,7 @@ const getbookrequest = (bookingrequest)=>{
         }
         else{
             
-            var bookStatus =   storedb.hospitaldb.find(bookingrequest).then((data)=>{
+             const bookStatus =   storedb.hospitaldb.find(bookingrequest).then((data)=>{
                     console.log("total patient details fetched from database",data);
                     return data;
                 }).catch((err)=>{
@@ -35,7 +35,7 @@ const bookappointment = (updateparams,referenceid)=>{
         }
         else{
          const bookstats =    storedb.hospitaldb.get(referenceid,function(_err,doc){
-                    var patientdata = [];
+                   
                     doc.appointmentstatus = updateparams.appointmentstatus;
                     doc.time = updateparams.timingforappointment;
                     doc.doctor = updateparams.doctorassign;
@@ -44,9 +44,6 @@ const bookappointment = (updateparams,referenceid)=>{
                     doc.tokenname = updateparams.tokenname;
                     doc.docid = updateparams.doctorid;
                     console.log("patientdata",doc);
-                   
-                    patientdata.push(doc);
-                    console.log("New updated patient data",patientdata.push(updateparams));
                     storedb.hospitaldb.insert(doc,referenceid,function(err,_body){
                         if(!err)
                         {
