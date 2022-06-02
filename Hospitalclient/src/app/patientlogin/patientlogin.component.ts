@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { ActivatedRoute,Params } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
+
 import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from '../apiservice.service';
 import { PatienauthService } from '../shared/patienauth.service';
@@ -61,8 +61,6 @@ export class PatientloginComponent implements OnInit {
         this.showError("Login Authentication Failed Invalid Password or Email Error");
        
       }
-    }),((err)=>{
-      console.log("can't fetch data from the server",err);
     })
   }
 //Toaster service for Notifications

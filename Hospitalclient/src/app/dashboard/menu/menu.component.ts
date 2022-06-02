@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiserviceService } from 'src/app/apiservice.service';
-import { getDefaultCompilerOptions } from 'typescript';
 
 @Component({
   selector: 'app-menu',
@@ -31,8 +30,6 @@ export class MenuComponent implements OnInit {
     this.serveapi.getadmittedpatients().subscribe((data)=>{
       console.log("Total admitted patients in our hospital",data.data.docs);
       this.admittedpatients = data.data.docs.length;
-    }),((err)=>{
-        console.log("Admitted Patients Details Not To fetch from a Server",err);
     })
   }
 

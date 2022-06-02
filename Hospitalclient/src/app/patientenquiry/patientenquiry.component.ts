@@ -139,17 +139,17 @@ public emailcheck(event:any)
     this.serverapi.checkpatientlogin(emailId).subscribe((data)=>{
         console.log("Patient Exists data from Database",data);
         
-        for(var i=0;i<data.data.docs.length;i++)
+        for(const element of data.data.docs)
         {
-        if(data.data.docs[i].email == emailId )
+        if(element.email == emailId )
         {
           this.showwarn("Email Id already Exists,Please register with new one");
         }
-        else if((data.data.docs[i].esino == this.dubesi ) || (data.data.docs[i].aadharno == this.addharid))
+        else if((element.esino == this.dubesi ) || (element.aadharno == this.addharid))
         {
           this.showwarn("aadharno Exists");
         }
-        else if((data.data.docs[i].mobileno == this.checkmobileno ))
+        else if((element.mobileno == this.checkmobileno ))
         {
           this.showwarn("Mobileno Exists");
         }

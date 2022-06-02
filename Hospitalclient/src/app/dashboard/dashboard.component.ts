@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from '../apiservice.service';
 declare var $: any;
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router,Params } from '@angular/router';
-import { AuthguardGuard } from '../shared/authguard.guard';
+
 import { AuthService } from '../shared/auth.service';
 
 
@@ -75,40 +75,7 @@ export class DashboardComponent implements OnInit {
 
     this.id = localStorage.getItem('token');
   }
-  display(tab:any)
-  {
-    
-    this.number = tab;
-    if(tab == 1)
-    {
-      this.serveapi.getrequestedpatient().subscribe((data)=>{
-        console.log("waiting for Doctor appointment",data.docs);
-        var availength = data.docs.length;
-        console.log("returned Length",availength);
-        this.patientrequest = [];
-        for(var i=0;i<availength;i++)
-        {
-          this.patientrequest.push(data.docs[i]);
-        }
-       
-        console.log("patient request",this.patientrequest);
-      })
-    }
-    else if(tab == 2)
-    {
-      var referenceid = 'Doctor';
-      this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
-        console.log("Avalable Doctors in Hospital",data);
-        var availength = data.docs.length;
-        this.doctorlist = [];
-        for(var i=0;i<availength;i++)
-        {
-          this.doctorlist.push(data.docs[i]);
-        }
-        console.log("Availabily doctors in Hospital",this.doctorlist);
-      })
-    }
-  }
+ 
   linkchange(params:any)
   {
     this.tabchange = params;
@@ -140,7 +107,7 @@ export class DashboardComponent implements OnInit {
     this.doctors = row.Treatmentcategory;
 
     this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
-      console.log("Get specialized doctor data from server",data);;
+      console.log("Get specialized doctor data from server",data);
       //push doctors as per the specialization into the array
       var arraylength = data.docs.length;
       console.log("arraylength",arraylength);
@@ -164,8 +131,6 @@ export class DashboardComponent implements OnInit {
           console.log("Updated patient data is successfully loaded:",data);
           alert(data.message);
           window.location.reload();
-        }),((err)=>{
-          console.log("something Bad request data is not stored Properly into database",err);
         })
     }
 

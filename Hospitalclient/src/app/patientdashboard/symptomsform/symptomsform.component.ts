@@ -33,6 +33,8 @@ export class SymptomsformComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // TODO document why this method 'ngOnInit' is empty
+  
   }
   loginauth(fromvalue:NgForm)
   {
@@ -40,8 +42,6 @@ export class SymptomsformComponent implements OnInit {
       this.api.postconsulting(fromvalue).subscribe((data)=>{
         alert(data.message);
         this.patientsignupform.reset();
-      }),(err=>{
-        alert("Your request is denied");
       })
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
@@ -77,8 +77,6 @@ export class PatientlistComponent implements OnInit {
        
             console.log("patient request",this.patientrequest);
       }
-      }),((err)=>{
-          console.log("error occurs",err);
       })
 
     }
@@ -89,7 +87,7 @@ export class PatientlistComponent implements OnInit {
     console.log("Onchange get indexval",e.target.value);
     var getDoctorname = e.target.value;
     this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
-      console.log("Get specialized doctor data from server",data);;
+      console.log("Get specialized doctor data from server",data);
       //push doctors as per the specialization into the array
       var arraylength = data.data.docs.length;
       console.log("arraylength",arraylength);
@@ -102,7 +100,7 @@ export class PatientlistComponent implements OnInit {
         this.orthodoctors[i] = data.data.docs[i].doctorname;
       
         this.doctorsid[i] = data.data.docs[i]._id;
-        // console.log(this.orthodoctors[i]);
+   
         console.log("doctors id from selectindex",this.doctorsid[i]);
         this.dbdoctorid = data.data.docs[i]._id;
       }
@@ -122,7 +120,7 @@ export class PatientlistComponent implements OnInit {
   this.bookingform.controls['Tokenname'].setValue(this.tokename);
   console.log("doctors",this.doctors);
   this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
-    console.log("Get specialized doctor data from server",data);;
+    console.log("Get specialized doctor data from server",data);
     //push doctors as per the specialization into the array
     var arraylength = data.data.docs.length;
     console.log("arraylength",arraylength);
@@ -156,8 +154,6 @@ export class PatientlistComponent implements OnInit {
       console.log("Updated patient data is successfully loaded:",data);
       alert(data.message);
       window.location.reload();
-    }),((err)=>{
-      console.log("something Bad request data is not stored Properly into database");
     })
 }
 
