@@ -40,15 +40,15 @@ export class PatientenquiryComponent implements OnInit {
  
   }
   selecttreatment:boolean = false;
-  ngOnInit(
-   
-  ): void {
-  }
-sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
+  ngOnInit(): void {
+  // TODO document why this method 'ngOnInit' is empty
+
+}
+
 
 selected:string= "";
 patientcount:any;
-public updatetreatment(e:any)
+public updatetreatment()
 {
   var genid;
   genid = this.addharid;
@@ -72,8 +72,6 @@ Formsubmit(Formvalue:NgForm)
         this.showsuccess(res.message);
        
      
-  }),((err)=>{
-        console.log("Can't Store a Patient Data into Database",err);
   })
   this.patientinquiryform.reset();
  
