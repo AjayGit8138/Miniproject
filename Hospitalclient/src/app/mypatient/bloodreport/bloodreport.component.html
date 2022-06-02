@@ -12,58 +12,93 @@
                                         <form [formGroup]="bloodreport"
                                             (ngSubmit)="submitbooldsample(this.bloodreport.value,'blood')">
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="patientId.invalid && patientId.touched">
                                                     <label for="Loginid"
                                                         class="text-light col-sm-2 col-form-label">PatientId:</label>
                                                     <input type="text-light" readonly class="form-control"
                                                         id="inputPassword3" formControlName="patientId"
                                                         placeholder="Enter the Register LoginId">
-
-                                                </div><br>
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="patientId.invalid && patientId.touched">
+                                                        <div class="error" *ngIf="patientId.errors?.required">
+                                                            Patient Id Must Be required</div>
+                                                    </div><br>
+                                                </div>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="patientname.invalid && patientname.touched">
                                                     <label for="Patientname"
                                                         class="text-light col-sm-2 col-form-label">Patientname:</label>
                                                     <input type="text-light" readonly class="form-control"
                                                         formControlName="patientname"
                                                         placeholder="Enter the Patientname">
 
+                                                </div>
+                                                <div class="help-block text-danger"
+                                                    *ngIf="patientname.invalid && patientname.touched">
+                                                    <div class="error" *ngIf="patientname.errors?.required">
+                                                        Patientname must be required</div>
+
                                                 </div><br>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="reportby.invalid && reportby.touched">
                                                     <label for="reportgeneratedby"
                                                         class="text-light col-sm-2 col-form-label">Reportgenreatedby:</label>
                                                     <input type="text-light" readonly class="form-control input-lg"
                                                         formControlName="reportby" placeholder="reportgeneratedby">
-
-                                                </div><br>
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="reportby.invalid && reportby.touched">
+                                                        <div class="error" *ngIf="reportby.errors?.required">
+                                                            Doctor reportgenreaion must be required</div>
+                                                    </div><br>
+                                                </div>
                                             </div>
                                             <div>
-                                                <div class="row">
-                                                    <label for="reportgeneratedby"
+                                                <div class="row"
+                                                    [class.has-error]="totalreport.invalid && totalreport.touched">
+                                                    <label for="Bloodreport"
                                                         class="text-light col-sm-2 col-form-label">Bloodreport:</label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="totalreport" placeholder="noforeport">
-
-                                                </div><br>
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="totalreport.invalid && totalreport.touched">
+                                                        <div class="error" *ngIf="totalreport.errors?.required">
+                                                            autogenerated report is filled automode</div>
+                                                    </div><br>
+                                                </div>
                                             </div>
                                             <div>
-                                                <div class="row">
-                                                    <label for="Test" class="text-light col-sm-2 col-form-label">Urine
+                                                <div class="row"
+                                                    [class.has-error]="urinsugar.invalid && urinsugar.touched">
+                                                    <label for="Urine Test"
+                                                        class="text-light col-sm-2 col-form-label">Urine
                                                         sugar:</label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="urinsugar" placeholder="sugarvalue">
-
-                                                </div><br>
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="urinsugar.invalid && urinsugar.touched">
+                                                        <div class="error" *ngIf="urinsugar.errors?.required">
+                                                            *Field must be filled</div>
+                                                    </div><br>
+                                                </div>
                                             </div>
                                             <div>
-                                                <div class="row">
-                                                    <label for="Test" class="text-light col-sm-2 col-form-label">Urine
+                                                <div class="row" [class.has-error]="acetone.invalid">
+                                                    <label for="Urineacetone"
+                                                        class="text-light col-sm-2 col-form-label">Urine
                                                         Acetone:</label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="acetone" placeholder="sugarvalue">
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="acetone.invalid && acetone.touched">
+
+                                                        <div class="error" *ngIf="acetone.errors?.required">
+                                                            *Field must be filled</div>
+                                                    </div>
                                                 </div><br>
                                             </div>
                                             <div>
@@ -74,12 +109,18 @@
                                                     </label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="bloodsugarlevels" placeholder="sugarvalue">
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="bloodsugarlevels.invalid && bloodsugarlevels.touched">
+                                                        <div class="error" *ngIf="bloodsugarlevels.errors?.required">
+                                                            *Field must be filled</div>
+                                                    </div>
                                                 </div><br>
+
                                             </div>
                                             <div>
                                                 <div class="row col-4">
-                                                    <button type="submit" style="height: 60px;"
-                                                        class="btn btn-primary">GenerateBoodreport
+                                                    <button type="submit" [disabled]="!bloodreport.valid"
+                                                        style="height: 60px;" class="btn btn-primary">GenerateBoodreport
                                                     </button>
                                                 </div><br>
                                             </div>

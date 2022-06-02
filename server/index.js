@@ -17,7 +17,7 @@ const path = require('path');
 const { send } = require('process');
 const Joi = require('joi');
 const { number } = require('joi');
-const {schema,adminauth,reportvalidation} = require('./validatior');
+const {schema,adminauth,reportvalidation,urinetestreport,countreport} = require('./validatior');
 const {schemadoctor} = require('./doctorvalidator')
 
 
@@ -415,8 +415,19 @@ app.post('/generatemedicalreport',(req,res)=>{
 })
 
 app.post('/bloodreport',(req,res)=>{
-
-  var object = {
+ 
+  const {error} = urinetestreport.validate(req.body);
+    if(error)
+    {
+      const reportvalidation = {
+        status:422,
+        message:"Data not found"
+      }
+      console.log("Error validation",error);
+      errorlog.error("Error" + `${reportvalidation.message}` + "statuscode:-" + `${reportvalidation.status}`);
+    }
+    else{
+  const object = {
       totalreport:req.body.totalreport,
       acetone:req.body.acetone,
       bloodsugarlevels:req.body.bloodsugarlevels,
@@ -448,11 +459,25 @@ app.post('/bloodreport',(req,res)=>{
     console.log("Error from server",err);
     res.send("Server Down Cant fetch Details");
 })
+    }
 })
 
 //blood Count Report
 app.post('/bloodcountreport',(req,res)=>{
+  console.log("*****");
+  const {error } = countreport.validate(req.body);
 
+  if(error)
+  {
+    const reportstatus = {
+      status:422,
+      message:"Data Not found"
+    }
+    res.status(422).send({message:"Invalid you entered data error"});
+    console.log("Error",error);
+    errorlog.error("Error:-" + `${reportstatus.message}` + "Statuscode:-" + `${reportstatus.status}` + `${reportstatus}`)
+  }
+  else{
   var object = {
       totalreport:req.body.totalreport,
       Rbc:req.body.Rbc,
@@ -488,6 +513,7 @@ app.post('/bloodcountreport',(req,res)=>{
     console.log("Error from server",err);
     res.send("Server Down Cant fetch Details");
 })
+  }
 })
 
 app.post('/download',(req,res,next)=>{

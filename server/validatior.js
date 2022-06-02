@@ -1,3 +1,4 @@
+const { string } = require('joi');
 const Joi = require('joi');
 
 const schema =  Joi.object({  
@@ -34,18 +35,43 @@ const schema =  Joi.object({
 
   const reportvalidation = Joi.object({
     dietplan:Joi.string().required(),
-    diseases:Joi.required(),
+    patientId:Joi.string().required(),
+    diseases:Joi.string().required(),
     dosage:Joi.string().required(),
     medicineone:Joi.string().required(),
     medicinetwo:Joi.string().required(),
     medicinethree:Joi.string().required(),
-    requestId:Joi.string().required(),
+    tabletscategory:Joi.string().required(),
     patientname:Joi.string().required(),
     precuations:Joi.string().required(),
     remedies:Joi.string().required(),
     reportby:Joi.string().required(),
-    tablets:Joi.string().required(),
     totalreport:Joi.string().required(),
     docid:Joi.string().required(),
   })
-  module.exports = {schema,adminauth,doctorauthentication,patientauthentication,reportvalidation}
+
+  const urinetestreport = Joi.object({
+    patientId:Joi.string().required(),
+    patientname:Joi.string().required(),
+    reportby:Joi.string().required(),
+    totalreport:Joi.string().required(),
+    urinsugar:Joi.string().required(),
+    acetone:Joi.string().required(),
+    bloodsugarlevels:Joi.string().required(),
+    docid:Joi.string().required(),
+  })
+
+  const countreport = Joi.object({
+    patientId:Joi.string().required(),
+    patientname:Joi.string().required(),
+    reportby:Joi.string().required(),
+    totalreport:Joi.string().required(),
+    Rbc:Joi.string().required(),
+    hemoglobin:Joi.string().required(),
+    hemocrit:Joi.string().required(),
+    mcv:Joi.string().required(),
+    mch:Joi.string().required(),
+    rdw:Joi.string().required(),
+    docid:Joi.string().required(),
+  })
+  module.exports = {countreport,schema,adminauth,doctorauthentication,patientauthentication,reportvalidation,urinetestreport}

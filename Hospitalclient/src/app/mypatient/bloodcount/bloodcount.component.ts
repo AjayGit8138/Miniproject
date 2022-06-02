@@ -5,6 +5,7 @@ import { NgForm, Validators } from '@angular/forms';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-bloodcount',
   templateUrl: './bloodcount.component.html',
@@ -25,7 +26,7 @@ export class BloodcountComponent implements OnInit {
   makepdf = [];
   arrayofkey = [];
   @Output() public sendData = new EventEmitter<number>();
-  constructor(private router:Router,private bloodtestform:FormBuilder,private serveapi:ApiserviceService) {
+  constructor(private router:Router,private bloodtestform:FormBuilder,private serveapi:ApiserviceService,private toastr:ToastrService) {
     this.bloodcount = this.bloodtestform.group({
       patientId:['',Validators.required],
       patientname:['',Validators.required],
@@ -64,11 +65,17 @@ export class BloodcountComponent implements OnInit {
       console.log(this.makepdf);
       formvalue.docid = localStorage.getItem('doctorid');
       this.serveapi.generatebloodcountreport(formvalue).subscribe((response)=>{
-        if(response)
+        console.log("response message",response);
+        if(response.status == 200)
+        {
           console.log("test report successfully generated into the database",response);
-          alert(response.message);
+         
+          this.showsuccess(response.success);
           this.bloodcount.reset()
+        }
+      
       },(error)=>{
+        this.showerror("can't generate report");
         console.log("Test report not generated from the server",error);
       })
   }
@@ -119,6 +126,29 @@ export class BloodcountComponent implements OnInit {
   }
 
 
+    showsuccess(message)
+    {
+      this.toastr.success(message);
+    }
+    showerror(message)
+    {
+      this.toastr.error(message);
+    }
     
-  
+    get patientId() {return this.bloodcount.get('patientId');}
+
+get patientname() {return this.bloodcount.get('patientname')}
+get reportby()  {return this.bloodcount.get('reportby')};
+get totalreport() {return this.bloodcount.get('totalreport')}
+get Rbc() {return this.bloodcount.get('Rbc')}
+get hemoglobin() {return this.bloodcount.get('hemoglobin')}
+get hemocrit() {return this.bloodcount.get('hemocrit')}
+get mcv() {return this.bloodcount.get('mcv')}
+
+get mch() {return this.bloodcount.get('mch')}
+
+get rdw() {return this.bloodcount.get('rdw')}
+
+
+
 }

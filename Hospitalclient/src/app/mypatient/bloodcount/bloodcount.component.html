@@ -12,107 +12,155 @@
                                         <form [formGroup]="bloodcount"
                                             (ngSubmit)="submitbooldsample(this.bloodcount.value,'blood')">
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="patientId.invalid && patientId.touched">
                                                     <label for="Loginid"
                                                         class="text-light col-sm-2 col-form-label">PatientId:</label>
                                                     <input type="text-light" readonly class="form-control"
                                                         id="inputPassword3" formControlName="patientId"
                                                         placeholder="Enter the Register LoginId">
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="patientId.invalid && patientId.touched">
+                                                        <div class="error" *ngIf="patientId.errors?.required">
+                                                            Patient Id Must Be required</div>
+                                                    </div><br>
+                                                </div>
+                                            </div><br>
 
-                                                </div><br>
-                                            </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="patientname.invalid && patientname.touched">
                                                     <label for="Patientname"
                                                         class="text-light col-sm-2 col-form-label">Patientname:</label>
                                                     <input type="text-light" readonly class="form-control"
                                                         formControlName="patientname"
                                                         placeholder="Enter the Patientname">
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="patientname.invalid && patientname.touched">
+                                                        <div class="error" *ngIf="patientname.errors?.required">
+                                                            Patient Name Must Be required</div>
+                                                    </div><br>
+                                                </div>
+                                            </div><br>
 
-                                                </div><br>
-                                            </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="reportby.invalid && reportby.touched">
                                                     <label for="reportgeneratedby"
                                                         class="text-light col-sm-2 col-form-label">Reportgenreatedby:</label>
                                                     <input type="text-light" readonly class="form-control input-lg"
                                                         formControlName="reportby" placeholder="reportgeneratedby">
-
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="reportby.invalid && reportby.touched">
+                                                        <div class="error" *ngIf="reportby.errors?.required">
+                                                            Report Must Be required</div>
+                                                    </div><br>
                                                 </div><br>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="totalreport.invalid && totalreport.touched">
                                                     <label for="reportgeneratedby"
                                                         class="text-light col-sm-2 col-form-label">Bloodreport:</label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="totalreport" placeholder="noforeport">
-
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="totalreport.invalid && totalreport.touched">
+                                                        <div class="error" *ngIf="totalreport.errors?.required">
+                                                            Report Must Be required</div>
+                                                    </div><br>
                                                 </div><br>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row" [class.has-error]="Rbc.invalid && Rbc.touched">
                                                     <label for="Test" class="text-light col-sm-2 col-form-label">
                                                         RBC:</label>
                                                     <input type="text-light" class="form-control" formControlName="Rbc"
                                                         placeholder="rbc">
-
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="Rbc.invalid && Rbc.touched">
+                                                        <div class="error" *ngIf="Rbc.errors?.required">
+                                                            *Field Must Be required</div>
+                                                    </div><br>
                                                 </div><br>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="hemoglobin.invalid && hemoglobin.touched">
                                                     <label for="Test"
                                                         class="text-light col-sm-2 col-form-label">Hemoglobin:
                                                     </label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="hemoglobin" placeholder="hemoglobin">
-
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="hemoglobin.invalid && hemoglobin.touched">
+                                                        <div class="error" *ngIf="hemoglobin.errors?.required">
+                                                            *Field Must Be required</div>
+                                                    </div><br>
                                                 </div><br>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row"
+                                                    [class.has-error]="hemocrit.invalid && hemocrit.touched">
                                                     <label for="Blood sugar levels"
                                                         class="text-light col-sm-2 col-form-label">Hemocrit
                                                     </label>
                                                     <input type="text-light" class="form-control"
                                                         formControlName="hemocrit" placeholder="hemocrit">
-
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="hemocrit.invalid && hemocrit.touched">
+                                                        <div class="error" *ngIf="hemocrit.errors?.required">
+                                                            *Field Must Be required</div>
+                                                    </div><br>
                                                 </div><br>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row" [class.has-error]="mcv.invalid && mcv.touched">
                                                     <label for="Blood sugar levels"
                                                         class="text-light col-sm-2 col-form-label">Mcv
                                                     </label>
                                                     <input type="text-light" class="form-control" formControlName="mcv"
                                                         placeholder="mcv">
-
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="mcv.invalid && mcv.touched">
+                                                        <div class="error" *ngIf="mcv.errors?.required">
+                                                            *Field Must Be required</div>
+                                                    </div><br>
                                                 </div><br>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row" [class.has-error]="mch.invalid && mch.touched">
                                                     <label for="Blood sugar levels"
                                                         class="text-light col-sm-2 col-form-label">MCH
                                                     </label>
                                                     <input type="text-light" class="form-control" formControlName="mch"
                                                         placeholder="mch">
-
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="mch.invalid && mch.touched">
+                                                        <div class="error" *ngIf="mch.errors?.required">
+                                                            *Field Must Be required</div>
+                                                    </div><br>
                                                 </div><br>
                                             </div>
                                             <div>
-                                                <div class="row">
+                                                <div class="row" [class.has-error]="rdw.invalid && rdw.touched">
                                                     <label for="Blood sugar levels"
                                                         class="text-light col-sm-2 col-form-label">rdw
                                                     </label>
                                                     <input type="text-light" class="form-control" formControlName="rdw"
                                                         placeholder="rdw">
-
+                                                    <div class="help-block text-danger"
+                                                        *ngIf="rdw.invalid && rdw.touched">
+                                                        <div class="error" *ngIf="rdw.errors?.required">
+                                                            *Field Must Be required</div>
+                                                    </div><br>
                                                 </div><br>
                                             </div>
 
                                             <div>
                                                 <div class="row col-4">
-                                                    <button type="submit" style="height: 60px;"
-                                                        class="btn btn-primary">GenerateBoodreport
+                                                    <button type="submit" [disabled]="!bloodcount.valid"
+                                                        style="height: 60px;" class="btn btn-primary">GenerateBoodreport
                                                     </button>
 
                                                 </div><br>

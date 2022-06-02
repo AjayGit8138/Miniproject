@@ -166,6 +166,18 @@ upload() {
        console.log('response received is ', response);
   })
 }
+
+//get setters for form validation
+
+get patientId() {return this.bloodreport.get('patientId');}
+
+get patientname() {return this.bloodreport.get('patientname')}
+get reportby()  {return this.bloodreport.get('reportby')};
+get totalreport() {return this.bloodreport.get('totalreport')}
+get urinsugar() {return this.bloodreport.get('urinsugar')}
+get acetone() {return this.bloodreport.get('acetone')}
+get bloodsugarlevels() {return this.bloodreport.get('bloodsugarlevels')}
+
 }
 
 
