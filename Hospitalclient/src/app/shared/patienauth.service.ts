@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class PatienauthService {
 
-  constructor() { }
+  constructor() { /* TODO document why this constructor is empty */  }
   logout() :void {    
     localStorage.setItem('isPatientloggedIn','false');    
     localStorage.removeItem('token');    

@@ -132,7 +132,7 @@ const fetchpatients = async(object)=>{
     }
     return retresult;
 }
-var docslist = async(object)=>{
+const docslist = async(object)=>{
    let retresult;
     try{
      retresult = await getalldoctors(object).then((data)=>{

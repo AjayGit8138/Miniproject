@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  constructor() { }
+  constructor() { /* TODO document why this constructor is empty */  }
   logout() :void {    
     localStorage.setItem('isLoggedIn','false');    
     localStorage.removeItem('token');    

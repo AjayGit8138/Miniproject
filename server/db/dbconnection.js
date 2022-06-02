@@ -2,7 +2,7 @@ const DbHospital = require('./nanodb');
 const validator = require("email-validator");
 const generatelogger = require('../logger/logger');
 
-var getlogindetails = 
+const getlogindetails = 
     async (getobject)=>{
       
     let value;

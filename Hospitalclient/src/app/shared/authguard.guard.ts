@@ -9,8 +9,8 @@ export class AuthguardGuard implements CanActivate {
 
   constructor(private router:Router){}
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    _route: ActivatedRouteSnapshot,
+    _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
      
       if(this.isLoggedIn())
       {
@@ -26,7 +26,7 @@ export class AuthguardGuard implements CanActivate {
 
   
   public isLoggedIn():boolean{
-    let status = false;
+    let status;
     if(localStorage.getItem('isLoggedIn')=="true"){
       status = true;
     }else{

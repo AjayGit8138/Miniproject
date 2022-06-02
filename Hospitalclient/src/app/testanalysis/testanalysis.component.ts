@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { RecursiveAstVisitor } from '@angular/compiler';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -70,6 +70,8 @@ export class TestanalysisComponent implements OnInit {
   this.testform.controls['totalreport'].setValue(this.nofreport);
    }
   ngOnInit(): void {
+    // TODO document why this method 'ngOnInit' is empty
+  
   }
   tabletlist = {
     "tabletname":"",
@@ -125,9 +127,11 @@ export class TestanalysisComponent implements OnInit {
     console.log("Report Generation",formobject);
     this.serveapi.generatetestreport(formobject).subscribe((response)=>{
       if(response)
+      {
         console.log("test report successfully generated into the database",response);
         alert(response.message);
         this.testform.reset()
+      }
     },(error)=>{
       console.log("Test report not generated from the server",error);
     })

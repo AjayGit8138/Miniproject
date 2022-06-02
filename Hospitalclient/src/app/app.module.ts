@@ -31,7 +31,7 @@ import { TestanalysisComponent } from './testanalysis/testanalysis.component';
 import { MypatientComponent } from './mypatient/mypatient.component';
 import { OperationPipe } from './operation.pipe';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ScanreportComponent } from './scanreport/scanreport.component';
+
 import { FooterComponent } from './footer/footer.component';
 import { BloodreportComponent } from './mypatient/bloodreport/bloodreport.component';
 import { PatientlistComponent } from './dashboard/patientlist/patientlist.component';
@@ -63,7 +63,6 @@ import { YourdoctorComponent } from './patientdashboard/yourdoctor/yourdoctor.co
     TestanalysisComponent,
     MypatientComponent,
     OperationPipe,
-    ScanreportComponent,
     FooterComponent,
     BloodreportComponent,
     PatientlistComponent,

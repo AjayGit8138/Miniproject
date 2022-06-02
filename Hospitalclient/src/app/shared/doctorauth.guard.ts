@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 export class DoctorauthGuard implements CanActivate {
   constructor(private router:Router){}
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    _route: ActivatedRouteSnapshot,
+    _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
   
     if(this.isdoctorLoggedIn())
     {
@@ -21,7 +21,7 @@ export class DoctorauthGuard implements CanActivate {
   }
   
   public isdoctorLoggedIn():boolean{
-    let status = false;
+    let status;
     if(localStorage.getItem('isdoctorLoggedIn')=="true"){
       status = true;
     }else{

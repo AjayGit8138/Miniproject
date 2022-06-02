@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
-import { AuthService } from '../shared/auth.service';
+
 import { DoctorauthService } from '../shared/doctorauth.service';
 
 @Component({
@@ -55,9 +55,9 @@ export class TreatmentdivisionComponent implements OnInit {
       console.log("Undertreatment category is received successfully",data);
 
       //get patients details working under doctor
-      for(var i=0;i<data.docs.length;i++)
+      for(const element of data.docs)
       {
-        this.mypatients.push(data.docs[i]);
+        this.mypatients.push(element);
       }
     
       console.log("Patients under working",this.mypatients);
