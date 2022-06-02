@@ -9,7 +9,7 @@ var retval;
 
 var getlogindetails = 
     async (getobject)=>{
-        let pushval = [];
+      
         var value;
     // {selector:{"requestId":"skin9898"}}
     console.log(getobject);

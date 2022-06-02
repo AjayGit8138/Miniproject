@@ -14,13 +14,8 @@ const errorlog = require('./logger/errorlog');
 const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
-const { send } = require('process');
-const Joi = require('joi');
-const { number } = require('joi');
 const {schema,adminauth,reportvalidation,urinetestreport,countreport} = require('./validatior');
 const {schemadoctor} = require('./doctorvalidator')
-
-
 app.use(connection.static('public'));
 app.use(bodyparser.json());
 
@@ -105,7 +100,7 @@ app.post('/storepatient',(req,res)=>{
   console.log("validation",error);
     if(error === undefined)
     {
-    var storeobject = {
+    const storeobject = {
       patientname:req.body.patientname,
       age:req.body.age,
       dateofbirth:req.body.dateofbirth,
@@ -294,7 +289,7 @@ app.get('/getdoctordetails/:id',(req,res)=>{
       }
     }
   }
-  if(data)
+  if(doctorSearch)
   {
     controller.docslist(doctorSearch).then((data)=>{
       console.log("Doctors available in Hospital",data);
@@ -331,7 +326,7 @@ app.put('/updatepatienrecord/:updateobject',(req,res)=>{
     }
     console.log("update operation in to database",patientid);
     console.log("want to store a object",updatepatient);
-  var retmessage = controller.waitingforbook(updatepatient,patientid).then((resdata)=>{
+  const retmessage = controller.waitingforbook(updatepatient,patientid).then((resdata)=>{
       console.log("Updated Appointment Booking status successfully",resdata);
 
       //return response
@@ -373,7 +368,7 @@ app.post('/generatemedicalreport',(req,res)=>{
           console.log("validation error",medicalstatus);
         }
         else{
-        var object = {
+        const object = {
           dietplan:req.body.dietplan,
           diseases:req.body.diseases,
           dosage:req.body.dosage,
@@ -478,7 +473,7 @@ app.post('/bloodcountreport',(req,res)=>{
     errorlog.error("Error:-" + `${reportstatus.message}` + "Statuscode:-" + `${reportstatus.status}` + `${reportstatus}`)
   }
   else{
-  var object = {
+  const object = {
       totalreport:req.body.totalreport,
       Rbc:req.body.Rbc,
       hemocrit:req.body.hemocrit,
@@ -550,7 +545,7 @@ app.get('/getreport/:id',(req,res)=>{
 app.delete('/deletepatient/:id/:rev',((req,res)=>{
   console.log("Delete patient record",req.params.id);
   console.log("Delete patient record",req.params.rev);
-  let deleteobject = {
+  const deleteobject = {
     id:req.params.id,
     rev:req.params.rev
   }
@@ -565,7 +560,7 @@ app.delete('/deletepatient/:id/:rev',((req,res)=>{
 
 //file upload
 app.post('/consulting',(req,res)=>{
-  var requestBook = {
+  const requestBook = {
     patientid:req.body.patientid,
     patientname:req.body.patientname,
     email:req.body.email,
