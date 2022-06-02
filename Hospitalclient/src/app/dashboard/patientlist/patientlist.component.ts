@@ -51,30 +51,37 @@ export class PatientlistComponent implements OnInit {
 
     this.number = 1;
     this.orthodoctors = [];
-    this.serveapi.getrequestedpatient().subscribe((data)=>{
-      console.log("waiting for Doctor appointment",data);
-      if(data.status == 404)
-      {
-        this.tablestatus = true;
-        this.showerror("Patient Request is Currently Not available");
-      }
-      else
-      {
-            var availength = data.data.docs.length;
-            console.log("returned Length",availength);
-            this.patientrequest = [];
-      
-            for(var i=0;i<availength;i++)
-            {
-              this.patientrequest.push(data.data.docs[i]);
-            }
-     
-          console.log("patient request",this.patientrequest);
-    }
-    }),((err)=>{
-        console.log("error occurs",err);
-    })
+    this.getrequestpatients();
+  
   }
+
+    getrequestpatients()
+    {
+      this.serveapi.getrequestedpatient().subscribe((data)=>{
+        console.log("waiting for Doctor appointment",data);
+        if(data.status == 404)
+        {
+          this.tablestatus = true;
+          this.showerror("Patient Request is Currently Not available");
+        }
+        else
+        {
+              var availength = data.data.docs.length;
+              console.log("returned Length",availength);
+              this.patientrequest = [];
+        
+              for(var i=0;i<availength;i++)
+              {
+                this.patientrequest.push(data.data.docs[i]);
+              }
+       
+            console.log("patient request",this.patientrequest);
+      }
+      }),((err)=>{
+          console.log("error occurs",err);
+      })
+
+    }
 
   //
   selectindex(e:any)
