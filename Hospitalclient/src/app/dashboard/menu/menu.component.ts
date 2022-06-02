@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiserviceService } from 'src/app/apiservice.service';
+import { getDefaultCompilerOptions } from 'typescript';
 
 @Component({
   selector: 'app-menu',
@@ -13,6 +14,11 @@ export class MenuComponent implements OnInit {
   constructor(private serveapi:ApiserviceService) { }
 
   ngOnInit(): void {
+    this.getdetails();
+  }
+
+  getdetails()
+  {
     this.serveapi.getrequestedpatient().subscribe((data)=>{
       console.log("waiting for Doctor appointment",data.docs);
       this.requestedpatients = data.docs.length;
@@ -31,3 +37,5 @@ export class MenuComponent implements OnInit {
   }
 
 }
+
+ 
