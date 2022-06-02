@@ -126,7 +126,7 @@ export class PatientlistComponent implements OnInit {
     console.log("arraylength",arraylength);
     this.orthodoctors = [];
     this.doctorsid = [];
-    for(var i=0;i<arraylength;i++)
+    for(let i=0;i<arraylength;i++)
     {
       this.orthodoctors[i] = data.data.docs[i].doctorname;
     

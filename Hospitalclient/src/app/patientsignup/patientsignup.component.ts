@@ -20,10 +20,12 @@ export class PatientsignupComponent implements OnInit {
 selected:string= "";
 patientcount:any;
   ngOnInit(): void {
+    console.log("Constructor")
+
   }
   public updatetreatment(e:any)
   {
-    var genid;
+    let genid;
     this.selected = e.target.value;
   }
   loginauth(fromvalue:NgForm)

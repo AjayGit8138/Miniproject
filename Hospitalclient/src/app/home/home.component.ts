@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router) {console.log("Constructor") }
  
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
+    console.log("Constructor");
   
   }
 

@@ -41,7 +41,7 @@ export class PatientenquiryComponent implements OnInit {
   }
   selecttreatment:boolean = false;
   ngOnInit(): void {
-  // TODO document why this method 'ngOnInit' is empty
+    console.log("Constructor")
 
 }
 
@@ -50,7 +50,7 @@ selected:string= "";
 patientcount:any;
 public updatetreatment()
 {
-  var genid;
+  let genid;
   genid = this.addharid;
   this.requestid = 'patient' + genid.slice(-4);
 }
@@ -82,7 +82,7 @@ Formsubmit(Formvalue:NgForm)
 //Generate Patient Id autogenerate based upon aadhar No
 setrequestid(event:any)
 {
-  var genid;
+  let genid;
   this.addharid = event.target.value;
   genid = this.addharid;
   this.requestid = 'Patient-' + genid.slice(-4);
@@ -135,7 +135,7 @@ getToday(): string {
 //exists Emailid check
 public emailcheck(event:any)
 {
-    var emailId = event.target.value;
+    let emailId = event.target.value;
     this.serverapi.checkpatientlogin(emailId).subscribe((data)=>{
         console.log("Patient Exists data from Database",data);
         

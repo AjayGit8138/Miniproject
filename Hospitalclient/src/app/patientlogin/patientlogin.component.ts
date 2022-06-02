@@ -36,19 +36,8 @@ export class PatientloginComponent implements OnInit {
   //Login Authentication Check
   loginauth(loginval:any)
   {
-    console.log("Login details",loginval);
-    var searchobject = {
-      "patientname":loginval.email,
-      "loginid":loginval.loginid
-      
-    }
-    
-    console.log(searchobject);
-    
 
     this.serveapi.checkpatientlogin(loginval.loginid).subscribe(data=>{
-     
-      console.log(data);
      
       if((data.data.docs[0].email == loginval.email) && (data.data.docs[0].password == loginval.password))
       {

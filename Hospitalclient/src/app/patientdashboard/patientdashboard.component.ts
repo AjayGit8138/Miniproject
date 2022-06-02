@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { OperationPipe } from '../operation.pipe';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 import { PatienauthService } from '../shared/patienauth.service';
 
 @Component({
@@ -36,8 +36,6 @@ export class PatientdashboardComponent implements OnInit {
     this.activeparams.params.subscribe((data:Params)=>{
       this.currentpage = {
         id:data['id'],
-        
-       
       }
       console.log(this.currentpage);
     })
@@ -51,10 +49,10 @@ export class PatientdashboardComponent implements OnInit {
         console.log("session login data for patient",data);
         this.appointstatus.push(data.data.docs[0]);
         console.log("appointment status",this.appointstatus);
-        for(var i=0;i<this.appointstatus.length;i++)
+        for(const element of this.appointstatus)
         {
-              console.log(this.appointstatus[i]);
-              this.patientname = this.appointstatus[i].patientname;
+              console.log(element);
+              this.patientname = element.patientname;
         }
       
         

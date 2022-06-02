@@ -43,7 +43,7 @@ arrayofkey = [];
       left: 0,
     },
     output: 'jspdf-generate.pdf', 
-    init: function() { /* TODO document why this method 'init' is empty */ },
+    init: function() { console.log("pdf") },
     success: function(pdf) {
       pdf.save(this.output);
     }

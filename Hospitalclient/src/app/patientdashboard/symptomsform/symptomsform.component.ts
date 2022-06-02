@@ -33,7 +33,7 @@ export class SymptomsformComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
+    console.log("Constructor")
   
   }
   loginauth(fromvalue:NgForm)

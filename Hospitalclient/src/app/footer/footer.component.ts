@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { /* TODO document why this constructor is empty */  }
+  constructor() { console.log("Constructor");  }
 
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
+    console.log("Constructor");
   
   }
 

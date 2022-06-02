@@ -13,10 +13,12 @@ export class SpecialityComponent implements OnInit {
   orthotreat = './images/orthotreatment.jpg';
   nerves = './images/nerves.jpg';
   banner = "./images/medicalbanner.jpg";
-  constructor() { /* TODO document why this constructor is empty */  }
+  constructor() { 
+    console.log("Constructor")  }
 
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
+    
+    console.log("Constructor")
   
   }
 

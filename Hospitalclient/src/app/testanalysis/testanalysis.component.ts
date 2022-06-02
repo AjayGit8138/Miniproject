@@ -70,8 +70,8 @@ export class TestanalysisComponent implements OnInit {
   this.testform.controls['totalreport'].setValue(this.nofreport);
    }
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
   
+    console.log("Constructor")
   }
   tabletlist = {
     "tabletname":"",

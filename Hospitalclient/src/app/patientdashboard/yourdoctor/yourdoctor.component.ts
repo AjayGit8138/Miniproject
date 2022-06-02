@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute,Params } from '@angular/router';
-import { NgbTimepicker } from '@ng-bootstrap/ng-bootstrap';
-import * as $ from 'jquery'
+
 import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from 'src/app/apiservice.service';
 @Component({
@@ -44,6 +43,7 @@ export class YourdoctorComponent implements OnInit {
   }
   directconsulting:FormGroup;
   ngOnInit(): void {
+    console.log("Constructor")
   }
 
     pastdate()
@@ -60,9 +60,9 @@ export class YourdoctorComponent implements OnInit {
       if(this.tdate < 10){
         this.tdate = "0" + this.tdate;
       }
-      var maxdate = this.year + "-" + this.month + "-" +this.tdate;
+      const maxdate = this.year + "-" + this.month + "-" +this.tdate;
       document.getElementById('time').setAttribute("min",maxdate);
-      var setdate = document.getElementById('time') as HTMLDataElement;
+      const setdate = document.getElementById('time') as HTMLDataElement;
       setdate.setAttribute("min",maxdate);
 
     }

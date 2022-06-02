@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientrackComponent implements OnInit {
 
-  constructor() { }
+  constructor() { console.log("Constructor")}
 
   ngOnInit(): void {
+    console.log("Constructor")
   }
 
 }

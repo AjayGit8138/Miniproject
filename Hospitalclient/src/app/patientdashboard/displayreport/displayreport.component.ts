@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-displayreport',
   templateUrl: './displayreport.component.html',
@@ -46,12 +46,6 @@ export class DisplayreportComponent implements OnInit {
         console.log("session login data for patient",data);
         this.appointstatus.push(data.docs[0]);
         console.log("appointment status",this.appointstatus);
-        for(var i=0;i<this.appointstatus.length;i++)
-        {
-              console.log(this.appointstatus[i]);
-        }
-      
-        
     },(err)=>{
       console.log("Bad response from the server",err);
     })
