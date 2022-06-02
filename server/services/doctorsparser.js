@@ -1,7 +1,7 @@
 
 const storedb = require('../db/nanodb');
 const validator = require("email-validator");
-var profile = {};
+
 const generatelog = require('../logger/logger');
 const {doctorauthentication} = require('../validatior');
 
@@ -33,7 +33,7 @@ const adminlogin = (adminvalidataion)=>{
 
  const checkdoctorauth = (searchadmin)=>{
 
-    var mailcheck =  validator.validate(searchadmin);
+    const mailcheck =  validator.validate(searchadmin);
         console.log("Yes this is a Email",mailcheck);
         let value;
 
@@ -57,7 +57,7 @@ const adminlogin = (adminvalidataion)=>{
         if(searchadmin)
         {
             console.log("searchadmin",searchadmin);
-            var searchbyid = {
+            const searchbyid = {
                 selector:{
                     "certificateid":searchadmin,
                     "type":"Doctor"
@@ -89,7 +89,7 @@ const getalldoctors = (getdata)=>{
         }
         else{
             
-            var getdoclist =  storedb.hospitaldb.find(getdata).then((data)=>{
+             const getdoclist =  storedb.hospitaldb.find(getdata).then((data)=>{
                     console.log("All doctor list ",data);
                     return data;
                 }).catch((err)=>{
@@ -112,10 +112,7 @@ const storedoctorinformation = async (storeobject)=>{
             reject();
         }
         else{
-            
-          
-             
-               profile = {
+             const profile = {
                     doctorname:storeobject.body.doctorname,
                     email:storeobject.body.email,
                     mobileno:storeobject.body.mobileno,
@@ -130,7 +127,7 @@ const storedoctorinformation = async (storeobject)=>{
                     type:"Doctor"
                }
 
-              var retval =  storedb.hospitaldb.insert(profile).then((data)=>{
+              const retval =  storedb.hospitaldb.insert(profile).then((data)=>{
                    console.log("Doctor Profile datas are Inserted successfully",data);
                    generatelog.info("Doctor Profile is Generated successfully");
                    return data;
@@ -152,12 +149,12 @@ const gettabletlist = (getreference)=>{
             return reject(getreference);
        }
        else{
-          var query ={
+          const query ={
             selector: {
                "category": getreference
                }
           }
-          var retval = storedb.hospitaldb.find(query).then((data)=>{
+          const retval = storedb.hospitaldb.find(query).then((data)=>{
                console.log("Get medicine tablet from server",data);
                generatelog.info("Get medicine tablet from server");
                return data;
@@ -180,7 +177,7 @@ const storetestreport = (reportobject)=>{
            return reject(reportobject);
         }
         else{
-            var retobject =  storedb.hospitaldb.insert(reportobject).then((data)=>{
+            const retobject =  storedb.hospitaldb.insert(reportobject).then((data)=>{
                 console.log("Doctor Profile datas are Inserted successfully",data);
                 return data;
             }).catch((err)=>{
