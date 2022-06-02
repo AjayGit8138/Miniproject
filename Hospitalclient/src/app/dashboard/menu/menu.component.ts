@@ -23,8 +23,10 @@ export class MenuComponent implements OnInit {
       this.avialabledoctors = data.docs.length;
     })
     this.serveapi.getadmittedpatients().subscribe((data)=>{
-      console.log("Total admitted patients in our hospital",data);
-      this.admittedpatients = data.docs.length;
+      console.log("Total admitted patients in our hospital",data.data.docs);
+      this.admittedpatients = data.data.docs.length;
+    }),((err)=>{
+        console.log("Admitted Patients Details Not To fetch from a Server");
     })
   }
 

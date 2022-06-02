@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from '../apiservice.service';
 @Component({
   selector: 'app-patientenquiry',
@@ -11,6 +12,7 @@ export class PatientenquiryComponent implements OnInit {
   type:string = "patient";
   validpass:boolean;
   cpasswordcheck:any;
+  checkmobileno:any;
   addharid:number=0;
   passwordmatch:any;
   idgen:number = 1;
@@ -18,7 +20,7 @@ export class PatientenquiryComponent implements OnInit {
   patientinquiryform:FormGroup;
 
   //Formgroup validation
-  constructor(private validate:FormBuilder,private serverapi:ApiserviceService) { 
+  constructor( private validate:FormBuilder,private serverapi:ApiserviceService,private toastr:ToastrService) { 
     this.patientinquiryform = this.validate.group({
       patientname:['',[Validators.required]],
       age:['',[Validators.required]],
@@ -67,13 +69,14 @@ Formsubmit(Formvalue:NgForm)
   this.serverapi.storepatientrecord(Formvalue).subscribe((res)=>{
         console.log("Form value added successfully into database");
         console.log("return response",res);
+        this.showsuccess(res.message);
        
      
   }),((err)=>{
         console.log("Can't Store a Patient Data into Database",err);
   })
   this.patientinquiryform.reset();
-  alert("Patient data successuly added");
+ 
   window.location.reload();
 }
 }
@@ -87,6 +90,11 @@ setrequestid(event:any)
   this.requestid = 'Patient-' + genid.slice(-4);
 }
 
+//checkmobileno
+setmobileno(event:any)
+{
+  this.checkmobileno = event.target.value;
+}
 setesino(event:any)
 {
   this.dubesi = event.target.value;
@@ -117,6 +125,12 @@ checkcpassword(e:any)
  
 }
 
+//toastr message
+  showsuccess(message)
+  {
+    this.toastr.success(message);
+  }
+
 getToday(): string {
   return new Date().toISOString().split('T')[0]
 }
@@ -126,20 +140,30 @@ public emailcheck(event:any)
     var emailId = event.target.value;
     this.serverapi.checkpatientlogin(emailId).subscribe((data)=>{
         console.log("Patient Exists data from Database",data);
-        console.log("Totallength",data.docs.length);
-        for(var i=0;i<data.docs.length;i++)
+        
+        for(var i=0;i<data.data.docs.length;i++)
         {
-        if(data.docs[i].email == emailId )
+        if(data.data.docs[i].email == emailId )
         {
-          alert("Email Id already Exists,Please register with new one");
+          this.showwarn("Email Id already Exists,Please register with new one");
         }
-        else if((data.docs[i].esino == this.dubesi ) || (data.docs[i].aadharno == this.addharid))
+        else if((data.data.docs[i].esino == this.dubesi ) || (data.data.docs[i].aadharno == this.addharid))
         {
-          alert("Esino or Aadhar No already Exists");
+          this.showwarn("aadharno Exists");
         }
+        else if((data.data.docs[i].mobileno == this.checkmobileno ))
+        {
+          this.showwarn("Mobileno Exists");
+        }
+       
         }
     })
     
+}
+//toastr service
+showwarn(message)
+{
+  this.toastr.warning(message);
 }
 
 //getter setter for form validation

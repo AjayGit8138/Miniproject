@@ -39,13 +39,14 @@ public showError(message:any): void {
 }
 doctorloginauth(loginval:any)
 {
-  this.serveapi.checkdoctorlogin(loginval.email).subscribe((data)=>{
-    console.log("Data search successfully returned",data);
-    var length = data.docs;
+
+
+  this.serveapi.checkdoctorlogin(loginval.loginid).subscribe((data)=>{
+    var length = data.data.docs;
     console.log("total length",length);
   
     
-    if((data.docs[0].email == loginval.email) && (data.docs[0].password == loginval.password))
+    if((data.data.docs[0].email == loginval.email) && (data.data.docs[0].password == loginval.password))
     {
       localStorage.setItem('isdoctorLoggedIn','true');
         localStorage.setItem('token', loginval.loginid);  

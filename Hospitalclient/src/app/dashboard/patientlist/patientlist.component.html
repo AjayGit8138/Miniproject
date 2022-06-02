@@ -31,6 +31,12 @@
                 </table>
             </div>
         </div>
+        <div *ngIf="tablestatus == true">
+            <div class="container">
+                <h1>No Patient Admission</h1>
+            </div>
+        </div>
+
         <ng-template #content let-modal>
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title"></h4>Timeallotment for Patient

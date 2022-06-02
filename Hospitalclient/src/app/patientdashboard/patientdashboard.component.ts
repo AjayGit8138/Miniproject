@@ -49,7 +49,7 @@ export class PatientdashboardComponent implements OnInit {
 
     this.serviceapi.checkpatientlogin(this.currentpage.id).subscribe((data)=>{
         console.log("session login data for patient",data);
-        this.appointstatus.push(data.docs[0]);
+        this.appointstatus.push(data.data.docs[0]);
         console.log("appointment status",this.appointstatus);
         for(var i=0;i<this.appointstatus.length;i++)
         {

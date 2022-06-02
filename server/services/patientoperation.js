@@ -4,7 +4,7 @@ const generatelog = require('../logger/logger');
 
 
 //implemented using promise handling
-var getbookrequest = (bookingrequest)=>{
+const getbookrequest = (bookingrequest)=>{
     return new Promise((resolve,reject)=>{
         if(bookingrequest === undefined)
         {
@@ -26,7 +26,7 @@ var getbookrequest = (bookingrequest)=>{
 }
 
 //update booking details
-var bookappointment = (updateparams,referenceid)=>{
+const bookappointment = (updateparams,referenceid)=>{
      var bool = 1;
     return new Promise((resolve,reject)=>{
         if(updateparams === undefined || referenceid === undefined)
@@ -80,7 +80,7 @@ var bookappointment = (updateparams,referenceid)=>{
 }
 
 //implemented using promise 
-var availability = (getparams)=>{
+const availability = (getparams)=>{
     return new Promise((resolve,reject)=>{
         if(getparams == undefined)
         {
@@ -102,7 +102,7 @@ var availability = (getparams)=>{
     })
  
 }
-var enquiryrequest=(params)=>{
+const enquiryrequest=(params)=>{
     return new Promise((resolve,reject)=>{
         if(params == undefined){
             reject();
@@ -120,7 +120,7 @@ var enquiryrequest=(params)=>{
 }
 
 //gettestreport from database
-var gettestreport = (getreference)=>{
+const gettestreport = (getreference)=>{
     console.log("from services",getreference);
      return new Promise((resolve,reject)=>{
         if(getreference == undefined){
@@ -147,7 +147,7 @@ var gettestreport = (getreference)=>{
  
  }
 //Patient record deletion process
- var patientdelete = (object)=>{
+ const patientdelete = (object)=>{
      console.log("delete from patientoperation",object);
      return new Promise((resolve,reject)=>{
         if(object == undefined){
@@ -175,7 +175,7 @@ var gettestreport = (getreference)=>{
  }
 
  //insert new Patient record into the database
- var newpatinetrecord = (patientobject)=>{
+ const newpatinetrecord = (patientobject)=>{
     return new Promise((resolve,reject)=>{
         if(patientobject === undefined)
         {
@@ -196,7 +196,7 @@ var gettestreport = (getreference)=>{
   
 }
 
-var admitted = ()=>{
+const admitted = ()=>{
     var admittedcounts = {
         selector:{
             "appointmentstatus": "YES",
@@ -213,7 +213,7 @@ var admitted = ()=>{
     })
 }
 
-var getdoctor = (object)=>{
+const getdoctor = (object)=>{
     return new Promise((resolve,reject)=>{
         var finddoctor = {
             selector:{

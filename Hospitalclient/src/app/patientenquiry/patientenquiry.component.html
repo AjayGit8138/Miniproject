@@ -45,8 +45,8 @@
 
                 <label for="Mobileno">Mobile No:</label>
 
-                <input type="text" formControlName="mobileno" required maxlength="10" class="form-control"
-                    pattern="[789][0-9]{9}" placeholder="Enter the Mobile No">
+                <input type="text" formControlName="mobileno" (change)="setmobileno($event)" required maxlength="10"
+                    class="form-control" pattern="[789][0-9]{9}" placeholder="Enter the Mobile No">
                 <div class="help-block text-danger" *ngIf="mobileno.touched">
                     <span *ngIf="mobileno.errors?.required">
                         Please enter a mobile no!!!
@@ -113,8 +113,8 @@
 
                 <label for="password">Password:</label>
 
-                <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" (change)="passwordcheck($event)"
-                    formControlName="password" placeholder="Enter Your Password">
+                <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                    (change)="passwordcheck($event)" formControlName="password" placeholder="Enter Your Password">
                 <div class="help-block text-danger" *ngIf="password.touched">
                     <div class="error" *ngIf="(password.invalid || password.touched) && password.errors?.pattern">
                         Please Enter a Valid password and password should be 8
@@ -151,4 +151,5 @@
                     class="text-danger">Login</a></label>
         </form>
     </div>
+
 </div>

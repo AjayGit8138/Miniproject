@@ -86,7 +86,7 @@ export class ApiserviceService {
   }
   getadmin(request:any)
   {
-    return this.http.get<any>('http://localhost:8000/admin/'+request);
+    return this.http.post<any>('http://localhost:8000/admin/',request);
   }
   postconsulting(consulting:any)
   {
@@ -113,6 +113,7 @@ export class ApiserviceService {
   {
     return this.http.get<any>('http://localhost:8000/senddoctor/'+doctor);
   }
+ 
 }
 
 

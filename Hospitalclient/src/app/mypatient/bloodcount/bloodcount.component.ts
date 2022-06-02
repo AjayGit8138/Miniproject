@@ -55,13 +55,14 @@ export class BloodcountComponent implements OnInit {
 
     this.currentdate = new Date();
   }
-  submitbooldsample(formvalue:NgForm,ref:any)
+  submitbooldsample(formvalue:any,ref:any)
   {
    
       console.log("Formvalues",formvalue);
       this.makepdf.push(formvalue);
       this.arrayofkey = Object.keys(this.makepdf[0]);
       console.log(this.makepdf);
+      formvalue.docid = localStorage.getItem('doctorid');
       this.serveapi.generatebloodcountreport(formvalue).subscribe((response)=>{
         if(response)
           console.log("test report successfully generated into the database",response);

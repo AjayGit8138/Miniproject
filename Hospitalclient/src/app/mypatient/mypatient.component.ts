@@ -3,6 +3,7 @@ import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { data } from 'jquery';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mypatient',
@@ -42,7 +43,7 @@ object = {
   };
 
   mypatients = [];
-  constructor(private reportform:FormBuilder,private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private router:Router) {
+  constructor(private reportform:FormBuilder,private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private router:Router,private toastr:ToastrService) {
     
     this.activeparams.params.subscribe((data:Params)=>{
       this.currentpage = {
@@ -66,7 +67,8 @@ object = {
       // tablets:['',Validators.required],
       medicineone:['',Validators.required],
       medicinetwo:['',Validators.required],
-      medicinethree:['',Validators.required]
+      medicinethree:['',Validators.required],
+      docid:['',Validators.required]
 
   });
 
@@ -78,10 +80,11 @@ object = {
     console.log("doctor id",this.currentpage.id);
     this.serveapi.checkdoctorlogin(this.currentpage.id).subscribe((data)=>{
       console.log("Logged doctor details",data);
-      console.log("Doctor-Name",data.docs[0].doctorname);
-      console.log("category",data.docs[0].specialist);
-      this.undertreatment.doctor = data.docs[0].doctorname;
-      this.undertreatment.Treatmentcategory = data.docs[0].specialist;
+      localStorage.setItem('doctorid',data.data.docs[0]._id);
+      console.log("Doctor-Name",data.data.docs[0].doctorname);
+      console.log("category",data.data.docs[0].specialist);
+      this.undertreatment.doctor = data.data.docs[0].doctorname;
+      this.undertreatment.Treatmentcategory = data.data.docs[0].specialist;
       this.testgenerated = this.currentpage.id + '-' + this.undertreatment.doctor;
 
       this.getdetail();
@@ -94,11 +97,11 @@ object = {
     console.log(this.undertreatment);
     this.serveapi.gettotalpatients(this.undertreatment.doctor,this.undertreatment.Treatmentcategory).subscribe((data)=>{
       console.log("Undertreatment category is received successfully",data);
-
+      this.showsuccess(data.success);
       //get patients details working under doctor
-      for(var i=0;i<data.docs.length;i++)
+      for(var i=0;i<data.data.docs.length;i++)
       {
-        this.mypatients.push(data.docs[i]);
+        this.mypatients.push(data.data.docs[i]);
       }
     
       console.log("Patients under working",this.mypatients);
@@ -147,13 +150,14 @@ object = {
     this.autocode(this.nofreport);
     this.testform.controls['totalreport'].setValue(this.nofreport);
   }
-  generatereport(formobject:NgForm)
+  generatereport(formobject:any)
   {
     console.log("Report Generation",formobject);
+    formobject.docid = localStorage.getItem('doctorid');
     this.serveapi.generatetestreport(formobject).subscribe((response)=>{
       if(response)
         console.log("test report successfully generated into the database",response);
-        alert(response.message);
+        alert(response.success);
         this.testform.reset()
     },(error)=>{
       console.log("Test report not generated from the server",error);
@@ -171,7 +175,7 @@ object = {
   {
     this.serveapi.gettestreport(this.nofreport).subscribe((response)=>{
       console.log("autogenerate reports",response);
-      if(params == response.docs[0].totalreport)
+      if(params == response.data.docs[0].totalreport)
       {
         console.log('matched');
         this.numbercount += 1;
@@ -216,9 +220,9 @@ object = {
       this.serveapi.gettablets(reference).subscribe(
         (response) => {                          
           console.log('response received',response);
-          console.log(response.docs[0][`${this.tabletlist.tabletname}`]);
+          console.log(response.data.docs[0][`${this.tabletlist.tabletname}`]);
           this.tablets = [];
-          this.tablets.push(response.docs[0][`${this.tabletlist.tabletname}`]);
+          this.tablets.push(response.data.docs[0][`${this.tabletlist.tabletname}`]);
         },
         (error) => {                              
           console.error('error caught in component')
@@ -229,5 +233,10 @@ object = {
       )
   }
 
+
+  showsuccess(message)
+  {
+    this.toastr.success(message);
+  }
   
 }

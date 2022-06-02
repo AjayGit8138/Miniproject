@@ -1,12 +1,12 @@
 const doctorschema = require('../model/doctorprofile');
 const storedb = require('../db/nanodb');
-var validator = require("email-validator");
+const validator = require("email-validator");
 var profile = {};
 const generatelog = require('../logger/logger');
+const {doctorauthentication} = require('../validatior');
 
 
-
-var adminlogin = (adminvalidataion)=>{
+const adminlogin = (adminvalidataion)=>{
     return new Promise((resolve,reject)=>{
         if(adminvalidataion == undefined)
         {
@@ -30,7 +30,7 @@ var adminlogin = (adminvalidataion)=>{
 
 //implemented using promise
 
- var checkdoctorauth = (searchadmin)=>{
+ const checkdoctorauth = (searchadmin)=>{
 
     var mailcheck =  validator.validate(searchadmin);
         console.log("Yes this is a Email",mailcheck);
@@ -63,6 +63,7 @@ var adminlogin = (adminvalidataion)=>{
            
           var value =   storedb.hospitaldb.find(searchbyid).then(data=>{
                 console.log("found data",data);
+               
                 return data;
             }).catch((err=>{
                 console.log("some bad request error",err);
@@ -77,7 +78,7 @@ var adminlogin = (adminvalidataion)=>{
 
 //Get all doctors working in Hospital
 //implemented using Promise
-var getalldoctors = (getdata)=>{
+const getalldoctors = (getdata)=>{
     return new Promise((resolve,reject)=>{
         if(getdata === undefined)
         {
@@ -101,7 +102,7 @@ var getalldoctors = (getdata)=>{
 
 //store doctor profile into database
 //implemented using promise 
-var storedoctorinformation = async (storeobject)=>{
+const storedoctorinformation = async (storeobject)=>{
     return new Promise((resolve,reject)=>{
         if(storeobject === undefined)
         {
@@ -109,7 +110,8 @@ var storedoctorinformation = async (storeobject)=>{
         }
         else{
             
-            
+          
+             
                profile = {
                     doctorname:storeobject.body.doctorname,
                     email:storeobject.body.email,
@@ -135,12 +137,12 @@ var storedoctorinformation = async (storeobject)=>{
                })
 
             return resolve(retval);
-  
+           
         }
     })
     
 }
-var gettabletlist = (getreference)=>{
+const gettabletlist = (getreference)=>{
    console.log("from services",getreference);
     return new Promise((resolve,reject)=>{
        if(getreference == undefined){
@@ -167,7 +169,7 @@ var gettabletlist = (getreference)=>{
 
 }
 
-var storetestreport = (reportobject)=>{
+const storetestreport = (reportobject)=>{
     console.log("from services",reportobject);
     return new Promise((resolve,reject)=>{
         if(reportobject == undefined)
@@ -175,7 +177,7 @@ var storetestreport = (reportobject)=>{
            return reject(reportobject);
         }
         else{
-            let retobject =  storedb.hospitaldb.insert(reportobject).then((data)=>{
+            var retobject =  storedb.hospitaldb.insert(reportobject).then((data)=>{
                 console.log("Doctor Profile datas are Inserted successfully",data);
                 return data;
             }).catch((err)=>{

@@ -76,12 +76,13 @@ arrayofkey = [];
     this.currentdate = new Date();
   }
 
-  submitbooldsample(formvalue:NgForm,ref:any)
+  submitbooldsample(formvalue:any,ref:any)
   {
       console.log("Formvalues",formvalue);
       this.makepdf.push(formvalue);
       this.arrayofkey = Object.keys(this.makepdf[0]);
       console.log(this.makepdf);
+      formvalue.docid = localStorage.getItem('doctorid');
       this.serveapi.generatebloodreport(formvalue).subscribe((response)=>{
         if(response)
           console.log("test report successfully generated into the database",response);
@@ -97,9 +98,8 @@ arrayofkey = [];
   {
     console.log("samplereport",params);
     
-    this.serveapi.gettestreport(params).subscribe((response)=>{
-      console.log("autogenerate reports",response);
-      if(params == response.docs[0].totalreport)
+    this.serveapi.gettestreport(params).subscribe((data)=>{
+      if(params == data.data.docs[0].totalreport)
       {
         console.log('matched');
         this.numbercount += 1;

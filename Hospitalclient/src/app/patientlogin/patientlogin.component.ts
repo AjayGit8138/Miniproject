@@ -44,11 +44,13 @@ export class PatientloginComponent implements OnInit {
     }
     
     console.log(searchobject);
+    
+
     this.serveapi.checkpatientlogin(loginval.loginid).subscribe(data=>{
      
       console.log(data);
      
-      if((data.docs[0].email == loginval.email) && (data.docs[0].password == loginval.password))
+      if((data.data.docs[0].email == loginval.email) && (data.data.docs[0].password == loginval.password))
       {
         localStorage.setItem('isPatientloggedIn','true');
         localStorage.setItem('token', loginval.loginid);  

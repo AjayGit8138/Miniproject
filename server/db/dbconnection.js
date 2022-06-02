@@ -17,7 +17,7 @@ var getlogindetails =
         console.log("Yes this is a Email",mailcheck);
         if(mailcheck)
         {
-            var emailquery ={
+            const emailquery ={
                 "selector": {
                    "type": "Patient"
                 }
@@ -36,7 +36,7 @@ var getlogindetails =
         else{
         if(getobject)
         {
-            var loginauth ={
+            const loginauth ={
                 "selector": {
                    "requestId": getobject
                 }

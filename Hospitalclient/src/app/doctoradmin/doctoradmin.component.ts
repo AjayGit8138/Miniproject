@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from '../apiservice.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class DoctoradminComponent implements OnInit {
   profilepath:string = "../src/images/";
   sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
   courses = ['MBBS,MD in Genereal Medicine','MBBS,MS in Obstetrics','MBBS,MD,DM in Cardiology','MBBS,MS,MCH in Vascular Surgery','MBBS in ENT (Ear, Nose and Throat)','MBBS in Ophthalmology','MBBS in General Medicine','MBBS in Orthopaedics','MBBS in General Surgery','MBBS in Anaesthesiology','MBBS in Obstetrics & Gynaecology','MBBS in Psychiatry','MBBS in Paediatrics']
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService) {
+  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private toastr:ToastrService) {
     this.doctoradmingroup = this.fb.group({
       doctorname:['',[Validators.required]],
       email:['',[Validators.required]],
@@ -56,9 +57,10 @@ export class DoctoradminComponent implements OnInit {
     var emailId = event.target.value;
     this.serveapi.checkdoctorlogin(emailId).subscribe((data)=>{
         console.log("Patient Exists data from Database",data);
-        if(data.docs[0].email == emailId)
+        if(data.data.docs[0].email == emailId)
         {
-          alert("Email Id already Exists,Please register with new one");
+         
+          this.showwarn("Email Id already Exists,Please register with new one");
           this.doctoradmingroup.reset();
         }
     })
@@ -98,6 +100,13 @@ getToday(): string {
     alert("Doctor Profile is added succesfully");
     console.log(Formvalue);
   }
+
+  //toastrservice
+  showwarn(message)
+  {
+    this.toastr.warning(message);
+  }
+
   get doctorname() {return this.doctoradmingroup.get('doctorname');}
   get email() {return this.doctoradmingroup.get('email');}
   get mobileno() {return this.doctoradmingroup.get('mobileno');}

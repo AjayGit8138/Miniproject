@@ -104,8 +104,8 @@
 
                         <label for="password">Password:</label>
                         <input type="password" (change)="passwordcheck($event)" class="form-control"
-                            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" formControlName="password"
-                            placeholder="password">
+                            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                            formControlName="password" placeholder="password">
                         <div class="help-block text-danger" *ngIf="password.touched">
                             <div class="error"
                                 *ngIf="(password.invalid || password.touched) && password.errors?.pattern">

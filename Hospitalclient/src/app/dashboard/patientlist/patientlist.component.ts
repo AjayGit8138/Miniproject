@@ -3,6 +3,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-patientlist',
   templateUrl: './patientlist.component.html',
@@ -23,11 +24,12 @@ export class PatientlistComponent implements OnInit {
   timeclock:any;
   doctors:any;
   content = '';
+  tablestatus:boolean = false;
   //for update new method
   patientid:any;
   patientrefid:any;
   currentDate:any = new Date();
-  constructor(private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router) {
+  constructor(private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router,private toastr:ToastrService) {
     this.bookingform = this.bookform.group({
       requestId:['',Validators.required],
       patientname:['',Validators.required],
@@ -50,17 +52,27 @@ export class PatientlistComponent implements OnInit {
     this.number = 1;
     this.orthodoctors = [];
     this.serveapi.getrequestedpatient().subscribe((data)=>{
-      console.log("waiting for Doctor appointment",data.docs);
-      var availength = data.docs.length;
-      console.log("returned Length",availength);
-      this.patientrequest = [];
-      
-      for(var i=0;i<availength;i++)
+      console.log("waiting for Doctor appointment",data);
+      if(data.status == 404)
       {
-        this.patientrequest.push(data.docs[i]);
+        this.tablestatus = true;
+        this.showerror("Patient Request is Currently Not available");
       }
+      else
+      {
+            var availength = data.data.docs.length;
+            console.log("returned Length",availength);
+            this.patientrequest = [];
+      
+            for(var i=0;i<availength;i++)
+            {
+              this.patientrequest.push(data.data.docs[i]);
+            }
      
-      console.log("patient request",this.patientrequest);
+          console.log("patient request",this.patientrequest);
+    }
+    }),((err)=>{
+        console.log("error occurs",err);
     })
   }
 
@@ -72,20 +84,20 @@ export class PatientlistComponent implements OnInit {
     this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
       console.log("Get specialized doctor data from server",data);;
       //push doctors as per the specialization into the array
-      var arraylength = data.docs.length;
+      var arraylength = data.data.docs.length;
       console.log("arraylength",arraylength);
       this.orthodoctors = [];
       this.doctorsid = [];
       for(var i=0;i<arraylength;i++)
       {
-        if(getDoctorname == data.docs[i].doctorname)
+        if(getDoctorname == data.data.docs[i].doctorname)
         {
-        this.orthodoctors[i] = data.docs[i].doctorname;
+        this.orthodoctors[i] = data.data.docs[i].doctorname;
       
-        this.doctorsid[i] = data.docs[i]._id;
+        this.doctorsid[i] = data.data.docs[i]._id;
         // console.log(this.orthodoctors[i]);
         console.log("doctors id from selectindex",this.doctorsid[i]);
-        this.dbdoctorid = data.docs[i]._id;
+        this.dbdoctorid = data.data.docs[i]._id;
       }
       console.log("Error",this.orthodoctors);
       console.log("Totalid's length",this.doctorsid);
@@ -105,15 +117,15 @@ export class PatientlistComponent implements OnInit {
   this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
     console.log("Get specialized doctor data from server",data);;
     //push doctors as per the specialization into the array
-    var arraylength = data.docs.length;
+    var arraylength = data.data.docs.length;
     console.log("arraylength",arraylength);
     this.orthodoctors = [];
     this.doctorsid = [];
     for(var i=0;i<arraylength;i++)
     {
-      this.orthodoctors[i] = data.docs[i].doctorname;
+      this.orthodoctors[i] = data.data.docs[i].doctorname;
     
-      this.doctorsid[i] = data.docs[i]._id;
+      this.doctorsid[i] = data.data.docs[i]._id;
       console.log(this.orthodoctors[i]);
       console.log("doctors id",this.doctorsid[i]);
     }
@@ -150,19 +162,19 @@ timeformat()
   hours,
   minutes,
   meridian;
-hours = timeSplit[0];
-minutes = timeSplit[1];
-if (hours > 12) {
-  meridian = 'PM';
-  hours -= 12;
-} else if (hours < 12) {
-  meridian = 'AM';
-  if (hours == 0) {
-    hours = 12;
-  }
-} else {
-  meridian = 'PM';
-}
+  hours = timeSplit[0];
+  minutes = timeSplit[1];
+        if (hours > 12) {
+            meridian = 'PM';
+            hours -= 12;
+        } else if (hours < 12) {
+             meridian = 'AM';
+        if (hours == 0) {
+            hours = 12;
+        }
+        } else {
+            meridian = 'PM';
+        }
 this.timeclock = hours + ':' + minutes + ' ' + meridian;
 }
 
@@ -188,5 +200,10 @@ this.timeclock = hours + ':' + minutes + ' ' + meridian;
     
     console.log("specialist",this.doctors);
  
+    }
+    //toastr service
+    showerror(message)
+    {
+      this.toastr.error(message);
     }
 }
