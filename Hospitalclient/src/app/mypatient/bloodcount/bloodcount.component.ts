@@ -1,7 +1,7 @@
 import { Component, OnInit,Input, Output,EventEmitter  } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgForm, Validators } from '@angular/forms';
+
 import { ApiserviceService } from 'src/app/apiservice.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -56,7 +56,7 @@ export class BloodcountComponent implements OnInit {
 
     this.currentdate = new Date();
   }
-  submitbooldsample(formvalue:any,ref:any)
+  submitbooldsample(formvalue:any,_ref:any)
   {
    
       console.log("Formvalues",formvalue);
@@ -138,7 +138,7 @@ export class BloodcountComponent implements OnInit {
     get patientId() {return this.bloodcount.get('patientId');}
 
 get patientname() {return this.bloodcount.get('patientname')}
-get reportby()  {return this.bloodcount.get('reportby')};
+get reportby()  {return this.bloodcount.get('reportby')}
 get totalreport() {return this.bloodcount.get('totalreport')}
 get Rbc() {return this.bloodcount.get('Rbc')}
 get hemoglobin() {return this.bloodcount.get('hemoglobin')}

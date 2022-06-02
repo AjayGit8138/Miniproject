@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
       console.log("waiting for Doctor appointment",data.docs);
       this.requestedpatients = data.docs.length;
     })
-    var referenceid = 'Doctor';
+    const referenceid = 'Doctor';
     this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
       console.log("Avalable Doctors in Hospital",data);
       this.avialabledoctors = data.docs.length;

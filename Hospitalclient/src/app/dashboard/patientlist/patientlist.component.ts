@@ -66,11 +66,11 @@ export class PatientlistComponent implements OnInit {
         }
         else
         {
-              var availength = data.data.docs.length;
+              const availength = data.data.docs.length;
               console.log("returned Length",availength);
               this.patientrequest = [];
         
-              for(var i=0;i<availength;i++)
+              for(let i=0;i<availength;i++)
               {
                 this.patientrequest.push(data.data.docs[i]);
               }
@@ -85,15 +85,15 @@ export class PatientlistComponent implements OnInit {
   selectindex(e:any)
   {
     console.log("Onchange get indexval",e.target.value);
-    var getDoctorname = e.target.value;
+    const getDoctorname = e.target.value;
     this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
       console.log("Get specialized doctor data from server",data);
       //push doctors as per the specialization into the array
-      var arraylength = data.data.docs.length;
+      const arraylength = data.data.docs.length;
       console.log("arraylength",arraylength);
       this.orthodoctors = [];
       this.doctorsid = [];
-      for(var i=0;i<arraylength;i++)
+      for(let i=0;i<arraylength;i++)
       {
         if(getDoctorname == data.data.docs[i].doctorname)
         {
@@ -122,7 +122,7 @@ export class PatientlistComponent implements OnInit {
   this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
     console.log("Get specialized doctor data from server",data);
     //push doctors as per the specialization into the array
-    var arraylength = data.data.docs.length;
+    const arraylength = data.data.docs.length;
     console.log("arraylength",arraylength);
     this.orthodoctors = [];
     this.doctorsid = [];
@@ -160,8 +160,8 @@ export class PatientlistComponent implements OnInit {
 //set am pm for doctor schedule
 timeformat()
 {
-  var timeinput = document.getElementById('timeinput') as HTMLInputElement;
-  var timeSplit = timeinput.value.split(':'),
+  let timeinput = document.getElementById('timeinput') as HTMLInputElement;
+  let timeSplit = timeinput.value.split(':'),
   hours,
   minutes,
   meridian;

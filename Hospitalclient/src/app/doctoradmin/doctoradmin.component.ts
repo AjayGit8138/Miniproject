@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from '../apiservice.service';
 
@@ -40,11 +40,13 @@ export class DoctoradminComponent implements OnInit {
    }
   step:any = 1;
   ngOnInit(): void {
+    // TODO document why this method 'ngOnInit' is empty
+  
   }
 
   checkfile(event:any)
   {
-    var fullPath = event;
+    let fullPath = event;
     this.filename = `/src/images/`+ fullPath.replace(/^.*[\\\/]/, '');
     console.log("Hi File name is:", `/src/images/` + this.filename);
   }
@@ -54,7 +56,7 @@ export class DoctoradminComponent implements OnInit {
   }
   public emailcheck(event:any)
 {
-    var emailId = event.target.value;
+    let emailId = event.target.value;
     this.serveapi.checkdoctorlogin(emailId).subscribe((data)=>{
         console.log("Patient Exists data from Database",data);
         if(data.data.docs[0].email == emailId)

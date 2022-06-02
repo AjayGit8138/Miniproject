@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from '../apiservice.service';
-declare var $: any;
+
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router,Params } from '@angular/router';
@@ -62,10 +62,10 @@ export class DashboardComponent implements OnInit {
 
     this.serveapi.getrequestedpatient().subscribe((data)=>{
       console.log("waiting for Doctor appointment",data.docs);
-      var availength = data.docs.length;
+      const availength = data.docs.length;
       console.log("returned Length",availength);
       this.patientrequest = [];
-      for(var i=0;i<availength;i++)
+      for(let i=0;i<availength;i++)
       {
         this.patientrequest.push(data.docs[i]);
       }
@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
   selectdoctors(event:any)
   {
      console.log(event.target.value);
-     var referenceid = event.target.value;
+     const referenceid = event.target.value;
      this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
           console.log("Get specialized doctor data from server",data);
      })
@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
       var arraylength = data.docs.length;
       console.log("arraylength",arraylength);
 
-      for(var i=0;i<arraylength;i++)
+      for(let i=0;i<arraylength;i++)
       {
         this.orthodoctors[i] = data.docs[i].doctorname;
         console.log(this.orthodoctors[i]);

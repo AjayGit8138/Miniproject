@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ApiserviceService } from '../apiservice.service';
-import { AuthService } from '../shared/auth.service';
+
 import { DoctorauthService } from '../shared/doctorauth.service';
 
 @Component({
@@ -42,7 +42,7 @@ doctorloginauth(loginval:any)
 
 
   this.serveapi.checkdoctorlogin(loginval.loginid).subscribe((data)=>{
-    var length = data.data.docs;
+    const length = data.data.docs;
     console.log("total length",length);
   
     

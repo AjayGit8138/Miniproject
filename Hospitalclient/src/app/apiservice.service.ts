@@ -1,9 +1,7 @@
-import { getNumberOfCurrencyDigits } from '@angular/common';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import {Http, Headers} from '@angular/http';
-import { map } from 'rxjs/operators';
+
 
 
 @Injectable({
@@ -59,7 +57,7 @@ export class ApiserviceService {
   }
   getdoctorslist(getreference:any)
   {
-    var doctor = getreference;
+    let doctor = getreference;
     return this.http.get<any>('http://localhost:8000/getdoctordetails/'+doctor);
   }
   gettablets(reference:any){
@@ -103,7 +101,7 @@ export class ApiserviceService {
   getfile(report:any)
   {
     console.log("report",report);
-    var body = {filename:report};
+    let body = {filename:report};
     return this.http.post(`http://localhost:8000/download`, body, {
       responseType : 'blob',
   });

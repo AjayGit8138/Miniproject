@@ -13,7 +13,7 @@ export class DoctorlistComponent implements OnInit {
   constructor(private serveapi:ApiserviceService,private toastr:ToastrService) { }
   status:boolean = false;
   ngOnInit(): void {
-    var referenceid = 'Doctor';
+    let referenceid = 'Doctor';
     this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
       console.log("Avalable Doctors in Hospital",data);
       if(data.status == 404)
@@ -22,9 +22,9 @@ export class DoctorlistComponent implements OnInit {
         this.showerror(data.failure);
       }
       else{
-        var availength = data.data.docs.length;
+        const availength = data.data.docs.length;
         this.doctorlist = [];
-        for(var i=0;i<availength;i++)
+        for(let i=0;i<availength;i++)
         {
           this.doctorlist.push(data.data.docs[i]);
         }
@@ -37,7 +37,7 @@ export class DoctorlistComponent implements OnInit {
   selectdoctors(event:any)
   {
      console.log(event.target.value);
-     var referenceid = event.target.value;
+     const referenceid = event.target.value;
      this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
           console.log("Get specialized doctor data from server",data);
      })

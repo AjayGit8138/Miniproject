@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { data } from 'jquery';
+
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -99,9 +99,9 @@ object = {
       console.log("Undertreatment category is received successfully",data);
       this.showsuccess(data.success);
       //get patients details working under doctor
-      for(var i=0;i<data.data.docs.length;i++)
+      for(const element of data.data.docs)
       {
-        this.mypatients.push(data.data.docs[i]);
+        this.mypatients.push(element);
       }
     
       console.log("Patients under working",this.mypatients);
@@ -109,7 +109,7 @@ object = {
 
   }
 
-  submitbooldsample(formvalue:NgForm,list:any)
+  submitbooldsample(formvalue:NgForm,_list:any)
   {
     console.log("Bloodsample",formvalue);
     
@@ -125,8 +125,7 @@ object = {
   deletepatient(list:any)
   {
     console.log("Delete patient",list);
-    let id = list._id;
-    let revid = list._rev;
+   
     this.serveapi.deletepatient(list).subscribe((response=>{
       console.log("Deleted patient record",response);
     }),(err)=>{
@@ -156,9 +155,11 @@ object = {
     formobject.docid = localStorage.getItem('doctorid');
     this.serveapi.generatetestreport(formobject).subscribe((response)=>{
       if(response)
+      {
         console.log("test report successfully generated into the database",response);
-        alert(response.success);
+        this.showsuccess(response.success);
         this.testform.reset()
+      }
     },(error)=>{
       console.log("Test report not generated from the server",error);
     })

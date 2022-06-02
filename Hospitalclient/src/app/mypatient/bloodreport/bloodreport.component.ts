@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgForm, Validators } from '@angular/forms';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -44,7 +43,7 @@ arrayofkey = [];
       left: 0,
     },
     output: 'jspdf-generate.pdf', 
-    init: function() {},
+    init: function() { /* TODO document why this method 'init' is empty */ },
     success: function(pdf) {
       pdf.save(this.output);
     }
@@ -76,7 +75,7 @@ arrayofkey = [];
     this.currentdate = new Date();
   }
 
-  submitbooldsample(formvalue:any,ref:any)
+  submitbooldsample(formvalue:any,_ref:any)
   {
       console.log("Formvalues",formvalue);
       this.makepdf.push(formvalue);
@@ -85,9 +84,11 @@ arrayofkey = [];
       formvalue.docid = localStorage.getItem('doctorid');
       this.serveapi.generatebloodreport(formvalue).subscribe((response)=>{
         if(response)
+        {
           console.log("test report successfully generated into the database",response);
-          alert(response.message);
+
           this.bloodreport.reset()
+        }
       },(error)=>{
         console.log("Test report not generated from the server",error);
       })
@@ -151,15 +152,15 @@ arrayofkey = [];
 
 download()
 {
-  var item = 'WIN_20220404_12_24_49_Pro.jpg';
+  let item = 'WIN_20220404_12_24_49_Pro.jpg';
   this.serveapi.getfile(item).subscribe((data)=>{
     console.log("Data downloading",data);
   })
 }
 upload() {
   let formData = new FormData();
-  for (var i = 0; i < this.uploadedFiles.length; i++) {
-      formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
+  for (const element of this.uploadedFiles) {
+      formData.append("uploads[]", element, element.name);
   }
   this.serveapi.post( formData)
   .subscribe((response) => {
@@ -172,7 +173,7 @@ upload() {
 get patientId() {return this.bloodreport.get('patientId');}
 
 get patientname() {return this.bloodreport.get('patientname')}
-get reportby()  {return this.bloodreport.get('reportby')};
+get reportby()  {return this.bloodreport.get('reportby')}
 get totalreport() {return this.bloodreport.get('totalreport')}
 get urinsugar() {return this.bloodreport.get('urinsugar')}
 get acetone() {return this.bloodreport.get('acetone')}
