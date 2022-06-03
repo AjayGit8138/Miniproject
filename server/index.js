@@ -488,24 +488,24 @@ app.post('/bloodcountreport',(req,res)=>{
       type:"test-report"
           } 
       console.log("Save testReport",object);
-      controller.reportgeneration(object).then((data=>{
-        console.log("Successfully data received from server",data);
-      generatelogger.info("Testreport is successfully generated into server from indexjs");
-      if(data){
-             
-        const stat = {
-          success:"Patient MedicalReport is successfully generated",status:200
-        }
-        res.json(stat);
-        generatelogger.info("Success:" + `${stat.success}` + "Statuscode" + `${stat.status}`);
-      }
-      else
-      {
-        const stat ={failure:"Patient Medical Report is Not generated Successfulyy",status:404}
-        errorlog.error("Error" + `${stat.failure}` + "Statuscode:-" `${stat.status}`);
-      }
+      controller.reportgeneration(object).then(function (data) {
+          console.log("Successfully data received from server", data);
+          generatelogger.info("Testreport is successfully generated into server from indexjs");
+          if (data) {
 
-       })).catch((err)=>{
+            const stat = {
+              success: "Patient MedicalReport is successfully generated", status: 200
+            };
+            res.json(stat);
+            generatelogger.info("Success:" + `${stat.success}` + "Statuscode" + `${stat.status}`);
+          }
+
+          else {
+            const stat = { failure: "Patient Medical Report is Not generated Successfulyy", status: 404 };
+            errorlog.error("Error" + `${stat.failure}` + "Statuscode:-" `${stat.status}`);
+          }
+
+        }).catch((err)=>{
     console.log("Error from server",err);
     res.send("Server Down Cant fetch Details");
 })
