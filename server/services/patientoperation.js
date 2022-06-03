@@ -217,12 +217,13 @@ const getdoctor = (object)=>{
             console.log("response details",data.docs.length);
             for(const element of data.docs)
             {
-                storedb.hospitaldb.get(element.docid).then((responsedata)=>{
+              return storedb.hospitaldb.get(element.docid).then((responsedata)=>{
                     console.log("Data items",responsedata);
                     return responsedata;
                 }).catch((err)=>{
                     console.log("err",err);
                 })
+              
             }
            
         })

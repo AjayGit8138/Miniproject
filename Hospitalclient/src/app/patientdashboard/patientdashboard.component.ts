@@ -75,12 +75,12 @@ export class PatientdashboardComponent implements OnInit {
   {
     this.serveapi.gettestreport(this.testreport).subscribe((response)=>{
       console.log("autogenerate reports",response);
-      if(params == response.docs[0].totalreport)
+      if(params == response.data.docs[0].totalreport)
       {
         console.log('matched');
         this.numbercount += 1;
         console.log("counts",this.numbercount);
-        this.patienttestreports.push(response.docs[0]);
+        this.patienttestreports.push(response.data.docs[0]);
         console.log("Need to show the output for patient",this.patienttestreports);
         this.testreport = this.currentpage.id + '-' + 'Testreport' + '-' + this.numbercount;
 

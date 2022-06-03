@@ -19,13 +19,13 @@ export class MenuComponent implements OnInit {
   getdetails()
   {
     this.serveapi.getrequestedpatient().subscribe((data)=>{
-      console.log("waiting for Doctor appointment",data.docs);
-      this.requestedpatients = data.docs.length;
+      console.log("waiting for Doctor appointment",data.data.docs);
+      this.requestedpatients = data.data.docs.length;
     })
     const referenceid = 'Doctor';
     this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
       console.log("Avalable Doctors in Hospital",data);
-      this.avialabledoctors = data.docs.length;
+      this.avialabledoctors = data.data.docs.length;
     })
     this.serveapi.getadmittedpatients().subscribe((data)=>{
       console.log("Total admitted patients in our hospital",data.data.docs);

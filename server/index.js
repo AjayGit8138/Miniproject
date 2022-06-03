@@ -583,7 +583,10 @@ app.get('/senddoctor/:id',(req,res)=>{
   console.log("senddoctor",req.params.id);
   patienparse.getdoctor(req.params.id).then((data)=>{
     console.log("Collect data from server",data);
-    res.json(data);
+    if(data)
+    {
+      res.status(200).send({success:"Data fetched from a server",data:data});
+    }
   }).catch((err)=>{
     generatelogger.error("doctor not available",err);
   })

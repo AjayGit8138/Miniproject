@@ -12,7 +12,7 @@ import { MypatientComponent } from './mypatient/mypatient.component';
 import { PatientdashboardComponent } from './patientdashboard/patientdashboard.component';
 import { PatientenquiryComponent } from './patientenquiry/patientenquiry.component';
 import { PatientloginComponent } from './patientlogin/patientlogin.component';
-import { ScanreportComponent } from './scanreport/scanreport.component';
+
 import { AuthguardGuard } from './shared/authguard.guard';
 import { SpecialityComponent } from './speciality/speciality.component';
 import { TestanalysisComponent } from './testanalysis/testanalysis.component';
@@ -58,8 +58,8 @@ const routes: Routes = [
 
   children: [
     {path:'',redirectTo:'mypatient/:id', pathMatch: 'full' },
-    {path:'scan',component:ScanreportComponent},
-    {path:'scan/:id',component:ScanreportComponent},
+    // {path:'scan',component:ScanreportComponent},
+    // {path:'scan/:id',component:ScanreportComponent},
     { path: 'mypatient/:id', component: MypatientComponent,canActivate : [DoctorauthGuard],
         children:[
           { path: 'analyze/:id/:name/:docid/:docname', component: TestanalysisComponent},

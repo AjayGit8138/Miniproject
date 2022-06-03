@@ -28,8 +28,8 @@ export class YourdoctorComponent implements OnInit {
     })
     this.serveapi.getdoctor(this.currentpage.id).subscribe((data)=>{
       console.log("Response from a server",data);
-      this.direct.controls['doctorname'].setValue(data.doctorname);
-      this.direct.controls['specialist'].setValue(data.specialist);
+      this.direct.controls['doctorname'].setValue(data.data.doctorname);
+      this.direct.controls['specialist'].setValue(data.data.specialist);
       this.direct.controls['patientid'].setValue(this.currentpage.id);
     })
     this.direct = this.consulting.group({
@@ -43,7 +43,7 @@ export class YourdoctorComponent implements OnInit {
   }
   directconsulting:FormGroup;
   ngOnInit(): void {
-    console.log("Constructor")
+    console.log("constructor");
   }
 
     pastdate()
