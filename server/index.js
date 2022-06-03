@@ -488,8 +488,8 @@ app.post('/bloodcountreport',(req,res)=>{
       type:"test-report"
           } 
       console.log("Save testReport",object);
-      controller.reportgeneration(object).then((data)=>{
-      console.log("Successfully data received from server",data);
+      controller.reportgeneration(object).then((data=>{
+        console.log("Successfully data received from server",data);
       generatelogger.info("Testreport is successfully generated into server from indexjs");
       if(data){
              
@@ -504,7 +504,8 @@ app.post('/bloodcountreport',(req,res)=>{
         const stat ={failure:"Patient Medical Report is Not generated Successfulyy",status:404}
         errorlog.error("Error" + `${stat.failure}` + "Statuscode:-" `${stat.status}`);
       }
-  }).catch((err)=>{
+
+       })).catch((err)=>{
     console.log("Error from server",err);
     res.send("Server Down Cant fetch Details");
 })

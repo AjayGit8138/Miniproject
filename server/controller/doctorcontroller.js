@@ -43,11 +43,12 @@ const getreport = async(object)=>{
     result = await gettestreport(object).then((data)=>{
         console.log("Successfully handled the information",data);
         return data;
-    }).catch((err)=>{
-             console.log("Return failure from server",err);
-            loggenerate.error("Can't generated Test report Failure from server");
-            return err;
-    })
+     }).catch((error=>{
+        console.log("Return failure from server",error);
+                loggenerate.error("Can't generated Test report Failure from server");
+                return error;
+     }))
+ 
     throw result;
     }catch(e)
     {
@@ -102,11 +103,9 @@ const storepatientdata = async(object)=>{
     retresult = await newpatinetrecord(object).then((data)=>{
         console.log("successfully handled the information",data);
         return data;
-    }).catch((err)=>{
-        console.log("error failure from server",err);
-        loggenerate.error("can't store into db");
-        return err;
-    })
+    }).catch((error=>{
+        console.log("Error message",error);
+    }))
     throw retresult;
     }
     catch(e)
