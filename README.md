@@ -53,13 +53,13 @@ Backend Technologies implemented:
         *creating service layer's for doctor and patient's operations
 
 NPM Packages used in server
-1.Express package,
-2.CORS
-3.Nodemailer
-4.JOI validation
-5.multer upload and storage,
-6.nano couchdb npm package
-7.winston loggerfile log creation
-
-
+1.Express package                  :-"express": "^4.18.1"
+2.CORS                             :-"cors": "^2.8.5"
+3.Nodemailer                       :-"nodemailer": "^6.7.5"
+4.JOI validation                   :-"joi": "^17.6.0"
+5.multer upload and storage,       :-"multer": "^1.4.4"
+6.nano couchdb npm package         :-"nano": "^10.0.0"
+7.winston loggerfile log creation  :-"winston": "^3.7.2"
+8.Bodyparser                       :-"body-parser": "^1.20.0"
+9:nodemon,automatioc servers starts:-"nodemon": "^2.0.16"
 
