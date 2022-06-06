@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
 mobileview()
 {
-  let menu = document.querySelector('#menu-btn') as HTMLDivElement;
+  let menu = document.querySelector('#menu-btn');
   let navbar = document.querySelector('.navbar');
 
      menu.classList.toggle('fa-times');
