@@ -1,7 +1,4 @@
-# Miniproject
-Miniproject
 
-Miniproject
 
 Doctor Portal
 
@@ -11,12 +8,13 @@ Doctor Portal
 4.The Doctor able to create a general medicinal remedies and generate a blood count and urine test reports under patient with updated patient reports.
 
 Admin Portal
+
 1.The Admin Portal is user for only Hospital purpose,The admin will track the Patient booking request and allocate the Available doctor the requested
 patients depents upon the medicinal illness in general consulting.
 
 2.Maintain the Doctor registeration list in Hospital.
 
-3.The Time allocation for patient request Time will be changes depends upon the doctor available time,If the Doctor treating the patient on 11:00AM to 12:00PM 
+3.The Time allocation for patient request Time will be changes depends upon the doctor available time,If the Doctor treating the patient on 11:00AM to 12:00PM,Then this time 11:00AM to 12:00PM is Blocked While Patient Booking
 
 Patient Portal
 
@@ -37,10 +35,11 @@ Frontend:
 
 NPM Packages:
 
-1.npm i ngx-toastr@13.2.1 
-2.ng add @ng-bootstrap/ng-bootstrap
-3.ng add @angular/material
-4.npm install jspdf --save
+1.npm i ngx-toastr@13.2.1                :-"ngx-toastr": "^13.2.1"
+2.ng add @ng-bootstrap/ng-bootstrap      :-"@ng-bootstrap/ng-bootstrap": "^9.1.3"
+3.ng add @angular/material               :-"@angular/material": "^11.2.13"
+4.npm install jspdf --save                :-"jspdf-html2canvas": "^1.4.9"
+5.npm i angular-file-uploader             :-"ng2-file-upload": "^1.4.0"
 
 Backend Technologies implemented:
 
