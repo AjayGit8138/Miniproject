@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.number = 1;
 
-    this.serveapi.getrequestedpatient().subscribe((data)=>{
+    this.serveapi.getRequestedPatient().subscribe((data)=>{
       const availength = data.docs.length;
       this.patientrequest = [];
       for(let i=0;i<availength;i++)
@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
     this.bookingform.controls['appointstatus'].setValue(this.status);
     this.doctors = row.Treatmentcategory;
 
-    this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
+    this.serveapi.getDoctorslist(this.doctors).subscribe((data)=>{
     
       //push doctors as per the specialization into the array
       const arraylength = data.docs.length;
@@ -108,7 +108,7 @@ export class DashboardComponent implements OnInit {
     savebookingstatus(bookinformation:any){
      
         bookinformation.timingforappointment = this.timeclock;
-        this.serveapi.bookappointment(bookinformation,this.patientid).subscribe((data)=>{
+        this.serveapi.bookAppointment(bookinformation,this.patientid).subscribe((data)=>{
          
           alert(data.message);
           window.location.reload();

@@ -102,7 +102,7 @@ export class DisplayreportComponent implements OnInit {
   autoCode(params:any)
   {
     this.serveApi.getTestReport(this.testReport).subscribe((response)=>{
-     
+     console.log("testreports",response.data.docs);
       if(params == response.data.docs[0].totalreport)
       {
       

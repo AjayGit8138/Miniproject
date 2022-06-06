@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
 
   getdetails()
   {
-    this.serveApi.getrequestedpatient().subscribe((data)=>{
+    this.serveApi.getRequestedPatient().subscribe((data)=>{
      
       this.requestedPatients = data.data.docs.length;
     })
@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
      
       this.avialableDoctors = data.data.docs.length;
     })
-    this.serveApi.getadmittedpatients().subscribe((data)=>{
+    this.serveApi.getAdmittedPatients().subscribe((data)=>{
      
       this.admittedPatients = data.data.docs.length;
     })

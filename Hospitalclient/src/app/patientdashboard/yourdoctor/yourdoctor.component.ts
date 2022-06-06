@@ -88,7 +88,7 @@ export class YourdoctorComponent implements OnInit {
       formvalue.doctorid = this.doctorinformation.doctorId;
       const dbrefpatientid = localStorage.getItem('patientdbid');
       formvalue.dbrefpatientid = dbrefpatientid;
-      this.serveApi.directbooking(formvalue).subscribe((response)=>{
+      this.serveApi.directBooking(formvalue).subscribe((response)=>{
         if(response)
         {
           this.showSuccess("Your Appointment Booking is generated successfully")

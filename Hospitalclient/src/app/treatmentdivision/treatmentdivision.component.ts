@@ -49,7 +49,7 @@ export class TreatmentdivisionComponent implements OnInit {
   }
   getdetail()
   {
-    this.serveApi.gettotalpatients(this.underTreatment.doctor,this.underTreatment.treatmentCategory).subscribe((data)=>{
+    this.serveApi.getTotalPatients(this.underTreatment.doctor,this.underTreatment.treatmentCategory).subscribe((data)=>{
       //get patients details working under doctor
       for(const element of data.docs)
       {

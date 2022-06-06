@@ -53,7 +53,7 @@ export class DoctoradminComponent implements OnInit {
   public emailCheck(event:any)
 {
     let emailId = event.target.value;
-    this.serveApi.checkdoctorlogin(emailId).subscribe((data)=>{
+    this.serveApi.checkDoctorLogin(emailId).subscribe((data)=>{
       
         if(data.data.docs[0].email == emailId)
         {

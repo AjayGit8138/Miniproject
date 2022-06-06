@@ -60,7 +60,7 @@ export class PatientlistComponent implements OnInit {
 
     getrequestpatients()
     {
-      this.serveapi.getrequestedpatient().subscribe((data)=>{
+      this.serveapi.getRequestedPatient().subscribe((data)=>{
      
         if(data.status == 404)
         {
@@ -115,7 +115,7 @@ export class PatientlistComponent implements OnInit {
       doctorname:getDoctorname,
       docid:this.dbdoctorid
     }
-    this.serveapi.gettimeslot(timeslot).subscribe((res)=>{
+    this.serveapi.getTimeSlot(timeslot).subscribe((res)=>{
       for(let x of res.data.docs)
       {
       

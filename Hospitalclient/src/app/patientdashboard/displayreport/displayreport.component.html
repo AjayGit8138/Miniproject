@@ -23,7 +23,7 @@
 
                     <div class="list-group">
                         <ul class="list-group">
-                            <div *ngFor="let items of patienttestreports">
+                            <div *ngFor="let items of patientTestReports">
                                 <li class="list-group-item">{{items.totalreport}}<button
                                         (click)="displayTestReport(items,3)"
                                         class="viewreport btn btn-primary">view</button></li>
@@ -45,7 +45,7 @@
 
 
     <table aria-label="report" class="table card">
-        <tr *ngFor="let item of showobject | operation">
+        <tr *ngFor="let item of showObject | operation">
 
             <th scope="col">
                 <h1 class="text-info">{{item.key | uppercase}}</h1>

@@ -528,9 +528,10 @@ app.post('/download',(req,res)=>{
   console.log("filepath",filePath);
   const resolvedPath = pathmodule.resolve(filePath);
   if (resolvedPath.startsWith(__dirname + './uploads')) { 
-    let data = fs.readFileSync(resolvedPath, { encoding: 'utf8', flag: 'r' }); 
-    res.sendFile(data);
+    fs.readFileSync(resolvedPath, { encoding: 'utf8', flag: 'r' }); 
+    
   }
+  res.sendFile(resolvedPath);
  
 })
 app.get('/getreport/:id',(req,res)=>{

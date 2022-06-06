@@ -78,7 +78,7 @@ export class TestanalysisComponent implements OnInit {
   }
   autocode(params:any)
   {
-    this.serveapi.gettestreport(this.nofreport).subscribe((response)=>{
+    this.serveapi.getTestReport(this.nofreport).subscribe((response)=>{
       console.log("autogenerate reports",response);
       if(params == response.docs[0].totalreport)
       {
@@ -106,7 +106,7 @@ export class TestanalysisComponent implements OnInit {
   getmedical()
   {
     let reference = this.tabletlist.tabletname;
-      this.serveapi.gettablets(reference).subscribe(
+      this.serveapi.getTablets(reference).subscribe(
         (response) => {                          
           console.log('response received',response);
           console.log(response.docs[0][`${this.tabletlist.tabletname}`]);
@@ -125,7 +125,7 @@ export class TestanalysisComponent implements OnInit {
   generatereport(formobject:NgForm)
   {
     console.log("Report Generation",formobject);
-    this.serveapi.generatetestreport(formobject).subscribe((response)=>{
+    this.serveapi.generateTestReport(formobject).subscribe((response)=>{
       if(response)
       {
         console.log("test report successfully generated into the database",response);
