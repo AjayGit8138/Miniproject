@@ -525,7 +525,8 @@ app.post('/download',(req,res)=>{
 
   const filePath = path.join(__dirname,'./uploads/')  + req.body.filename;
   console.log("filepath",filePath);
-  res.sendFile(filePath);
+  let sendData = fs.readFileSync(filePath, { encoding: 'utf8', flag: 'r' }); 
+  res.sendFile(sendData);
 })
 app.get('/getreport/:id',(req,res)=>{
      
