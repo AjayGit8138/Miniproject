@@ -4,7 +4,8 @@
 
         <div class="col-md-6 col-sm-12 bg-custom-form">
             <p class="text-center mb-0 pt-4">Direct AppointmentBooking</p>
-            <form [formGroup]="direct" (ngSubmit)="bookdirectappointment(this.direct.value)" class="p-3">
+            <form [formGroup]="directConsulting" (ngSubmit)="bookDirectAppointment(this.directConsulting.value)"
+                class="p-3">
                 <div class="form-group">
                     <label for="name">NAME</label>
                     <input type="text" class="form-control" placeholder="patientid" readonly
@@ -31,7 +32,7 @@
 
 
                     <select class="form-control" formControlName="appointmenttime">
-                        <option *ngFor="let item of timeslot">
+                        <option *ngFor="let item of timeSlot">
                             {{item}}
                         </option>
                     </select>

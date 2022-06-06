@@ -11,42 +11,42 @@ import { ApiserviceService } from 'src/app/apiservice.service';
   styleUrls: ['./yourdoctor.component.css']
 })
 export class YourdoctorComponent implements OnInit {
-  todaydate:any;
+  todayDate:any;
   month:any;
   year:any;
   tdate:any;
-  direct:FormGroup;
+  directConsulting:FormGroup;
   currentDate:any = new Date();
   doctorinformation = {
-    dbid:'',
-    doctorid:'',
+    dbId:'',
+    doctorId:'',
     specialist:'',
-    patientid:'',
-    patientdbid:''
+    patientId:'',
+    patientDbId:''
 
   }
-  currentpage= {id:'number'};
-  timeslot = ['8:00AM to 9:00AM','9:00AM to 10:00AM','10:00AM to 11:00AM','11:00AM to 12:00PM','12:00PM to 1:00PM','3:00PM to 4:00PM','4:00PM to 5:00PM','6:00PM to 7:00PM','7:00PM to 8:00PM']
-  constructor(private consulting:FormBuilder,private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private toastr:ToastrService) { 
-    this.activeparams.params.subscribe((data:Params)=>{
-      this.currentpage = {
+  currentPage= {id:'number'};
+  timeSlot = ['8:00AM to 9:00AM','9:00AM to 10:00AM','10:00AM to 11:00AM','11:00AM to 12:00PM','12:00PM to 1:00PM','3:00PM to 4:00PM','4:00PM to 5:00PM','6:00PM to 7:00PM','7:00PM to 8:00PM']
+  constructor(private consultingForm:FormBuilder,private activeParams:ActivatedRoute,private serveApi:ApiserviceService,private toastrService:ToastrService) { 
+    this.activeParams.params.subscribe((data:Params)=>{
+      this.currentPage = {
         id:data['id'],
       
       }
     
     })
-    this.serveapi.getdoctor(this.currentpage.id).subscribe((data)=>{
+    this.serveApi.getDoctor(this.currentPage.id).subscribe((data)=>{
      
-      this.direct.controls['doctorname'].setValue(data.data.doctorname);
-      this.direct.controls['specialist'].setValue(data.data.specialist);
-      this.direct.controls['patientid'].setValue(this.currentpage.id);
-      this.doctorinformation.dbid = data.data._id;
-      this.doctorinformation.doctorid = data.data.certificateid;
+      this.directConsulting.controls['doctorname'].setValue(data.data.doctorname);
+      this.directConsulting.controls['specialist'].setValue(data.data.specialist);
+      this.directConsulting.controls['patientid'].setValue(this.currentPage.id);
+      this.doctorinformation.dbId = data.data._id;
+      this.doctorinformation.doctorId = data.data.certificateid;
       this.doctorinformation.specialist = data.data.specialist;
-      this.doctorinformation.patientid = this.currentpage.id;
+      this.doctorinformation.patientId = this.currentPage.id;
 
     })
-    this.direct = this.consulting.group({
+    this.directConsulting = this.consultingForm.group({
       patientid:['',Validators.required],
       doctorname:['',Validators.required],
       specialist:['',Validators.required],
@@ -61,13 +61,13 @@ export class YourdoctorComponent implements OnInit {
   
   }
 
-    pastdate()
+    pastDate()
     {
   
-      this.todaydate = new Date();
-      this.month = this.todaydate.getMonth();
-      this.year = this.todaydate.getUTCFullYear() - 0;
-      this.tdate = this.todaydate.getDate();
+      this.todayDate = new Date();
+      this.month = this.todayDate.getMonth();
+      this.year = this.todayDate.getUTCFullYear() - 0;
+      this.tdate = this.todayDate.getDate();
       if(this.month < 10)
       {
         this.month = "0" + this.month;
@@ -82,23 +82,23 @@ export class YourdoctorComponent implements OnInit {
 
     }
     
-    bookdirectappointment(formvalue:any)
+    bookDirectAppointment(formvalue:any)
     {
-      formvalue.dbparentid = this.doctorinformation.dbid;
-      formvalue.doctorid = this.doctorinformation.doctorid;
+      formvalue.dbparentid = this.doctorinformation.dbId;
+      formvalue.doctorid = this.doctorinformation.doctorId;
       const dbrefpatientid = localStorage.getItem('patientdbid');
       formvalue.dbrefpatientid = dbrefpatientid;
-      this.serveapi.directbooking(formvalue).subscribe((response)=>{
+      this.serveApi.directbooking(formvalue).subscribe((response)=>{
         if(response)
         {
-          this.success("Your Appointment Booking is generated successfully")
+          this.showSuccess("Your Appointment Booking is generated successfully")
         }
       })
      
     }
-    public success(message:any)
+    public showSuccess(message:any)
     {
-      this.toastr.success(message);
+      this.toastrService.success(message);
     }
  
 }

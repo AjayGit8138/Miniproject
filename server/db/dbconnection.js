@@ -1,8 +1,8 @@
-const DbHospital = require('./nanodb');
+const dbHospital = require('./nanodb');
 const validator = require("email-validator");
 const generatelogger = require('../logger/logger');
 
-const getlogindetails = 
+const getLoginDetails = 
     async (getobject)=>{
       
     let value;
@@ -17,7 +17,7 @@ const getlogindetails =
                    "type": "Patient"
                 }
              }
-            value = DbHospital.hospitaldb.find(emailquery).then((data)=>{
+            value = dbHospital.hospitaldb.find(emailquery).then((data)=>{
                 console.log("email id matched documents fetched from database",data);
                 generatelogger.info("Emailid exists while entering the form",getobject);
                 return data;
@@ -36,7 +36,7 @@ const getlogindetails =
                    "requestId": getobject
                 }
              }
-          value =   DbHospital.hospitaldb.find(loginauth).then(data=>{
+          value =   dbHospital.hospitaldb.find(loginauth).then(data=>{
                 console.log("found data",data);
                 generatelogger.info("Requested Details Found")
                 return data;
@@ -51,4 +51,4 @@ const getlogindetails =
 
 
 
-module.exports = {getlogindetails}
+module.exports = {getLoginDetails}

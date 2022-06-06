@@ -11,18 +11,18 @@ import { PatienauthService } from '../shared/patienauth.service';
   styleUrls: ['./patientdashboard.component.css']
 })
 export class PatientdashboardComponent implements OnInit {
-  currentpage= {id:'number'};
-  loginpatientid:any;
-  appointstatus:any = [];
+  currentPage= {id:'number'};
+  loginPatientId:any;
+  appointStatus:any = [];
   divBoolean:any;
-  testreport:any;
-  patienttestreports = [];
-  numbercount:number = 1;
+  testReport:any;
+  patientTestReports = [];
+  numberCount:number = 1;
   closeResult = '';
-  showrecord:number = 1;
-  patientname:any;
+  showRecord:number = 1;
+  patientName:any;
 
-  showobject = {
+  showObject = {
     symptoms:'',
     remedies:'',
     tabletone:'',
@@ -33,23 +33,22 @@ export class PatientdashboardComponent implements OnInit {
 
   }
   
-  constructor(private modalService: NgbModal,private activeparams:ActivatedRoute,private serviceapi:ApiserviceService,private route:Router,private serveapi:ApiserviceService,private patientauth:PatienauthService) { 
-    this.activeparams.params.subscribe((data:Params)=>{
-      this.currentpage = {
+  constructor(private modalService: NgbModal,private activeParams:ActivatedRoute,private serviceApi:ApiserviceService,private routeService:Router,private patientAuth:PatienauthService) { 
+    this.activeParams.params.subscribe((data:Params)=>{
+      this.currentPage = {
         id:data['id'],
       }
-      console.log(this.currentpage);
     })
 
-    this.testreport = this.currentpage.id + '-'+ 'Testreport' + '-' + 1;
-    this.autocode(this.testreport);
-    this.serviceapi.checkpatientlogin(this.currentpage.id).subscribe((data)=>{
-        this.appointstatus.push(data.data.docs[0]);
-        for(const element of this.appointstatus)
+    this.testReport = this.currentPage.id + '-'+ 'Testreport' + '-' + 1;
+    this.autoCode(this.testReport);
+    this.serviceApi.checkPatientLogin(this.currentPage.id).subscribe((data)=>{
+        this.appointStatus.push(data.data.docs[0]);
+        for(const element of this.appointStatus)
         {
             
               localStorage.setItem('patientdbid',element._id)
-              this.patientname = element.patientname;
+              this.patientName = element.patientname;
         }
       
         
@@ -67,50 +66,50 @@ export class PatientdashboardComponent implements OnInit {
 
   }
 
-  autocode(params:any)
+  autoCode(params:any)
   {
-    this.serveapi.gettestreport(this.testreport).subscribe((response)=>{
+    this.serviceApi.getTestReport(this.testReport).subscribe((response)=>{
       if(params == response.data.docs[0].totalreport)
       {
-        this.numbercount += 1;
-        this.patienttestreports.push(response.data.docs[0]);
-        this.testreport = this.currentpage.id + '-' + 'Testreport' + '-' + this.numbercount;
+        this.numberCount += 1;
+        this.patientTestReports.push(response.data.docs[0]);
+        this.testReport = this.currentPage.id + '-' + 'Testreport' + '-' + this.numberCount;
 
       }
       else{
         console.log("Not matched id",params);
       }
-      this.autocode(this.testreport);
+      this.autoCode(this.testReport);
         
     })
   }
 
-  redirectback()
+  redirectBack()
   {
-      this.route.navigate(['..']);
+      this.routeService.navigate(['..']);
   }
-  showdiv(currentdiv:any)
+  showDiv(currentdiv:any)
   {
     this.divBoolean = currentdiv;
   }
-  displaytestreport(items:any,disval:any)
+  displayTestReport(items:any,disval:any)
   {
-    this.showobject.dietplan = items.dietplan;
-    this.showobject.tabletone = items.medicineone;
-    this.showobject.tablettwo = items.medicinetwo;
-    this.showobject.tabletthree = items.medicinethree;
-    this.showobject.remedies = items.remedies;
-    this.showobject.dosage = items.dosage;
+    this.showObject.dietplan = items.dietplan;
+    this.showObject.tabletone = items.medicineone;
+    this.showObject.tablettwo = items.medicinetwo;
+    this.showObject.tabletthree = items.medicinethree;
+    this.showObject.remedies = items.remedies;
+    this.showObject.dosage = items.dosage;
 
     this.divBoolean = disval;
   }
   ngOnInit(): void {
     this.divBoolean = 1;
-    this.loginpatientid = localStorage.getItem('token');
+    this.loginPatientId = localStorage.getItem('token');
   }
-  Logout() {  
+  logOut() {  
     console.log('logout');  
-    this.patientauth.logout();  
-    this.route.navigate(['home']);  
+    this.patientAuth.logout();  
+    this.routeService.navigate(['home']);  
   } 
 }

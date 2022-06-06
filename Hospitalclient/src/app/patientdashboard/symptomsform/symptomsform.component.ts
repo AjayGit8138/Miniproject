@@ -10,11 +10,11 @@ import { ApiserviceService } from 'src/app/apiservice.service';
   styleUrls: ['./symptomsform.component.css']
 })
 export class SymptomsformComponent implements OnInit {
-  patientsignupform:FormGroup;
-  currentpage= {id:'number',name:'string'};
+  patientSignupForm:FormGroup;
+  currentPage= {id:'number',name:'string'};
   status = 'NO';
-  constructor(private toastr:ToastrService,private request:FormBuilder,private activeparams:ActivatedRoute,private api:ApiserviceService) { 
-    this.patientsignupform = this.request.group({
+  constructor(private toastrService:ToastrService,private request:FormBuilder,private activeParams:ActivatedRoute,private apiService:ApiserviceService) { 
+    this.patientSignupForm = this.request.group({
       patientid:['',Validators.required],
       patientname:['',Validators.required],
       appointmentstatus:['',Validators.required],
@@ -22,33 +22,33 @@ export class SymptomsformComponent implements OnInit {
       Symptoms:['',Validators.required]
     })
 
-    this.activeparams.params.subscribe((data:Params)=>{
-      this.currentpage = {
+    this.activeParams.params.subscribe((data:Params)=>{
+      this.currentPage = {
         id:data['id'],
         name:data['name']
       }
-      console.log(this.currentpage.name);
+      console.log(this.currentPage.name);
     })
-    this.patientsignupform.controls['patientid'].setValue(this.currentpage.id);
-    this.patientsignupform.controls['patientname'].setValue(this.currentpage.name);
+    this.patientSignupForm.controls['patientid'].setValue(this.currentPage.id);
+    this.patientSignupForm.controls['patientname'].setValue(this.currentPage.name);
   }
 
   ngOnInit(): void {
     console.log("Constructor")
   
   }
-  loginauth(fromvalue:NgForm)
+  symptomsForm(fromValue:NgForm)
   {
      
-      this.api.postconsulting(fromvalue).subscribe((data)=>{
+      this.apiService.postConsulting(fromValue).subscribe((data)=>{
        
-        this.showsuccess(data.message);
-        this.patientsignupform.reset();
+        this.showSuccess(data.message);
+        this.patientSignupForm.reset();
       })
   }
 
-  showsuccess(message)
+  showSuccess(message:any)
   {
-    this.toastr.success(message);
+    this.toastrService.success(message);
   }
 }

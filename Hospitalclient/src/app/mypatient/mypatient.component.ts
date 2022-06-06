@@ -11,20 +11,20 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MypatientComponent implements OnInit {
 //testanalyze
-bloodreport:FormGroup;
+
 uploadedFiles: Array < File > ;
-testform:FormGroup;
+testForm:FormGroup;
 errorMessage:any;
-numbercount:number = 1;
+numberCount:number = 1;
 tablets:any = [];
-filename:any;
-testgenerated:any;
+fileName:any;
+testGenerated:any;
 medical=['orthotablet','skinmedicine','heartmedicine','nervesmedicine','eyemedicine','generalmedicine'];
 nofreport:any;
-increamentcount:number;
-patineid:any;
+increamentCount:number;
+patineId:any;
 closeResult = '';
-refstorage = [];
+refStorage = [];
 object = {
   id:'',
   name:'',
@@ -33,28 +33,27 @@ object = {
 //
 
 
-  currentpage= {id:'number'};
-  tabchange:any;
-  divboolean:number = 1;
-  setdivision:number = 1;
+  currentPage= {id:'number'};
+  tabChange:any;
+  divBoolean:number = 1;
+  setDivision:number = 1;
 
-  undertreatment = {
+  underTreatment = {
     doctor:'',
-    Treatmentcategory:''
+    treatmentCategory:''
   };
 
   mypatients = [];
-  constructor(private reportform:FormBuilder,private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private router:Router,private toastr:ToastrService) {
+  constructor(private reportForm:FormBuilder,private activeParams:ActivatedRoute,private serveApi:ApiserviceService,private routerService:Router,private toastrService:ToastrService) {
     
-    this.activeparams.params.subscribe((data:Params)=>{
-      this.currentpage = {
+    this.activeParams.params.subscribe((data:Params)=>{
+      this.currentPage = {
         id:data['id'],
       }
-      console.log(this.currentpage);
     })
-    this.divboolean = 1;
+    this.divBoolean = 1;
 
-    this.testform = this.reportform.group({
+    this.testForm = this.reportForm.group({
       patientId:['',Validators.required],
       patientname:['',Validators.required],
       reportby:['',Validators.required],
@@ -65,7 +64,6 @@ object = {
       dietplan:['',Validators.required],
       dosage:['',Validators.required],
       tabletscategory:['',Validators.required],
-      // tablets:['',Validators.required],
       medicineone:['',Validators.required],
       medicinetwo:['',Validators.required],
       medicinethree:['',Validators.required],
@@ -80,25 +78,25 @@ object = {
 
   ngOnInit(): void {
    
-    this.serveapi.checkdoctorlogin(this.currentpage.id).subscribe((data)=>{
+    this.serveApi.checkDoctorLogin(this.currentPage.id).subscribe((data)=>{
      
       localStorage.setItem('doctorid',data.data.docs[0]._id);
      
-      this.undertreatment.doctor = data.data.docs[0].doctorname;
-      this.undertreatment.Treatmentcategory = data.data.docs[0].specialist;
-      this.testgenerated = this.currentpage.id + '-' + this.undertreatment.doctor;
+      this.underTreatment.doctor = data.data.docs[0].doctorname;
+      this.underTreatment.treatmentCategory = data.data.docs[0].specialist;
+      this.testGenerated = this.currentPage.id + '-' + this.underTreatment.doctor;
 
-      this.getdetail();
+      this.getDetail();
     })
     
     
   }
-  getdetail()
+  getDetail()
   {
   
-    this.serveapi.gettotalpatients(this.undertreatment.doctor,this.undertreatment.Treatmentcategory).subscribe((data)=>{
+    this.serveApi.getTotalPatients(this.underTreatment.doctor,this.underTreatment.treatmentCategory).subscribe((data)=>{
   
-      this.showsuccess(data.success);
+      this.showSuccess(data.success);
       //get patients details working under doctor
       for(const element of data.data.docs)
       {
@@ -110,24 +108,24 @@ object = {
 
   }
 
-  submitbooldsample(formvalue:NgForm,_list:any)
+  submitBooldSample(formvalue:NgForm,_list:any)
   {
     console.log("Bloodsample",formvalue);
     
   }
   display(setdisplay:any)
   {
-    this.divboolean = setdisplay;
+    this.divBoolean = setdisplay;
   }
   backtohome(){
-    this.router.navigate(['..']);
+    this.routerService.navigate(['..']);
     
   }
   //checkfilename
-  checkfile(event:any)
+  checkFile(event:any)
   {
     let fullPath = event.target.value;
-    this.filename = `/src/images/`+ fullPath.replace(/^.*[\\\/]/, '');
+    this.fileName = `/src/images/`+ fullPath.replace(/^.*[\\\/]/, '');
    
   }
 
@@ -139,19 +137,19 @@ object = {
 
     const formdata = new FormData();
     formdata.append("file",file);
-    this.serveapi.post(formdata)
+    this.serveApi.postData(formdata)
   .subscribe((response) => {
        console.log('response received is ', response);
   })
 }
-  deletepatient(list:any)
+  deletePatient(list:any)
   {
    
    
-    this.serveapi.deletepatient(list).subscribe((response=>{
+    this.serveApi.deletePatient(list).subscribe((response=>{
       if(response)
       {
-      this.showsuccess("Pateint record is Deleted successfully");
+      this.showSuccess("Pateint record is Deleted successfully");
       }
       window.location.reload();
     }),(err)=>{
@@ -163,106 +161,106 @@ object = {
 
   //analyze test report
 
-  testformdisplay(list:any,display:any)
+  testformDisplay(list:any,display:any)
   {
     
-    this.divboolean = display;
-    this.testform.controls['patientId'].setValue(list.patientid);
-    this.testform.controls['patientname'].setValue(list.patientname);
-    this.testform.controls['reportby'].setValue(this.testgenerated);
-    this.patineid = list.patientid;
-    this.nofreport = list.patientid + '-' + 'Testreport' + '-' + this.numbercount;
-    this.autocode(this.nofreport);
-    this.testform.controls['totalreport'].setValue(this.nofreport);
+    this.divBoolean = display;
+    this.testForm.controls['patientId'].setValue(list.patientid);
+    this.testForm.controls['patientname'].setValue(list.patientname);
+    this.testForm.controls['reportby'].setValue(this.testGenerated);
+    this.patineId = list.patientid;
+    this.nofreport = list.patientid + '-' + 'Testreport' + '-' + this.numberCount;
+    this.autoCode(this.nofreport);
+    this.testForm.controls['totalreport'].setValue(this.nofreport);
   }
-  generatereport(formobject:any)
+  generateReport(formobject:any)
   {
   
    formobject.filename = formobject.filename.replace(/^.*[\\\/]/, '');
     formobject.docid = localStorage.getItem('doctorid');
     console.log("formbobject",formobject);
-    this.serveapi.generatetestreport(formobject).subscribe((response)=>{
+    this.serveApi.generateTestReport(formobject).subscribe((response)=>{
       if(response)
       {
 
-        this.showsuccess(response.success);
-        this.testform.reset()
+        this.showSuccess(response.success);
+        this.testForm.reset()
       }
     },(error)=>{
       console.log("Test report not generated from the server",error);
     })
   }
-  navigatetoback(params:any){
-    this.divboolean = params;
+  navigatetoBack(params:any){
+    this.divBoolean = params;
    
   }
 
-  tabletlist = {
+  tabletList = {
     "tabletname":"",
   }
-  autocode(params:any)
+  autoCode(params:any)
   {
-    this.serveapi.gettestreport(this.nofreport).subscribe((response)=>{
+    this.serveApi.getTestReport(this.nofreport).subscribe((response)=>{
   
       if(params == response.data.docs[0].totalreport)
       {
-        this.numbercount += 1;
-        this.nofreport = this.patineid + '-' + 'Testreport' + '-' + this.numbercount;
-         this.testform.controls['totalreport'].setValue(this.nofreport);
+        this.numberCount += 1;
+        this.nofreport = this.patineId + '-' + 'Testreport' + '-' + this.numberCount;
+         this.testForm.controls['totalreport'].setValue(this.nofreport);
 
       }
       else{
         console.log("Not matched id",params);
       }
-      this.autocode(this.nofreport);
+      this.autoCode(this.nofreport);
         
     })
   }
-  addtestreport(list:any,showdiv:any)
+  addtestReport(list:any,showdiv:any)
   {
-    this.divboolean = showdiv;
+    this.divBoolean = showdiv;
     this.object.id = list.patientid;
     this.object.name = list.patientname;
-    this.object.generatedby = this.testgenerated;
+    this.object.generatedby = this.testGenerated;
   }
  
   sendData(event:any)
   {
-    this.divboolean = event;
+    this.divBoolean = event;
   }
 
   //automatic talets fill in dropdown list
-  setmedicine(event:any): void
+  setMedicine(event:any): void
   {
-    this.tabletlist.tabletname = event.target.value;
-    this.getmedical();
+    this.tabletList.tabletname = event.target.value;
+    this.getMedical();
   }
-  getmedical()
+  getMedical()
   {
-    let reference = this.tabletlist.tabletname;
-      this.serveapi.gettablets(reference).subscribe(
+    let reference = this.tabletList.tabletname;
+      this.serveApi.getTablets(reference).subscribe(
         (response) => {                          
           this.tablets = [];
-          this.tablets.push(response.data.docs[0][`${this.tabletlist.tabletname}`]);
+          this.tablets.push(response.data.docs[0][`${this.tabletList.tabletname}`]);
         },
         (error) => {                              
        
           this.errorMessage = error;
           
         
-          this.showerror(this.errorMessage.error);
+          this.showError(this.errorMessage.error);
         }
       )
   }
 
 
-  showsuccess(message)
+  showSuccess(message:any)
   {
-    this.toastr.success(message);
+    this.toastrService.success(message);
   }
 
-  showerror(message)
+  showError(message:any)
   {
-    this.toastr.error(message);
+    this.toastrService.error(message);
   }
 }

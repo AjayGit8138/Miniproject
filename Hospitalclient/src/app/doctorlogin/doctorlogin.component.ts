@@ -13,9 +13,9 @@ import { DoctorauthService } from '../shared/doctorauth.service';
   styleUrls: ['./doctorlogin.component.css']
 })
 export class DoctorloginComponent implements OnInit {
-  doctorloginformgroup:FormGroup;
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private doctorauth:DoctorauthService,private toastrService:ToastrService) {
-    this.doctorloginformgroup = this.fb.group({
+  doctorLoginFormgroup:FormGroup;
+  constructor(private fbBuilder:FormBuilder,private serveApi:ApiserviceService,private routerService:Router,private doctorAuth:DoctorauthService,private toastrService:ToastrService) {
+    this.doctorLoginFormgroup = this.fbBuilder.group({
       loginid:['',Validators.required],
       email:['',Validators.required],
       password:['',Validators.required]
@@ -24,11 +24,11 @@ export class DoctorloginComponent implements OnInit {
 
   ngOnInit(): void {
  
-    this.doctorauth. doctorlogout();
+    this.doctorAuth.doctorLogout();
   }
-get loginid(){return this.doctorloginformgroup.get('loginid');}
-get email(){return this.doctorloginformgroup.get('email');}
-get password(){return this.doctorloginformgroup.get('password');}
+get loginid(){return this.doctorLoginFormgroup.get('loginid');}
+get email(){return this.doctorLoginFormgroup.get('email');}
+get password(){return this.doctorLoginFormgroup.get('password');}
 
 
 
@@ -38,17 +38,17 @@ public showSuccess(message:any): void {
 public showError(message:any): void {
   this.toastrService.error(message);
 }
-doctorloginauth(loginval:any)
+doctorLoginAuth(loginval:any)
 {
 
 
-  this.serveapi.checkdoctorlogin(loginval.loginid).subscribe((data)=>{
+  this.serveApi.checkDoctorLogin(loginval.loginid).subscribe((data)=>{
     if((data.data.docs[0].email == loginval.email) && (data.data.docs[0].password == loginval.password))
     {
       localStorage.setItem('isdoctorLoggedIn','true');
         localStorage.setItem('token', loginval.loginid);  
         this.showSuccess("Login Successfull");
-      this.router.navigate(['treat/mypatient',loginval.loginid]);
+      this.routerService.navigate(['treat/mypatient',loginval.loginid]);
     }
     else{
       this.showError("Error Email or Password authentication failed!!!!");

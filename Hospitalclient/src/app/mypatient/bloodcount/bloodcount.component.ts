@@ -12,22 +12,22 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./bloodcount.component.css']
 })
 export class BloodcountComponent implements OnInit {
-  bloodcount:FormGroup;
+  bloodCount:FormGroup;
   @Input () bloodtest:any; 
   @Input () reference:any;
   @Input () doctorid:any;
  
   uploadedFiles: Array < File > ;
-  pdfname:any;
-  numbercount:number = 1;
-  divboolean:any;
-  bloodcountreport:any;
-  currentdate:any;
-  makepdf = [];
-  arrayofkey = [];
+  pdfName:any;
+  numberCount:number = 1;
+  divBoolean:any;
+  bloodCountReport:any;
+  currentDate:any;
+  makePdf = [];
+  arrayofKey = [];
   @Output() public sendData = new EventEmitter<number>();
-  constructor(private router:Router,private bloodtestform:FormBuilder,private serveapi:ApiserviceService,private toastr:ToastrService) {
-    this.bloodcount = this.bloodtestform.group({
+  constructor(private router:Router,private bloodTestForm:FormBuilder,private serveapi:ApiserviceService,private toastr:ToastrService) {
+    this.bloodCount = this.bloodTestForm.group({
       patientId:['',Validators.required],
       patientname:['',Validators.required],
       reportby:['',Validators.required],
@@ -44,55 +44,55 @@ export class BloodcountComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.bloodcount.controls['patientId'].setValue(this.bloodtest.id);
-    this.bloodcount.controls['patientname'].setValue(this.bloodtest.name);
+    this.bloodCount.controls['patientId'].setValue(this.bloodtest.id);
+    this.bloodCount.controls['patientname'].setValue(this.bloodtest.name);
     
-    this.bloodcountreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
-    this.autocode(this.bloodcountreport);
+    this.bloodCountReport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numberCount;
+    this.autoCode(this.bloodCountReport);
   
-    this.bloodcount.controls['reportby'].setValue(this.bloodtest.generatedby);
-    this.bloodcount.controls['totalreport'].setValue(this.bloodcountreport);
+    this.bloodCount.controls['reportby'].setValue(this.bloodtest.generatedby);
+    this.bloodCount.controls['totalreport'].setValue(this.bloodCountReport);
 
-    this.currentdate = new Date();
+    this.currentDate = new Date();
   }
-  submitbooldsample(formvalue:any,_ref:any)
+  submitBloodSample(formvalue:any,_ref:any)
   {
    
     
-      this.makepdf.push(formvalue);
-      this.arrayofkey = Object.keys(this.makepdf[0]);
+      this.makePdf.push(formvalue);
+      this.arrayofKey = Object.keys(this.makePdf[0]);
     
       formvalue.docid = localStorage.getItem('doctorid');
-      this.serveapi.generatebloodcountreport(formvalue).subscribe((response)=>{
+      this.serveapi.generateBloodCountReport(formvalue).subscribe((response)=>{
         
         if(response.status == 200)
         {
-          this.showsuccess(response.success);
-          this.bloodcount.reset()
+          this.showSuccess(response.success);
+          this.bloodCount.reset()
         }
       
       },(error)=>{
-        this.showerror("can't generate report");
+        this.showError("can't generate report");
         console.log("Test report not generated from the server",error);
       })
   }
 
   //autogenerate test report based on Previous report
-  autocode(params:any)
+  autoCode(params:any)
   {
-    this.serveapi.gettestreport(params).subscribe((response)=>{
+    this.serveapi.getTestReport(params).subscribe((response)=>{
      
       if(params == response.docs[0].totalreport)
       {
-        this.numbercount += 1;
-        this.bloodcountreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
-        this.pdfname = this.bloodcountreport;
-         this.bloodcount.controls['totalreport'].setValue(this.bloodcountreport);
+        this.numberCount += 1;
+        this.bloodCountReport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numberCount;
+        this.pdfName = this.bloodCountReport;
+         this.bloodCount.controls['totalreport'].setValue(this.bloodCountReport);
       }
       else{
         console.log("Not matched id",params);
       }
-      this.autocode(this.bloodcountreport);
+      this.autoCode(this.bloodCountReport);
         
     })
   }
@@ -112,33 +112,33 @@ export class BloodcountComponent implements OnInit {
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
      
     
-      PDF.save( this.pdfname+'.pdf');
+      PDF.save( this.pdfName+'.pdf');
     });
   }
 
 
-    showsuccess(message)
+    showSuccess(message:any)
     {
       this.toastr.success(message);
     }
-    showerror(message)
+    showError(message:any)
     {
       this.toastr.error(message);
     }
     
-    get patientId() {return this.bloodcount.get('patientId');}
+    get patientId() {return this.bloodCount.get('patientId');}
 
-    get patientname() {return this.bloodcount.get('patientname')}
-    get reportby()  {return this.bloodcount.get('reportby')}
-    get totalreport() {return this.bloodcount.get('totalreport')}
-    get Rbc() {return this.bloodcount.get('Rbc')}
-    get hemoglobin() {return this.bloodcount.get('hemoglobin')}
-    get hemocrit() {return this.bloodcount.get('hemocrit')}
-    get mcv() {return this.bloodcount.get('mcv')}
+    get patientname() {return this.bloodCount.get('patientname')}
+    get reportby()  {return this.bloodCount.get('reportby')}
+    get totalreport() {return this.bloodCount.get('totalreport')}
+    get Rbc() {return this.bloodCount.get('Rbc')}
+    get hemoglobin() {return this.bloodCount.get('hemoglobin')}
+    get hemocrit() {return this.bloodCount.get('hemocrit')}
+    get mcv() {return this.bloodCount.get('mcv')}
 
-    get mch() {return this.bloodcount.get('mch')}
+    get mch() {return this.bloodCount.get('mch')}
 
-    get rdw() {return this.bloodcount.get('rdw')}
+    get rdw() {return this.bloodCount.get('rdw')}
 
 
 

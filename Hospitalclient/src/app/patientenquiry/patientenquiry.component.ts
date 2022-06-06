@@ -9,20 +9,20 @@ import { ApiserviceService } from '../apiservice.service';
   styleUrls: ['./patientenquiry.component.css']
 })
 export class PatientenquiryComponent implements OnInit {
-  requestid:string="undefined";
+  requestId:string="undefined";
   type:string = "patient";
-  validpass:boolean;
-  cpasswordcheck:any;
-  checkmobileno:any;
-  addharid:number=0;
-  passwordmatch:any;
-  idgen:number = 1;
-  dubesi:number = 0;
-  patientinquiryform:FormGroup;
+  validPass:boolean;
+  cpasswordCheck:any;
+  checkMobileno:any;
+  addharId:number=0;
+  passwordMatch:any;
+  idGen:number = 1;
+  dubEsi:number = 0;
+  patientinQuiryform:FormGroup;
 
   //Formgroup validation
-  constructor(private router:Router,private validate:FormBuilder,private serverapi:ApiserviceService,private toastr:ToastrService) { 
-    this.patientinquiryform = this.validate.group({
+  constructor(private routerService:Router,private validateForm:FormBuilder,private serverApi:ApiserviceService,private toastrService:ToastrService) { 
+    this.patientinQuiryform = this.validateForm.group({
       patientname:['',[Validators.required]],
       age:['',[Validators.required]],
       dateofbirth:['',[Validators.required]],
@@ -40,7 +40,7 @@ export class PatientenquiryComponent implements OnInit {
     })
  
   }
-  selecttreatment:boolean = false;
+  selectTreatment:boolean = false;
   ngOnInit(): void {
     console.log("Constructor")
 
@@ -48,114 +48,108 @@ export class PatientenquiryComponent implements OnInit {
 
 
 selected:string= "";
-patientcount:any;
-public updatetreatment()
-{
-  let genid;
-  genid = this.addharid;
-  this.requestid = 'patient' + genid.slice(-4);
-}
+patientCount:any;
 
 
 
 //store Patient Data into the Database
-Formsubmit(Formvalue:NgForm)
+formSubmit(formValue:NgForm)
 {
-  console.log(Formvalue);
-  if(Formvalue.value == '')
+  console.log(formValue);
+  if(formValue.value == '')
   {
       alert("Please fill the form")
   }
   else{
-  this.serverapi.storepatientrecord(Formvalue).subscribe((res)=>{
-        this.showsuccess(res.message);
+  this.serverApi.storePatientRecord(formValue).subscribe((res)=>{
+        this.showSuccess(res.message);
   })
-  this.patientinquiryform.reset();
+  this.patientinQuiryform.reset();
   window.location.reload();
 }
 }
 
 //Generate Patient Id autogenerate based upon aadhar No
-setrequestid(event:any)
+setRequestid(event:any)
 {
-  let genid;
-  this.addharid = event.target.value;
-  genid = this.addharid;
-  this.requestid = 'Patient-' + genid.slice(-4);
+  let genId;
+  this.addharId = event.target.value;
+  genId = this.addharId;
+  this.requestId = 'Patient-' + genId.slice(-4);
 }
 
 //checkmobileno
-setmobileno(event:any)
+setMobileno(event:any)
 {
-  this.checkmobileno = event.target.value;
+  this.checkMobileno = event.target.value;
 
 }
-setesino(event:any)
+setEsino(event:any)
 {
-  this.dubesi = event.target.value;
+  this.dubEsi = event.target.value;
 }
 //Password check
 
-passwordcheck(e:any)
+passwordCheck(e:any)
 {
-  this.passwordmatch = e.target.value;
-  console.log("password",this.passwordmatch);}
+  this.passwordMatch = e.target.value;
+  console.log("password",this.passwordMatch);}
 //confirmpassword check
-checkcpassword(e:any)
+checkcPassword(e:any)
 {
-  this.cpasswordcheck = e.target.value;
+  this.cpasswordCheck = e.target.value;
  
-  if(this.passwordmatch == this.cpasswordcheck)
+  if(this.passwordMatch == this.cpasswordCheck)
   {
-    this.validpass = true;
+    this.validPass = true;
   
   }
   else
   {
-    this.validpass = false;
+    this.validPass = false;
     alert("Confirm Password doesn't Match with Orginal Password Please enter correctpassword");
-    this.patientinquiryform.controls['cpassword'].setValue('');
+    this.patientinQuiryform.controls['cpassword'].setValue('');
   }
  
 }
 
 //toastr message
-  showsuccess(message)
+  showSuccess(message)
   {
-    this.toastr.success(message);
+    this.toastrService.success(message);
   }
 
 getToday(): string {
   return new Date().toISOString().split('T')[0]
 }
 //exists Emailid check
-public emailcheck(event:any)
+public emailCheck(event:any)
 {
     let emailId = event.target.value;
-    this.serverapi.checkpatientlogin(emailId).subscribe((data)=>{
+    this.serverApi.checkPatientLogin(emailId).subscribe((data)=>{
         console.log("Patient Exists data from Database",data);
         
         for(const element of data.data.docs)
         {
         if(element.email == emailId )
         {
-          this.showwarn("Email Id already Exists,Please register with new one");
-          this.patientinquiryform.controls['email'].setValue('');
+          this.showWarn("Email Id already Exists,Please register with new one");
+          this.patientinQuiryform.controls['email'].setValue('');
         }
-        else if((element.esino == this.dubesi ))
+        else if((element.esino == this.dubEsi ))
         {
-          this.showwarn("Esino Already Exists");
-          this.patientinquiryform.controls['esino'].setValue('');
+          this.showWarn("Esino Already Exists");
+          this.patientinQuiryform.controls['esino'].setValue('');
         }
-        else if((element.aadharno == this.addharid))
+        else if((element.aadharno == this.addharId))
         {
-          this.showwarn("aadharno Exists");
-          this.patientinquiryform.controls['aadharno'].setValue('');
+          this.showWarn("aadharno Exists");
+          this.patientinQuiryform.controls['aadharno'].setValue('');
         }
-        else if((element.mobileno == this.checkmobileno ))
+        else if((element.mobileno == this.checkMobileno ))
         {
-          this.showwarn("Mobileno Exists");
-          this.patientinquiryform.controls['mobileno'].setValue('');
+          this.showWarn("Mobileno Exists");
+          this.patientinQuiryform.controls['mobileno'].setValue('');
 
         }
        
@@ -164,22 +158,22 @@ public emailcheck(event:any)
     
 }
 //toastr service
-showwarn(message)
+showWarn(message:any)
 {
-  this.toastr.warning(message);
+  this.toastrService.warning(message);
 }
 
 //getter setter for form validation
-get patientname() {return this.patientinquiryform.get('patientname');}
-get age() {return this.patientinquiryform.get('age');}
-get dateofbirth() {return this.patientinquiryform.get('dateofbirth');}
-get mobileno() {return this.patientinquiryform.get('mobileno');}
-get email() {return this.patientinquiryform.get('email');}
-get esino() {return this.patientinquiryform.get('esino');}
-get aadharno() {return this.patientinquiryform.get('aadharno');}
-get category() {return this.patientinquiryform.get('category');}
-get password() {return this.patientinquiryform.get('password');}
-get cpassword() {return this.patientinquiryform.get('cpassword');}
+get patientname() {return this.patientinQuiryform.get('patientname');}
+get age() {return this.patientinQuiryform.get('age');}
+get dateofbirth() {return this.patientinQuiryform.get('dateofbirth');}
+get mobileno() {return this.patientinQuiryform.get('mobileno');}
+get email() {return this.patientinQuiryform.get('email');}
+get esino() {return this.patientinQuiryform.get('esino');}
+get aadharno() {return this.patientinQuiryform.get('aadharno');}
+get category() {return this.patientinQuiryform.get('category');}
+get password() {return this.patientinQuiryform.get('password');}
+get cpassword() {return this.patientinQuiryform.get('cpassword');}
 
 }
 

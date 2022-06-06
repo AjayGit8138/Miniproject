@@ -6,11 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./speciality.component.css']
 })
 export class SpecialityComponent implements OnInit {
-  eyetreat = './images/eyetreatment.jpeg';
-  hearttreat = './images/heart-care.jpeg';
-  skintreat = './images/skintreatment.jpg';
-  genmedicine = './images/Generalmedical.jpg';
-  orthotreat = './images/orthotreatment.jpg';
+  eyeTreat = './images/eyetreatment.jpeg';
+  heartTreat = './images/heart-care.jpeg';
+  skinTreat = './images/skintreatment.jpg';
+  genMedicine = './images/Generalmedical.jpg';
+  orthoTreat = './images/orthotreatment.jpg';
   nerves = './images/nerves.jpg';
   banner = "./images/medicalbanner.jpg";
   constructor() { 

@@ -4,11 +4,11 @@
 
         <div class="col-md-6 col-sm-12 bg-custom-form">
             <p class="text-center mb-0 pt-4">Doctor Profile Registeration</p>
-            <form [formGroup]="doctoradmingroup" (ngSubmit)="doctorprofile(this.doctoradmingroup.value)" class="p-3">
+            <form [formGroup]="doctorAdminGroup" (ngSubmit)="doctorProfile(this.doctorAdminGroup.value)" class="p-3">
                 <div class="form-group" [class.has-error]="doctorname.invalid && doctorname.touched">
                     <label for="Doctorname">Doctor's
                         Name:</label>
-                    <input type="text" class="form-control" formControlName="doctorname" [(ngModel)]="honourname"
+                    <input type="text" class="form-control" formControlName="doctorname" [(ngModel)]="honourName"
                         placeholder="'DR.'Enter the DoctorsName">
                     <div class="help-block text-danger" *ngIf="doctorname.invalid && doctorname.touched">
                         <span *ngIf="doctorname.errors?.required">
@@ -21,7 +21,7 @@
                     <label for="Doctoremail">Doctor's
                         Email:</label>
                     <input type="email" class="form-control" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
-                        (change)="emailcheck($event)" formControlName="email" placeholder="'DR.'Enter the DoctorsEmail">
+                        (change)="emailCheck($event)" formControlName="email" placeholder="'DR.'Enter the DoctorsEmail">
                     <div class="help-block text-danger" *ngIf="email.touched">
                         <span *ngIf="email.errors?.required">
                             Hi Doctor email is REQUIRED!!!
@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <label for="customFile">Upload Photo:</label>
                     <input type="file" #profilename formControlName="profilesnap" name="snap"
-                        (change)="checkfile(profilename.value)" class="form-control" />
+                        (change)="checkFile(profilename.value)" class="form-control" />
                     <div class="help-block text-danger" *ngIf="profilesnap.touched">
                         <span *ngIf="profilesnap.errors?.required">
                             Please select a your photocopies.
@@ -70,7 +70,7 @@
                 </div><br>
                 <div class="form-group" [class.has-error]="mobileno.invalid && mobileno.touched">
                     <label for="certification">Certification No:</label>
-                    <input type="text" class="form-control" formControlName="certificateid" [(ngModel)]="certifyno">
+                    <input type="text" class="form-control" formControlName="certificateid" [(ngModel)]="certifyNo">
                 </div><br>
                 <div class="form-group">
                     <label for="treatmentspecialist">Specialist:</label>
@@ -93,7 +93,7 @@
                 <div class="form-group" [class.has-error]="password.touched">
 
                     <label for="password">Password:</label>
-                    <input type="password" (change)="passwordcheck($event)" class="form-control"
+                    <input type="password" (change)="passwordCheck($event)" class="form-control"
                         pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                         formControlName="password" placeholder="password">
                     <div class="help-block text-danger" *ngIf="password.touched">
@@ -107,7 +107,7 @@
                 </div><br>
                 <div class="form-group" [class.has-error]="cpassword.invalid && cpassword.touched">
                     <label for="password">Confirmpassword:</label>
-                    <input type="password" (change)="checkcpassword($event)" class="form-control"
+                    <input type="password" (change)="checkcPassword($event)" class="form-control"
                         formControlName="cpassword" placeholder="Enter confirm password">
                     <div class="help-block text-danger" *ngIf="cpassword.touched">
 
@@ -118,7 +118,7 @@
                     </div>
                 </div><br>
                 <div class="row">
-                    <button type="submit" [disabled]="!doctoradmingroup.valid"
+                    <button type="submit" [disabled]="!doctorAdminGroup.valid"
                         class="btn btn-pnt btn-custom mb-3 mt-3">Register</button><br>
                 </div>
                 <div class="row">

@@ -4,7 +4,7 @@
 
         <div class="col-md-6 col-sm-12 bg-custom-form">
             <p class="text-center mb-0 pt-4">Doctor Login</p>
-            <form [formGroup]="doctorloginformgroup" (ngSubmit)="doctorloginauth(this.doctorloginformgroup.value)"
+            <form [formGroup]="doctorLoginFormgroup" (ngSubmit)="doctorLoginAuth(this.doctorLoginFormgroup.value)"
                 class="p-3">
                 <div class="form-group" [class.has-error]="loginid.invalid && loginid.touched">
                     <label for="Loginid">Login Id:</label>

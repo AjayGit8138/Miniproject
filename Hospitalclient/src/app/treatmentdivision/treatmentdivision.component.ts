@@ -10,35 +10,35 @@ import { DoctorauthService } from '../shared/doctorauth.service';
   styleUrls: ['./treatmentdivision.component.css']
 })
 export class TreatmentdivisionComponent implements OnInit {
-  currentpage= {id:'number'};
-  logindocid:any;
-  tabchange:any;
-  setdivision:number = 1;
-  undertreatment = {
+  currentPage= {id:'number'};
+  loginDocId:any;
+  tabChange:any;
+  setDivision:number = 1;
+  underTreatment = {
     doctor:'',
-    Treatmentcategory:''
+    treatmentCategory:''
 
   };
   mypatients = [];
-  constructor(private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private route:Router,private authserve:DoctorauthService) {
-    this.activeparams.params.subscribe((data:Params)=>{
-      this.currentpage = {
+  constructor(private activeParams:ActivatedRoute,private serveApi:ApiserviceService,private routeService:Router,private authServe:DoctorauthService) {
+    this.activeParams.params.subscribe((data:Params)=>{
+      this.currentPage = {
         id:data['id'],
        
       }
-      console.log("currentpate treat",this.currentpage);
+      console.log("currentpate treat",this.currentPage);
      
     })
           
    }
   ngOnInit(): void {
-   this.tabchange = 1;
-   this.logindocid = localStorage.getItem('token');
+   this.tabChange = 1;
+   this.loginDocId = localStorage.getItem('token');
   }
 
   tabselect(params:any)
   {
-    this.tabchange = params;
+    this.tabChange = params;
     this.getdetail();
   }
 
@@ -49,7 +49,7 @@ export class TreatmentdivisionComponent implements OnInit {
   }
   getdetail()
   {
-    this.serveapi.gettotalpatients(this.undertreatment.doctor,this.undertreatment.Treatmentcategory).subscribe((data)=>{
+    this.serveApi.gettotalpatients(this.underTreatment.doctor,this.underTreatment.treatmentCategory).subscribe((data)=>{
       //get patients details working under doctor
       for(const element of data.docs)
       {
@@ -58,22 +58,19 @@ export class TreatmentdivisionComponent implements OnInit {
     })
 
   }
-  backtohome(){
-    this.route.navigate(['..']);
-    
-  }
-  doctorlogout() {  
+ 
+  doctorLogout() {  
    
-    this.authserve.doctorlogout();  
-    this.route.navigate(['/home']);  
+    this.authServe.doctorLogout();  
+    this.routeService.navigate(['/home']);  
   } 
 
-  selectab(divselect:any)
+  selectab(divSelect:any)
   {
-    this.tabchange = divselect;
+    this.tabChange = divSelect;
   }
 
-  mobileview()
+  mobileView()
   {
   let menu = document.querySelector('#menu-btn');
   let navbar = document.querySelector('.navbar');

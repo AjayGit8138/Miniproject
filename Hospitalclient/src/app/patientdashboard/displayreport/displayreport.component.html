@@ -9,7 +9,7 @@
                 <em class="fas fa-notes-medical"></em>
                 <h1>Medical Reports</h1>
                 <p>Pateint Medical reports based on regular checkup and doctor Advice.</p>
-                <a (click)="viewreports(2)" class="btn"> View Reports <span class="fas fa-chevron-right"></span> </a>
+                <a (click)="viewReports(2)" class="btn"> View Reports <span class="fas fa-chevron-right"></span> </a>
             </div>
         </div>
     </section>
@@ -25,7 +25,7 @@
                         <ul class="list-group">
                             <div *ngFor="let items of patienttestreports">
                                 <li class="list-group-item">{{items.totalreport}}<button
-                                        (click)="displaytestreport(items,3)"
+                                        (click)="displayTestReport(items,3)"
                                         class="viewreport btn btn-primary">view</button></li>
 
                             </div>
@@ -56,7 +56,7 @@
             <td>
                 <h1>{{item.value}}</h1>
                 <div *ngIf="item.key == 'filename'">
-                    <button mat-raised-button color="accent" (click)="download(item.value)">Download</button>
+                    <button mat-raised-button color="accent" (click)="downLoad(item.value)">Download</button>
                 </div>
             </td>
 
@@ -64,6 +64,6 @@
         </tr>
     </table>
     <div class="container">
-        <button class="viewbtn btn btn-primary" (click)="showdiv(2)">view another report</button>
+        <button class="viewbtn btn btn-primary" (click)="showDiv(2)">view another report</button>
     </div>
 </div>

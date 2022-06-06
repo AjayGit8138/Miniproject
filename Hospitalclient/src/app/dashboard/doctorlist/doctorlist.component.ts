@@ -8,27 +8,27 @@ import { ApiserviceService } from 'src/app/apiservice.service';
   styleUrls: ['./doctorlist.component.css']
 })
 export class DoctorlistComponent implements OnInit {
-  doctorlist = [];
-  errorstatus:boolean = false;
-  constructor(private serveapi:ApiserviceService,private toastr:ToastrService) { }
+  doctorList = [];
+  errorStatus:boolean = false;
+  constructor(private serveApi:ApiserviceService,private toastrService:ToastrService) { }
   status:boolean = false;
   ngOnInit(): void {
-    let referenceid = 'Doctor';
-    this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
+    let referenceId = 'Doctor';
+    this.serveApi.getDoctorslist(referenceId).subscribe((data)=>{
    
       if(data.status == 404)
       {
-        this.errorstatus = true;
-        this.showerror(data.failure);
+        this.errorStatus = true;
+        this.showError(data.failure);
       }
       else{
         const availength = data.data.docs.length;
-        this.doctorlist = [];
+        this.doctorList = [];
         for(let i=0;i<availength;i++)
         {
-          this.doctorlist.push(data.data.docs[i]);
+          this.doctorList.push(data.data.docs[i]);
         }
-        this.showsuccess(data.success);
+        this.showSuccess(data.success);
        
     }
     })
@@ -36,12 +36,12 @@ export class DoctorlistComponent implements OnInit {
   }
 
   //toastr service
-  showerror(message)
+  showError(message)
   {
-    this.toastr.error(message);
+    this.toastrService.error(message);
   }
-  showsuccess(message)
+  showSuccess(message)
   {
-    this.toastr.success(message);
+    this.toastrService.success(message);
   }
 }

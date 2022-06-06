@@ -1,4 +1,4 @@
-<div *ngIf="divboolean == 1" class="mypatients">
+<div *ngIf="divBoolean == 1" class="mypatients">
 
     <div class="container">
         <div class="row">
@@ -24,13 +24,13 @@
                             <td>{{list.treatmentcategory}}</td>
                             <td>{{list.symptoms}}</td>
                             <td><button class="btnspace getrow" mat-raised-button color="primary"
-                                    (click)="testformdisplay(list,2)">UpdateRemedies</button>
+                                    (click)="testformDisplay(list,2)">UpdateRemedies</button>
                             </td>
                             <td><button class="btnspace getrow" mat-raised-button color="primary"
-                                    (click)="addtestreport(list,3)">Add TestReport</button>
+                                    (click)="addtestReport(list,3)">Add TestReport</button>
                             </td>
                             <td><button class="btnspace getrow" mat-raised-button color="warn"
-                                    (click)="deletepatient(list)">Delete</button>
+                                    (click)="deletePatient(list)">Delete</button>
                             </td>
                         </tr>
 
@@ -42,7 +42,7 @@
 </div>
 
 
-<div *ngIf="divboolean == 2">
+<div *ngIf="divBoolean == 2">
     <div class="container">
         <div class="row">
             <div class="report container">
@@ -50,7 +50,7 @@
                     <div class="jumbo jumbotron">
                         <div class="col-md-12">
                             <div class="mx-auto col-md-10">
-                                <form [formGroup]="testform" (ngSubmit)="generatereport(this.testform.value)">
+                                <form [formGroup]="testform" (ngSubmit)="generateReport(this.testform.value)">
                                     <h1 class="text-light">Create TestReport and Remedies form</h1>
                                     <div>
                                         <div class="row">
@@ -115,7 +115,7 @@
                                     <div class="row">
                                         <div class="row">
                                             <label for="Tablets" class="text-light">Tabletsfor:</label>
-                                            <select class="form-select " (change)="setmedicine($event)"
+                                            <select class="form-select " (change)="setMedicine($event)"
                                                 formControlName="tabletscategory" #treatment>
                                                 <option value="default">none</option>
                                                 <option *ngFor="let tablets of medical" [value]="tablets">{{tablets}}
@@ -191,7 +191,7 @@
                                     </div>
 
                                     <div class="row col-4">
-                                        <button style="height: 60px;" (click)="navigatetoback(1)" mat-flat-button
+                                        <button style="height: 60px;" (click)="navigatetoBack(1)" mat-flat-button
                                             color="accent">Back to
                                             Doctoradmin
                                         </button>
@@ -207,7 +207,7 @@
     </div>
 </div>
 
-<div *ngIf="divboolean == 3" class="mypatients">
+<div *ngIf="divBoolean == 3" class="mypatients">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -222,13 +222,13 @@
     </div>
 </div>
 
-<div *ngIf="divboolean == 4">
+<div *ngIf="divBoolean == 4">
     <app-bloodreport (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentpage.id"
         [reference]="'urine'">
     </app-bloodreport>
 </div>
 
-<div *ngIf="divboolean == 5">
+<div *ngIf="divBoolean == 5">
     <app-bloodcount (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentpage.id"
         [reference]="'bloodcount'"></app-bloodcount>
 </div>

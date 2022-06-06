@@ -4,16 +4,16 @@
 
     <nav class="navbar">
 
-        <a [ngClass]="tabchange == 1?'showactive':'showdeactive'" (click)="selectab(1)"
-            [routerLink]="['mypatient',this.currentpage.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+        <a [ngClass]="tabChange == 1?'showactive':'showdeactive'" (click)="selectab(1)"
+            [routerLink]="['mypatient',this.currentPage.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
         true}">My Patients
         </a>
 
 
 
-        <a (click)="doctorlogout()" routerLink="active">Logout</a>
+        <a (click)="doctorLogout()" routerLink="active">Logout</a>
 
-        <div id="menu-btn" class="fas fa-bars" (click)="mobileview()"></div>
+        <div id="menu-btn" class="fas fa-bars" (click)="mobileView()"></div>
     </nav>
 </header>
 <div class="container">

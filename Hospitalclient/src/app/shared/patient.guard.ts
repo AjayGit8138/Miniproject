@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PatientGuard implements CanActivate {
-  constructor(private router:Router){}
+  constructor(private routerServe:Router){}
   canActivate(
     _route: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -14,7 +14,7 @@ export class PatientGuard implements CanActivate {
       {
     return true;
       }
-      this.router.navigate(['/patientdashboard']);
+      this.routerServe.navigate(['/patientdashboard']);
     
     
       return false;

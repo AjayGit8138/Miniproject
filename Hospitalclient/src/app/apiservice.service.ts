@@ -22,80 +22,80 @@ export class ApiserviceService {
    {
      this.loggedInStatus = value;
    }
-   gettotalpatients(getcategory:any,getlist:any)
+   getTotalPatients(getcategory:any,getlist:any)
   {
-   return this.http.get<any>('http://localhost:8000/totalpatients/'+getcategory+'/'+getlist);
+   return this.http.get<any>('http://localhost:8000/totalPatients/'+getcategory+'/'+getlist);
   }
-  storepatientrecord(formobject:any)
+  storePatientRecord(formobject:any)
   {
-    return this.http.post<any>('http://localhost:8000/storepatient/',formobject);
+    return this.http.post<any>('http://localhost:8000/storePatient/',formobject);
   }
-  checkpatientlogin(Formvalue:any)
+  checkPatientLogin(Formvalue:any)
   {
-    return this.http.get<any>('http://localhost:8000/checkpatientlogin/'+Formvalue);
+    return this.http.get<any>('http://localhost:8000/checkPatientLogin/'+Formvalue);
   }
-  storedoctorprofile(doctorform:any)
+  storeDoctorProfile(doctorform:any)
   {
-    return this.http.post<any>('http://localhost:8000/savedoctorprofile/',doctorform);
+    return this.http.post<any>('http://localhost:8000/saveDoctorProfile/',doctorform);
   }
-  checkdoctorlogin(doctorlogin:any)
+  checkDoctorLogin(doctorlogin:any)
   {
     console.log("doctorlogin",doctorlogin);
-    return this.http.get<any>('http://localhost:8000/doctorloginauth/'+doctorlogin);
+    return this.http.get<any>('http://localhost:8000/doctorLoginAuth/'+doctorlogin);
   }
-  getrequestedpatient()
+  getRequestedPatient()
   {
-    return this.http.get<any>('http://localhost:8000/bookrequested/');
+    return this.http.get<any>('http://localhost:8000/bookRequested/');
   }
-  bookappointment(appoint:any,refid:any)
+  bookAppointment(appoint:any,refid:any)
   {
     console.log("Bookappointment",refid);
-    return this.http.put<any>('http://localhost:8000/updatepatienrecord/'+refid,appoint);
+    return this.http.put<any>('http://localhost:8000/updatePatienRecord/'+refid,appoint);
   }
-  getdoctorslist(getreference:any)
+  getDoctorslist(getreference:any)
   {
     let doctor = getreference;
-    return this.http.get<any>('http://localhost:8000/getdoctordetails/'+doctor);
+    return this.http.get<any>('http://localhost:8000/getDoctorDetails/'+doctor);
   }
-  gettablets(reference:any){
-    return this.http.get<any>('http://localhost:8000/gettablets/'+reference);
+  getTablets(reference:any){
+    return this.http.get<any>('http://localhost:8000/getTablets/'+reference);
   }
-  generatetestreport(object:any)
+  generateTestReport(object:any)
   {
     return this.http.post<any>('http://localhost:8000/generatemedicalreport',object);
   }
-  gettestreport(id:any)
+  getTestReport(id:any)
   {
     return this.http.get<any>('http://localhost:8000/getreport/'+id);
   }
-  generatebloodreport(object:any)
+  generateBloodReport(object:any)
   {
     return this.http.post<any>('http://localhost:8000/bloodreport',object);
   }
-  deletepatient(object:any)
+  deletePatient(object:any)
   {
-    return this.http.delete<any>('http://localhost:8000/deletepatient/'+object._id+'/'+object._rev);
+    return this.http.delete<any>('http://localhost:8000/deletePatient/'+object._id+'/'+object._rev);
   }
-  post(formData:any){
+  postData(formData:any){
     return this.http.post<any>('http://localhost:8000/upload/',formData);
   }
-  getadmin(request:any)
+  getAdmin(request:any)
   {
     return this.http.post<any>('http://localhost:8000/admin/',request);
   }
-  postconsulting(consulting:any)
+  postConsulting(consulting:any)
   {
     return this.http.post<any>('http://localhost:8000/consulting',consulting);
   }
-  getadmittedpatients()
+  getAdmittedPatients()
   {
-    return this.http.get<any>('http://localhost:8000/admittedpatients');
+    return this.http.get<any>('http://localhost:8000/admittedPatients');
   }
-  generatebloodcountreport(bloodcountreport:any)
+  generateBloodCountReport(bloodcountreport:any)
   {
-     return this.http.post<any>('http://localhost:8000/bloodcountreport',bloodcountreport)
+     return this.http.post<any>('http://localhost:8000/bloodCountReport',bloodcountreport)
   }
-  getfile(report:any)
+  getFile(report:any)
   {
     console.log("report",report);
     let body = {filename:report};
@@ -103,17 +103,17 @@ export class ApiserviceService {
       responseType : 'blob',
   });
   }
-  getdoctor(doctor:any)
+  getDoctor(doctor:any)
   {
     return this.http.get<any>('http://localhost:8000/senddoctor/'+doctor);
   }
-  directbooking(booking:any)
+  directBooking(booking:any)
   {
     return this.http.post<any>('http://localhost:8000/directbook',booking);
   }
-  gettimeslot(timeslot:any)
+  getTimeSlot(timeslot:any)
   {
-    return this.http.get<any>('http://localhost:8000/timeslot/'+timeslot.doctorname + '/' + timeslot.docid);
+    return this.http.get<any>('http://localhost:8000/timeSlot/'+timeslot.doctorname + '/' + timeslot.docid);
   }
 }
  

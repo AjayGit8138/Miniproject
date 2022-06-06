@@ -10,18 +10,18 @@ import { ApiserviceService } from '../apiservice.service';
   styleUrls: ['./doctoradmin.component.css']
 })
 export class DoctoradminComponent implements OnInit {
-  doctoradmingroup:FormGroup;
-  validpass:boolean;
-  filename:string = "";
-  passwordmatch:any;
-  cpasswordcheck:any;
-  certifyno:string = "DOC-";
-  honourname:string = "DR.";
-  profilepath:string = "../src/images/";
+  doctorAdminGroup:FormGroup;
+  validPass:boolean;
+  fileName:string = "";
+  passwordMatch:any;
+  cpasswordCheck:any;
+  certifyNo:string = "DOC-";
+  honourName:string = "DR.";
+  profilePath:string = "../src/images/";
   sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
   courses = ['MBBS,MD in Genereal Medicine','MBBS,MS in Obstetrics','MBBS,MD,DM in Cardiology','MBBS,MS,MCH in Vascular Surgery','MBBS in ENT (Ear, Nose and Throat)','MBBS in Ophthalmology','MBBS in General Medicine','MBBS in Orthopaedics','MBBS in General Surgery','MBBS in Anaesthesiology','MBBS in Obstetrics & Gynaecology','MBBS in Psychiatry','MBBS in Paediatrics']
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private toastr:ToastrService) {
-    this.doctoradmingroup = this.fb.group({
+  constructor(private fbBuilder:FormBuilder,private serveApi:ApiserviceService,private toastrService:ToastrService) {
+    this.doctorAdminGroup = this.fbBuilder.group({
       doctorname:['',[Validators.required]],
       email:['',[Validators.required]],
       mobileno:['',[Validators.required]],
@@ -38,89 +38,86 @@ export class DoctoradminComponent implements OnInit {
     })
 
    }
-  step:any = 1;
+
   ngOnInit(): void {
       console.log("Print Hello");
   }
 
-  checkfile(event:any)
+  checkFile(event:any)
   {
     let fullPath = event;
-    this.filename = `/src/images/`+ fullPath.replace(/^.*[\\\/]/, '');
+    this.fileName = `/src/images/`+ fullPath.replace(/^.*[\\\/]/, '');
    
   }
-  navigatenext()
-  {
-    this.step += 1;
-  }
-  public emailcheck(event:any)
+ 
+  public emailCheck(event:any)
 {
     let emailId = event.target.value;
-    this.serveapi.checkdoctorlogin(emailId).subscribe((data)=>{
+    this.serveApi.checkdoctorlogin(emailId).subscribe((data)=>{
       
         if(data.data.docs[0].email == emailId)
         {
          
-          this.showwarn("Email Id already Exists,Please register with new one");
-          this.doctoradmingroup.reset();
+          this.showWarn("Email Id already Exists,Please register with new one");
+          this.doctorAdminGroup.reset();
         }
     })
 }
-passwordcheck(e:any)
+passwordCheck(e:any)
 {
-  this.passwordmatch = e.target.value;
+  this.passwordMatch = e.target.value;
 
 }
-checkcpassword(e:any)
+checkcPassword(e:any)
 {
-  this.cpasswordcheck = e.target.value;
+  this.cpasswordCheck = e.target.value;
  
-  if(this.passwordmatch == this.cpasswordcheck)
+  if(this.passwordMatch == this.cpasswordCheck)
   {
-    this.validpass = true;
+    this.validPass = true;
   
   }
   else
   {
-    this.validpass = false;
+    this.validPass = false;
     alert("Confirm Password doesn't Match with Orginal Password Please enter correctpassword");
-    this.doctoradmingroup.controls['cpassword'].setValue('');
+    this.doctorAdminGroup.controls['cpassword'].setValue('');
   }
 }
 
 getToday(): string {
   return new Date().toISOString().split('T')[0]
 }
-  doctorprofile(Formvalue:any)
+  doctorProfile(Formvalue:any)
   {
-    Formvalue.profilesnap = this.filename;
-    this.serveapi.storedoctorprofile(Formvalue).subscribe(resdata=>{
+    Formvalue.profilesnap = this.fileName;
+    this.serveApi.storeDoctorProfile(Formvalue).subscribe(resdata=>{
       
       if(resdata)
       {
-        this.showsuccess("Doctor Profile is added succesfully")
+        this.showSuccess("Doctor Profile is added succesfully")
       }
     })
-    this.doctoradmingroup.reset();
+    this.doctorAdminGroup.reset();
   }
 
   //toastrservice
-  showwarn(message)
+  showWarn(message:any)
   {
-    this.toastr.warning(message);
+    this.toastrService.warning(message);
   }
-  showsuccess(message)
+  showSuccess(message:any)
   {
-    this.toastr.success(message);
+    this.toastrService.success(message);
   }
-  get doctorname() {return this.doctoradmingroup.get('doctorname');}
-  get email() {return this.doctoradmingroup.get('email');}
-  get mobileno() {return this.doctoradmingroup.get('mobileno');}
-  get gender() {return this.doctoradmingroup.get('gender');}
-  get dateofbirth() {return this.doctoradmingroup.get('dateofbirth');}
-  get  profilesnap() {return this.doctoradmingroup.get('profilesnap');}
-  get  certificateid() {return this.doctoradmingroup.get(' certificateid');}
-  get  cspecialistdeg() {return this.doctoradmingroup.get('specialistdeg');}
-  get  password() {return this.doctoradmingroup.get('password');}
-  get  cpassword() {return this.doctoradmingroup.get('cpassword');}
+  get doctorname() {return this.doctorAdminGroup.get('doctorname');}
+  get email() {return this.doctorAdminGroup.get('email');}
+  get mobileno() {return this.doctorAdminGroup.get('mobileno');}
+  get gender() {return this.doctorAdminGroup.get('gender');}
+  get dateofbirth() {return this.doctorAdminGroup.get('dateofbirth');}
+  get  profilesnap() {return this.doctorAdminGroup.get('profilesnap');}
+  get  certificateid() {return this.doctorAdminGroup.get(' certificateid');}
+  get  cspecialistdeg() {return this.doctorAdminGroup.get('specialistdeg');}
+  get  password() {return this.doctorAdminGroup.get('password');}
+  get  cpassword() {return this.doctorAdminGroup.get('cpassword');}
 }

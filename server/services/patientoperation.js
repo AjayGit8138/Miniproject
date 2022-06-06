@@ -6,7 +6,7 @@ const errorlog = require('../logger/errorlog');
 
 
 //implemented using promise handling
-const getbookrequest = (bookingrequest)=>{
+const getbookRequest = (bookingrequest)=>{
     return new Promise((resolve,reject)=>{
         if(bookingrequest === undefined)
         {
@@ -28,7 +28,7 @@ const getbookrequest = (bookingrequest)=>{
 }
 
 //update booking details
-const bookappointment = (updateparams,referenceid)=>{
+const bookAppointment = (updateparams,referenceid)=>{
     
     return new Promise((resolve,reject)=>{
         if(updateparams === undefined || referenceid === undefined)
@@ -96,7 +96,7 @@ const availability = (getparams)=>{
     })
  
 }
-const enquiryrequest=(params)=>{
+const enquiryRequest=(params)=>{
     return new Promise((resolve,reject)=>{
         if(params == undefined){
             reject();
@@ -114,7 +114,7 @@ const enquiryrequest=(params)=>{
 }
 
 //gettestreport from database
-const gettestreport = (getreference)=>{
+const gettestReport = (getreference)=>{
     console.log("from services",getreference);
      return new Promise((resolve,reject)=>{
         if(getreference == undefined){
@@ -141,7 +141,7 @@ const gettestreport = (getreference)=>{
  
  }
 //Patient record deletion process
- const patientdelete = (deletepatient)=>{
+ const patientDelete = (deletepatient)=>{
      console.log("delete from patientoperation",deletepatient);
      return new Promise((resolve,reject)=>{
         if(deletepatient == undefined){
@@ -169,7 +169,7 @@ const gettestreport = (getreference)=>{
  }
 
  //insert new Patient record into the database
- const newpatinetrecord = (patientobject)=>{
+ const newPatinetRecord = (patientobject)=>{
     return new Promise((resolve,reject)=>{
         if(patientobject === undefined)
         {
@@ -207,7 +207,7 @@ const admitted = ()=>{
     })
 }
 
-const appointbook = (storebook)=>{
+const appointBook = (storebook)=>{
     return new Promise((resolve,reject)=>{
         if(storebook)
         {
@@ -225,7 +225,7 @@ const appointbook = (storebook)=>{
 }
 
 
-const getdoctor = (patientref)=>{
+const getDoctor = (patientref)=>{
     return new Promise((resolve,_reject)=>{
         const finddoctor = {
             selector:{
@@ -250,4 +250,4 @@ const getdoctor = (patientref)=>{
         return resolve(getdatail);
     }) 
 }
-module.exports = {appointbook,getdoctor,admitted,enquiryrequest,getbookrequest,bookappointment,availability,gettestreport,patientdelete,newpatinetrecord};
+module.exports = {appointBook,getDoctor,admitted,enquiryRequest,getbookRequest,bookAppointment,availability,gettestReport,patientDelete,newPatinetRecord};

@@ -9,17 +9,17 @@ import {saveAs} from 'file-saver';
   styleUrls: ['./displayreport.component.css']
 })
 export class DisplayreportComponent implements OnInit {
-  currentpage= {id:'number'};
+  currentPage= {id:'number'};
   
-  appointstatus:any = [];
+  appointStatus:any = [];
   divBoolean:number = 1;
-  testreport:any;
-  patienttestreports = [];
-  numbercount:number = 1;
+  testReport:any;
+  patientTestReports = [];
+  numberCount:number = 1;
   closeResult = '';
-  showrecord:number = 1;
+  showRecord:number = 1;
 
-  showobject = {
+  showObject = {
     symptoms:'',
     remedies:'',
     tabletone:'',
@@ -31,40 +31,40 @@ export class DisplayreportComponent implements OnInit {
 
   }
   
-  constructor(private modalService: NgbModal,private activeparams:ActivatedRoute,private serviceapi:ApiserviceService,private route:Router,private serveapi:ApiserviceService) { 
-    this.activeparams.params.subscribe((data:Params)=>{
-      this.currentpage = {
+  constructor(private modalService: NgbModal,private activeParams:ActivatedRoute,private routeService:Router,private serveApi:ApiserviceService) { 
+    this.activeParams.params.subscribe((data:Params)=>{
+      this.currentPage = {
         id:data['id'],
        
       }
-      console.log(this.currentpage);
+ 
     })
 
-    this.testreport = this.currentpage.id + '-'+ 'Testreport' + '-' + 1;
-    this.autocode(this.testreport);
+    this.testReport = this.currentPage.id + '-'+ 'Testreport' + '-' + 1;
+    this.autoCode(this.testReport);
   
 
 
-    this.serviceapi.checkpatientlogin(this.currentpage.id).subscribe((data)=>{
+    this.serveApi.checkPatientLogin(this.currentPage.id).subscribe((data)=>{
        
-        this.appointstatus.push(data.docs[0]);
+        this.appointStatus.push(data.docs[0]);
       
     },(err)=>{
       console.log("Bad response from the server",err);
     })
    
   }
-  displaytestreport(items:any,disval:any)
+  displayTestReport(items:any,disval:any)
   {
     
    
-    this.showobject.dietplan = items.dietplan;
-    this.showobject.tabletone = items.medicineone;
-    this.showobject.tablettwo = items.medicinetwo;
-    this.showobject.tabletthree = items.medicinethree;
-    this.showobject.remedies = items.remedies;
-    this.showobject.dosage = items.dosage;
-    this.showobject.filename = items.filename;
+    this.showObject.dietplan = items.dietplan;
+    this.showObject.tabletone = items.medicineone;
+    this.showObject.tablettwo = items.medicinetwo;
+    this.showObject.tabletthree = items.medicinethree;
+    this.showObject.remedies = items.remedies;
+    this.showObject.dosage = items.dosage;
+    this.showObject.filename = items.filename;
     
     this.divBoolean = disval;
   }
@@ -72,21 +72,26 @@ export class DisplayreportComponent implements OnInit {
     this.divBoolean = 1;
   }
 
-  showdiv(setdisplay:any)
+  showDiv(setdisplay:any)
   {
     this.divBoolean = setdisplay;
   }
-  viewreports(params:any)
+  viewReports(params:any)
   {
     this.divBoolean = params;
   }
 
-  download(event:any)
+  downLoad(event:any)
   {
     let item = event;
-  this.serveapi.getfile(item).subscribe((data)=>{
-    console.log("Data downloading",data);
+  this.serveApi.getFile(item).subscribe((data)=>{
+    if(data)
+    {
     saveAs(data,item);
+    }
+    else{
+      alert("No records found");
+    }
   })
   }
 
@@ -94,22 +99,22 @@ export class DisplayreportComponent implements OnInit {
   {
     this.divBoolean = 1;
   }
-  autocode(params:any)
+  autoCode(params:any)
   {
-    this.serveapi.gettestreport(this.testreport).subscribe((response)=>{
+    this.serveApi.getTestReport(this.testReport).subscribe((response)=>{
      
       if(params == response.data.docs[0].totalreport)
       {
       
-        this.numbercount += 1;
-        this.patienttestreports.push(response.data.docs[0]);
-        this.testreport = this.currentpage.id + '-' + 'Testreport' + '-' + this.numbercount;
+        this.numberCount += 1;
+        this.patientTestReports.push(response.data.docs[0]);
+        this.testReport = this.currentPage.id + '-' + 'Testreport' + '-' + this.numberCount;
 
       }
       else{
         console.log("Not matched id",params);
       }
-      this.autocode(this.testreport);
+      this.autoCode(this.testReport);
         
     })
   }

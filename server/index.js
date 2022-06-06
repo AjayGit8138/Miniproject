@@ -5,9 +5,9 @@ const patientlist = require('./services/patientoperation');
 const app = connection();
 const port = 8000;
 const cors = require('cors');
-const dbconnect = require('./db/dbconnection');
+const dbConnect = require('./db/dbconnection');
 const doctorfile = require('./services/doctorsparser');
-const patienparse = require('./services/patientoperation');
+const patientParse = require('./services/patientoperation');
 const generatelogger = require('./logger/logger');
 const controller = require('./controller/doctorcontroller');
 const errorlog = require('./logger/errorlog');
@@ -27,8 +27,10 @@ app.use(cors({origin: [
 ], credentials: true}));
 
 
-app.get('/admittedpatients', function(_req, res){
-      patienparse.admitted().then((data)=>{
+//api routing calls starts from here
+
+app.get('/admittedPatients', function(_req, res){
+      patientParse.admitted().then((data)=>{
         if(data)
         {
           res.status(200).send({
@@ -71,10 +73,10 @@ app.post('/upload', upload.single("file"), (req, res) => {
  
 });
 
-app.get('/totalpatients/:id/:refid',(req,res)=>{
+app.get('/totalPatients/:id/:refid',(req,res)=>{
     console.log("Request sent By Treatment Category"+req.params.id);
     console.log(req.params.refid);
-    const fetchdata ={
+    const fetchData ={
       "selector": {
          "treatmentcategory": req.params.refid,
          "doctor": req.params.id,
@@ -82,7 +84,7 @@ app.get('/totalpatients/:id/:refid',(req,res)=>{
       }
    }
     
-    controller.fetchpatients(fetchdata).then((data)=>{
+    controller.fetchPatients(fetchData).then((data)=>{
       console.log("Get Patient datas from database",data);
       generatelogger.info("successfully get Patient details from database");
       if(data.bookmark == 'nil') 
@@ -99,14 +101,14 @@ app.get('/totalpatients/:id/:refid',(req,res)=>{
     })
 })
 //store Patient data into the database
-app.post('/storepatient',(req,res)=>{
+app.post('/storePatient',(req,res)=>{
   console.log("validation");
   
   const { error } = schema.validate(req.body)
   console.log("validation",error);
     if(error === undefined)
     {
-    const storeobject = {
+    const storeObject = {
       patientname:req.body.patientname,
       age:req.body.age,
       dateofbirth:req.body.dateofbirth,
@@ -119,8 +121,8 @@ app.post('/storepatient',(req,res)=>{
      
       type:"Patient"
     }
-    console.log("from form",storeobject);
-    controller.storepatientdata(storeobject).then((data)=>{
+   
+    controller.storePatientdata(storeObject).then((data)=>{
       console.log("Patient data is stored into the database",data);
       generatelogger.info("Patient data is stored into the database");
       if(data)
@@ -137,9 +139,9 @@ app.post('/storepatient',(req,res)=>{
     }
 })
 //checklogin authentication for patient
-app.get('/checkpatientlogin/:objectid',(req,res)=>{
-  console.log(req.params.objectid);
-  dbconnect.getlogindetails(req.params.objectid).then((data)=>{
+app.get('/checkPatientLogin/:objectid',(req,res)=>{
+
+  dbConnect.getLoginDetails(req.params.objectid).then((data)=>{
       console.log("from router ",data);
       if(data.bookmark == 'nil')
       {
@@ -157,13 +159,13 @@ app.get('/checkpatientlogin/:objectid',(req,res)=>{
 });
 
 //get tablets list
-app.get('/gettablets/:id',(req,res)=>{
-     console.log("Tabletslist");
-     console.log("-----",req.params.id);
-            controller.pharmacy(req.params.id).then((data)=>{
-            console.log("Successfully data received from server",data);
+app.get('/getTablets/:id',(req,res)=>{
+  
+
+            controller.pharMacy(req.params.id).then((data)=>{
+     
             generatelogger.info("Files transfer from server");
-            console.log("From Indexjs output",data);
+            
               if(data.bookmark == 'nil')
               {
           
@@ -182,11 +184,11 @@ app.get('/gettablets/:id',(req,res)=>{
           })
 })
 //save doctor Profile into the server
-app.post('/savedoctorprofile',(req,res)=>{
+app.post('/saveDoctorProfile',(req,res)=>{
           const {error} = schemadoctor.validate(req.body);
           if(error == undefined)
           {
-        controller.storedoctordetails(req).then((success=>{
+        controller.storeDoctorDetails(req).then((success=>{
 
           console.log("Hi Doctor information stored into the server",success);
           if(success)
@@ -205,14 +207,14 @@ app.post('/savedoctorprofile',(req,res)=>{
       }
 })
 
-app.get('/bookrequested',(_req,res)=>{
+app.get('/bookRequested',(_req,res)=>{
   const book = {
     selector:{
         "type":"patient-request",
         "appointmentstatus":"NO"
     }
 }
-      controller.bookingstat(book).then((data)=>{
+      controller.bookingStat(book).then((data)=>{
         console.log("waiting for book details",data);
         if(data.bookmark == 'nil')
         {
@@ -230,11 +232,11 @@ app.get('/bookrequested',(_req,res)=>{
       })
 })
 
-app.get('/doctorloginauth/:objectid',(req,res)=>{
+app.get('/doctorLoginAuth/:objectid',(req,res)=>{
  
   console.log("session address",req.params.objectid);
 
-  controller.checkdoctorlogin(req.params.objectid).then((data)=>{
+  controller.checkDoctorLogin(req.params.objectid).then((data)=>{
     console.log("Successfully data received from server",data);
     generatelogger.info("Doctor auth proceess is done");
     if(data.bookmark == 'nil')
@@ -259,7 +261,7 @@ app.post('/admin',(req,res)=>{
   const {error } = adminauth.validate(req.body);
   if(error == undefined)
   {
-  controller.admincheck(req.body.loginid).then((data)=>{
+  controller.adminCheck(req.body.loginid).then((data)=>{
     if(data.bookmark == 'nil')
     {
       const stat = {failure:"Admin Not available with a Particular Id",status:404}
@@ -277,7 +279,7 @@ app.post('/admin',(req,res)=>{
   }
 })
 
-app.get('/getdoctordetails/:id',(req,res)=>{
+app.get('/getDoctorDetails/:id',(req,res)=>{
   let doctorSearch;
   if(req.params.id == 'Doctor')
   {
@@ -297,7 +299,7 @@ app.get('/getdoctordetails/:id',(req,res)=>{
   }
   if(doctorSearch)
   {
-    controller.docslist(doctorSearch).then((data)=>{
+    controller.docsList(doctorSearch).then((data)=>{
       console.log("Doctors available in Hospital",data);
       if(data.bookmark == 'nil')
       {
@@ -318,21 +320,19 @@ app.get('/getdoctordetails/:id',(req,res)=>{
   }
 })
 
-app.put('/updatepatienrecord/:updateobject',(req,res)=>{
-    const patientid = req.params.updateobject;
-    console.log("******",patientid);
-    const updatepatient = {
-      tokenname:req.body.Tokenname,
-      doctorid:req.body.docid,
-      treatmentcategory:req.body.Treatmentcategory,
-      doctorassign:req.body.assigndoctor,
-      appointmentstatus:req.body.appointstatus,
-      timingforappointment:req.body.timingforappointment,
-      dateofappointment:req.body.dateofappointment
+app.put('/updatePatienRecord/:updateobject',(req,res)=>{
+    const patientId = req.params.updateobject;
+    const updatePatient = {
+      tokenname:req.body.tokenName,
+      doctorid:req.body.docId,
+      treatmentcategory:req.body.treatmentCategory,
+      doctorassign:req.body.assignDoctor,
+      appointmentstatus:req.body.appointStatus,
+      timingforappointment:req.body.timingforAppointment,
+      dateofappointment:req.body.dateofAppointment
     }
-    console.log("update operation in to database",patientid);
-    console.log("want to store a object",updatepatient);
-  const retmessage = controller.waitingforbook(updatepatient,patientid).then((resdata)=>{
+    
+  const retmessage = controller.waitingForBook(updatePatient,patientId).then((resdata)=>{
       console.log("Updated Appointment Booking status successfully",resdata);
 
       //return response
@@ -362,19 +362,19 @@ app.put('/updatepatienrecord/:updateobject',(req,res)=>{
       
 })
 //generate medical report
-app.post('/generatemedicalreport',(req,res)=>{
+app.post('/generateMedicalReport',(req,res)=>{
         const {error} = reportvalidation.validate(req.body);
         console.log("Report validation",error);
         if(error)
         {
-          const medicalstatus = {
+          const medicalStatus = {
               status:422,
               message:"Data Is Not Valid"
           }
-          console.log("validation error",medicalstatus);
+         res.json(medicalStatus);
         }
         else{
-        const object = {
+        const Object = {
           dietplan:req.body.dietplan,
           diseases:req.body.diseases,
           dosage:req.body.dosage,
@@ -392,8 +392,8 @@ app.post('/generatemedicalreport',(req,res)=>{
           docid:req.body.docid,
           dateofreport:new Date()
                 } 
-            console.log("Save testReport",object);
-            controller.reportgeneration(object).then((data)=>{
+            
+            controller.reportGeneration(Object).then((data)=>{
             console.log("Successfully data received from server",data);
          
             if(data){
@@ -421,15 +421,16 @@ app.post('/bloodreport',(req,res)=>{
   const {error} = urinetestreport.validate(req.body);
     if(error)
     {
-      const medicalvalidate = {
+      const medicalValidate = {
         status:422,
         message:"Data not found"
       }
+      res.json(medicalValidate);
       console.log("Error validation",error);
-      errorlog.error("Error" + `${medicalvalidate.message}` + "statuscode:-" + `${medicalvalidate.status}`);
+      errorlog.error("Error" + `${medicalValidate.message}` + "statuscode:-" + `${medicalValidate.status}`);
     }
     else{
-  const object = {
+  const Object = {
       totalreport:req.body.totalreport,
       acetone:req.body.acetone,
       bloodsugarlevels:req.body.bloodsugarlevels,
@@ -440,8 +441,8 @@ app.post('/bloodreport',(req,res)=>{
       docid:req.body.docid,
       type:"test-report"
           } 
-      console.log("Save testReport",object);
-      controller.reportgeneration(object).then((data)=>{
+    
+      controller.reportGeneration(Object).then((data)=>{
       console.log("Successfully data received from server",data);
       generatelogger.info("Testreport is successfully generated into server from indexjs");
       if(data){
@@ -465,19 +466,19 @@ app.post('/bloodreport',(req,res)=>{
 })
 
 //blood Count Report
-app.post('/bloodcountreport',(req,res)=>{
-  console.log("*****");
+app.post('/bloodCountReport',(req,res)=>{
+ 
   const {error } = countreport.validate(req.body);
 
   if(error)
   {
-    const reportstatus = {
+    const reportStatus = {
       status:422,
       message:"Data Not found"
     }
     res.status(422).send({message:"Invalid you entered data error"});
     console.log("Error",error);
-    errorlog.error("Error:-" + `${reportstatus.message}` + "Statuscode:-" + `${reportstatus.status}` + `${reportstatus}`)
+    errorlog.error("Error:-" + `${reportStatus.message}` + "Statuscode:-" + `${reportStatus.status}`)
   }
   else{
   const object = {
@@ -495,7 +496,7 @@ app.post('/bloodcountreport',(req,res)=>{
       type:"test-report"
           } 
       console.log("Save testReport",object);
-      controller.reportgeneration(object).then(function (data) {
+      controller.reportGeneration(object).then(function (data) {
           console.log("Successfully data received from server", data);
           generatelogger.info("Testreport is successfully generated into server from indexjs");
           if (data) {
@@ -522,14 +523,14 @@ app.post('/bloodcountreport',(req,res)=>{
 app.post('/download',(req,res)=>{
   console.log("filename",req.body.filename);
 
-  const filepath = path.join(__dirname,'./uploads/')  + req.body.filename;
-  console.log("filepath",filepath);
-  res.sendFile(filepath);
+  const filePath = path.join(__dirname,'./uploads/')  + req.body.filename;
+  console.log("filepath",filePath);
+  res.sendFile(filePath);
 })
 app.get('/getreport/:id',(req,res)=>{
-     console.log("Get  testReport",req.params.id);
-            controller.getreport(req.params.id).then((data)=>{
-            console.log("Successfully data received from server",data);
+     
+            controller.getReport(req.params.id).then((data)=>{
+       
             if(data){
              
               const stat = {
@@ -570,7 +571,7 @@ app.post('/directbook',((req,res)=>{
       dbpatientid:req.body.dbrefpatientid,
       type:"bookrequest"
     }
-    patienparse.appointbook(directBooking).then((data)=>{
+    patientParse.appointBook(directBooking).then((data)=>{
       if(data)
       {
         res.status(201).send({
@@ -583,9 +584,9 @@ app.post('/directbook',((req,res)=>{
   }
 }))
 
-app.get('/timeslot/:name/:id',((req,res)=>{
+app.get('/timeSlot/:name/:id',((req,res)=>{
 
-  doctorfile.timeslot(req.params.name,req.params.id).then((data)=>{
+  doctorfile.timeSlot(req.params.name,req.params.id).then((data)=>{
     if(data)
     {
       const isAvailtime = {
@@ -607,14 +608,13 @@ app.get('/timeslot/:name/:id',((req,res)=>{
 }))
 
 
-app.delete('/deletepatient/:id/:rev',((req,res)=>{
-  console.log("Delete patient record",req.params.id);
-  console.log("Delete patient record",req.params.rev);
-  const deleteobject = {
+app.delete('/deletePatient/:id/:rev',((req,res)=>{
+
+  const deleteObject = {
     id:req.params.id,
     rev:req.params.rev
   }
-  controller.deletepatient(deleteobject).then((data=>{
+  controller.deletePatient(deleteObject).then((data=>{
     console.log("Want to delete the records",data);
     res.status(200).send({
       message:"Patient data succeesfully Deleted"
@@ -633,7 +633,7 @@ app.post('/consulting',(req,res)=>{
     symptoms:req.body.Symptoms,
     type:"patient-request"
   }
-  patienparse.enquiryrequest(requestBook).then((data)=>{
+  patientParse.enquiryRequest(requestBook).then((data)=>{
     if(data)
     {
       res.status(200).send({
@@ -645,8 +645,8 @@ app.post('/consulting',(req,res)=>{
   })
 })
 app.get('/senddoctor/:id',(req,res)=>{
-  console.log("senddoctor",req.params.id);
-  patienparse.getdoctor(req.params.id).then((data)=>{
+  
+  patientParse.getDoctor(req.params.id).then((data)=>{
     console.log("Collect data from server",data);
     if(data)
     {

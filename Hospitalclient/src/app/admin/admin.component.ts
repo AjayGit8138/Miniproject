@@ -11,10 +11,10 @@ import { AuthService } from '../shared/auth.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  adminauth:FormGroup;
+  adminAuthForm:FormGroup;
   returnurl = '';
-  constructor(private admingroup:FormBuilder,private api:ApiserviceService,private router:Router,private authserve:AuthService,private toastrService:ToastrService) {
-    this.adminauth = this.admingroup.group({
+  constructor(private adminGroup:FormBuilder,private apiService:ApiserviceService,private appRouter:Router,private authServe:AuthService,private toastrService:ToastrService) {
+    this.adminAuthForm = this.adminGroup.group({
         loginid:['',Validators.required],
         password:['',Validators.required]
     })
@@ -22,20 +22,20 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.returnurl = '/docdash';
-    this.authserve.logout();
+    this.authServe.logout();
   }
 
-  Adminauth(formdata:any)
+  adminAuth(formData:any)
   {
    
-    this.api.getadmin(formdata).subscribe((data)=>{
+    this.apiService.getAdmin(formData).subscribe((data)=>{
      
     
-      if((data.data.docs[0].loginid == formdata.loginid) && (data.data.docs[0].password == formdata.password))
+      if((data.data.docs[0].loginid == formData.loginid) && (data.data.docs[0].password == formData.password))
     {
         localStorage.setItem('isLoggedIn','true');
-        localStorage.setItem('token', formdata.loginid);  
-      this.router.navigate(['docdash',formdata.loginid]);
+        localStorage.setItem('token', formData.loginid);  
+      this.appRouter.navigate(['docdash',formData.loginid]);
       this.showSuccess("Login Successfull");
     }
     else{
@@ -50,7 +50,7 @@ export class AdminComponent implements OnInit {
   public showError(message:any): void {
     this.toastrService.error(message);
   }
-  get loginid() {return this.adminauth.get('loginid');}
-  get password() {return this.adminauth.get('password');}
+  get loginid() {return this.adminAuthForm.get('loginid');}
+  get password() {return this.adminAuthForm.get('password');}
 
 }

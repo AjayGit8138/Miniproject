@@ -9,8 +9,8 @@
                             <div class="jumbo jumbotron">
                                 <div class="col-md-12">
                                     <div class="mx-auto col-md-10">
-                                        <form [formGroup]="bloodcount"
-                                            (ngSubmit)="submitbooldsample(this.bloodcount.value,'blood')">
+                                        <form [formGroup]="bloodCount"
+                                            (ngSubmit)="submitBloodSample(this.bloodCount.value,'blood')">
                                             <div>
                                                 <div class="row"
                                                     [class.has-error]="patientId.invalid && patientId.touched">
@@ -159,7 +159,7 @@
 
                                             <div>
                                                 <div class="row col-4">
-                                                    <button type="submit" [disabled]="!bloodcount.valid"
+                                                    <button type="submit" [disabled]="!bloodCount.valid"
                                                         style="height: 60px;" mat-flat-button
                                                         color="accent">GenerateBoodreport
                                                     </button>
@@ -227,17 +227,17 @@
                 <h1 class="text-dark">Date and Time<span>:</span></h1>
             </div>
             <div class="col-md-6">
-                <h1>{{currentdate}}</h1>
+                <h1>{{currentDate}}</h1>
             </div>
         </div>
         <hr>
         <div class="container">
             <table aria-label="report" class="table card">
-                <tr *ngFor="let key of arrayofkey">
+                <tr *ngFor="let key of arrayofKey">
                     <th scope="col">
                         <h1 class="text-info">{{key | uppercase}}</h1>
                     </th>
-                    <td *ngFor="let data of makepdf">
+                    <td *ngFor="let data of makePdf">
                         <h1>{{data[key]}}</h1>
                     </td>
                 </tr>

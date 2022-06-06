@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthguardGuard implements CanActivate {
 
-  constructor(private router:Router){}
+  constructor(private routerServe:Router){}
   canActivate(
     _route: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -16,7 +16,7 @@ export class AuthguardGuard implements CanActivate {
       {
     return true;
       }
-      this.router.navigate(['/docdash']);
+      this.routerServe.navigate(['/docdash']);
     
     
       return false;

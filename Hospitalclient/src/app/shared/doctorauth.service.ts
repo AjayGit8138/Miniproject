@@ -7,7 +7,7 @@ export class DoctorauthService {
 
   constructor() { 
     console.log("Constructor")}
-  doctorlogout():void{
+  doctorLogout():void{
     localStorage.setItem('isdoctorLoggedIn','false');
     localStorage.removeItem('token');
   }

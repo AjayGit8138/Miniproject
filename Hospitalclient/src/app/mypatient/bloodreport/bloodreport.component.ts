@@ -17,14 +17,14 @@ export class BloodreportComponent implements OnInit {
   @Input () reference:any;
   @Input () doctorid:any;
   @Output() public sendData = new EventEmitter<number>();
-  bloodreport:FormGroup;
+  bloodReport:FormGroup;
   uploadedFiles: Array < File > ;
-  pdfname:any;
-  numbercount:number = 1;
-  divboolean:any;
-  bloodtestreport:any;
-  currentdate:any;
-arrayofkey = [];
+  pdfName:any;
+  numberCount:number = 1;
+  divBoolean:any;
+  bloodTestReport:any;
+  currentDate:any;
+arrayofKey = [];
   defaultOptions = {
     jsPDF: {
       unit: 'px',
@@ -49,9 +49,9 @@ arrayofkey = [];
       pdf.save(this.output);
     }
   }
-  makepdf = [];
+  makePdf = [];
   constructor(private router:Router,private bloodtestform:FormBuilder,private serveapi:ApiserviceService) { 
-    this.bloodreport = this.bloodtestform.group({
+    this.bloodReport = this.bloodtestform.group({
       patientId:['',Validators.required],
       patientname:['',Validators.required],
       reportby:['',Validators.required],
@@ -65,29 +65,29 @@ arrayofkey = [];
   
   ngOnInit(): void {
    
-    this.bloodreport.controls['patientId'].setValue(this.bloodtest.id);
-    this.bloodreport.controls['patientname'].setValue(this.bloodtest.name);
-    this.bloodtestreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
-    this.autocode(this.bloodtestreport);
+    this.bloodReport.controls['patientId'].setValue(this.bloodtest.id);
+    this.bloodReport.controls['patientname'].setValue(this.bloodtest.name);
+    this.bloodTestReport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numberCount;
+    this.autoCode(this.bloodTestReport);
    
-    this.bloodreport.controls['reportby'].setValue(this.bloodtest.generatedby);
-    this.bloodreport.controls['totalreport'].setValue(this.bloodtestreport);
-    this.currentdate = new Date();
+    this.bloodReport.controls['reportby'].setValue(this.bloodtest.generatedby);
+    this.bloodReport.controls['totalreport'].setValue(this.bloodTestReport);
+    this.currentDate = new Date();
   }
 
-  submitbooldsample(formvalue:any,_ref:any)
+  submitBloodsample(formvalue:any,_ref:any)
   {
       
-      this.makepdf.push(formvalue);
-      this.arrayofkey = Object.keys(this.makepdf[0]);
+      this.makePdf.push(formvalue);
+      this.arrayofKey = Object.keys(this.makePdf[0]);
      
       formvalue.docid = localStorage.getItem('doctorid');
-      this.serveapi.generatebloodreport(formvalue).subscribe((response)=>{
+      this.serveapi.generateBloodReport(formvalue).subscribe((response)=>{
         if(response)
         {
       
 
-          this.bloodreport.reset()
+          this.bloodReport.reset()
         }
       },(error)=>{
         console.log("Test report not generated from the server",error);
@@ -95,25 +95,25 @@ arrayofkey = [];
   }
 
   //autogenerate test report code based on previous report
-  autocode(params:any)
+  autoCode(params:any)
   {
    
     
-    this.serveapi.gettestreport(params).subscribe((data)=>{
+    this.serveapi.getTestReport(params).subscribe((data)=>{
       if(params == data.data.docs[0].totalreport)
       {
        
-        this.numbercount += 1;
+        this.numberCount += 1;
       
-        this.bloodtestreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
-        this.pdfname = this.bloodtestreport;
-         this.bloodreport.controls['totalreport'].setValue(this.bloodtestreport);
+        this.bloodTestReport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numberCount;
+        this.pdfName = this.bloodTestReport;
+         this.bloodReport.controls['totalreport'].setValue(this.bloodTestReport);
 
       }
       else{
         console.log("Not matched id",params);
       }
-      this.autocode(this.bloodtestreport);
+      this.autoCode(this.bloodTestReport);
         
     })
   }
@@ -134,17 +134,17 @@ arrayofkey = [];
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
      
     
-      PDF.save( this.pdfname+'.pdf');
+      PDF.save( this.pdfName+'.pdf');
     });
   }
 
-  fileChange(element) {
+  fileChange(element:any) {
     const file = element.target.files[0];
 
 
     const formdata = new FormData();
     formdata.append("file",file);
-    this.serveapi.post(formdata)
+    this.serveapi.postData(formdata)
   .subscribe((response) => {
        console.log('response received is ', response);
   })
@@ -155,14 +155,14 @@ arrayofkey = [];
 
 //get setters for form validation
 
-get patientId() {return this.bloodreport.get('patientId');}
+get patientId() {return this.bloodReport.get('patientId');}
 
-get patientname() {return this.bloodreport.get('patientname')}
-get reportby()  {return this.bloodreport.get('reportby')}
-get totalreport() {return this.bloodreport.get('totalreport')}
-get urinsugar() {return this.bloodreport.get('urinsugar')}
-get acetone() {return this.bloodreport.get('acetone')}
-get bloodsugarlevels() {return this.bloodreport.get('bloodsugarlevels')}
+get patientname() {return this.bloodReport.get('patientname')}
+get reportby()  {return this.bloodReport.get('reportby')}
+get totalreport() {return this.bloodReport.get('totalreport')}
+get urinsugar() {return this.bloodReport.get('urinsugar')}
+get acetone() {return this.bloodReport.get('acetone')}
+get bloodsugarlevels() {return this.bloodReport.get('bloodsugarlevels')}
 
 }
 

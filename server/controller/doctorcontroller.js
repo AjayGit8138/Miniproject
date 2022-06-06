@@ -1,10 +1,10 @@
-const {gettabletlist,storetestreport,checkdoctorauth, getalldoctors,storedoctorinformation, adminlogin} = require('../services/doctorsparser');
-const {gettestreport,patientdelete,newpatinetrecord,availability,getbookrequest,bookappointment} = require('../services/patientoperation');
+const {getTabletList,storeTestReport,checkDoctorAuth, getallDoctors,storeDoctorInformation, adminLogin} = require('../services/doctorsparser');
+const {gettestReport,patientDelete,newPatinetRecord,availability,getbookRequest,bookAppointment} = require('../services/patientoperation');
 const {loggenerate} = require('../logger/logger');
-const pharmacy = async (req,_res)=>{
+const pharMacy = async (req,_res)=>{
     let result;
     try{
-        result = await gettabletlist(req).then((data)=>{
+        result = await getTabletList(req).then((data)=>{
             console.log("Successfully handled the information",data);
             return data;
         }).catch((err)=>{
@@ -19,10 +19,10 @@ const pharmacy = async (req,_res)=>{
     }
     return result;
 }
-const reportgeneration = async(object)=>{
+const reportGeneration = async(object)=>{
   let result;
     try{
-    result = await storetestreport(object).then((data)=>{
+    result = await storeTestReport(object).then((data)=>{
         console.log("Successfully handled the information",data);
         return data;
     }).catch((err)=>{
@@ -37,10 +37,10 @@ const reportgeneration = async(object)=>{
     }
     return result;
 }
-const getreport = async(object)=>{
+const getReport = async(object)=>{
    let result;
     try{
-    result = await gettestreport(object).then((data)=>{
+    result = await gettestReport(object).then((data)=>{
         console.log("Successfully handled the information",data);
         return data;
      }).catch((error=>{
@@ -57,11 +57,11 @@ const getreport = async(object)=>{
     return result;
 }
 //implemented using promise
-const checkdoctorlogin = async(object)=>{
+const checkDoctorLogin = async(object)=>{
    let result;
     try{
         
-     result = await checkdoctorauth(object).then((data)=>{
+     result = await checkDoctorAuth(object).then((data)=>{
         console.log("Successfully handled the information",data);
         return data;
     }).catch((err)=>{
@@ -78,10 +78,10 @@ const checkdoctorlogin = async(object)=>{
     return result;
 }
 
-const deletepatient = async(object)=>{
+const deletePatient = async(object)=>{
     let result;
     try{
-     result = await patientdelete(object).then((data)=>{
+     result = await patientDelete(object).then((data)=>{
         console.log("successfully handled the information",data);
         return data;
     }).catch((err)=>{
@@ -97,10 +97,10 @@ const deletepatient = async(object)=>{
     }
     return result;
 }
-const storepatientdata = async(object)=>{
+const storePatientdata = async(object)=>{
     let retresult;
     try{
-    retresult = await newpatinetrecord(object).then((data)=>{
+    retresult = await newPatinetRecord(object).then((data)=>{
         console.log("successfully handled the information",data);
         return data;
     }).catch((error=>{
@@ -114,7 +114,7 @@ const storepatientdata = async(object)=>{
     }
     return retresult;
 }
-const fetchpatients = async(object)=>{
+const fetchPatients = async(object)=>{
    let retresult;
     try{
      retresult = await availability(object).then((data)=>{
@@ -131,10 +131,10 @@ const fetchpatients = async(object)=>{
     }
     return retresult;
 }
-const docslist = async(object)=>{
+const docsList = async(object)=>{
    let retresult;
     try{
-     retresult = await getalldoctors(object).then((data)=>{
+     retresult = await getallDoctors(object).then((data)=>{
         console.log("successfully handled the information from server",data);
         return data;
     }).catch((err)=>{
@@ -149,10 +149,10 @@ const docslist = async(object)=>{
     }
     return retresult;
 }
-const storedoctordetails = async(object)=>{
+const storeDoctorDetails = async(object)=>{
     let retresult;
     try{
-    retresult = await storedoctorinformation(object).then((data)=>{
+    retresult = await storeDoctorInformation(object).then((data)=>{
         console.log("successfully handled the information from server",data);
         return data;
     }).catch((err)=>{
@@ -167,10 +167,10 @@ const storedoctordetails = async(object)=>{
     }
     return retresult;
 }
-const bookingstat = async(object)=>{
+const bookingStat = async(object)=>{
     let booking;
     try{
-    booking = await getbookrequest(object).then((data)=>{
+    booking = await getbookRequest(object).then((data)=>{
         console.log("successfully handled the information from server",data);
         return data;
     }).catch((err)=>{
@@ -185,10 +185,10 @@ const bookingstat = async(object)=>{
     }
     return booking;
 }
-const waitingforbook = async(updateparams,reference)=>{
+const waitingForBook = async(updateparams,reference)=>{
     let updatebooking;
     try{
-     updatebooking = await bookappointment(updateparams,reference).then((data)=>{
+     updatebooking = await bookAppointment(updateparams,reference).then((data)=>{
         console.log("Successfully handled the information",data);
         return data;
     }).catch((err)=>{
@@ -203,11 +203,11 @@ const waitingforbook = async(updateparams,reference)=>{
     }
     return updatebooking;
 }
-const admincheck = async(adminreference)=>{
+const adminCheck = async(adminreference)=>{
     let adminAvail;
     try
     {
-    adminAvail = await adminlogin(adminreference).then((data)=>{
+    adminAvail = await adminLogin(adminreference).then((data)=>{
         console.log("admin details",data);
         return data;
     }).catch((err)=>{
@@ -221,4 +221,4 @@ const admincheck = async(adminreference)=>{
     }
     return adminAvail;
 }
-module.exports = {admincheck,pharmacy,reportgeneration,getreport,deletepatient,storepatientdata,fetchpatients,checkdoctorlogin,docslist,storedoctordetails,bookingstat,waitingforbook}
+module.exports = {adminCheck,pharMacy,reportGeneration,getReport,deletePatient,storePatientdata,fetchPatients,checkDoctorLogin,docsList,storeDoctorDetails,bookingStat,waitingForBook}

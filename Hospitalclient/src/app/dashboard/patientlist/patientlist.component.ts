@@ -10,9 +10,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./patientlist.component.css']
 })
 export class PatientlistComponent implements OnInit {
-  bookingform:FormGroup;
+  bookingForm:FormGroup;
   dbdoctorid:any;
-  patientrequest = [];
+  patientRequest = [];
   doctorlist = [];
   employeddoctors = [];
   doctorsid = [];
@@ -30,17 +30,17 @@ export class PatientlistComponent implements OnInit {
   patientid:any;
   patientrefid:any;
   currentDate:any = new Date();
-  constructor(private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router,private toastr:ToastrService) {
-    this.bookingform = this.bookform.group({
+  constructor(private serveapi:ApiserviceService,private modalService: NgbModal,private bookForm:FormBuilder,private route:Router,private toastr:ToastrService) {
+    this.bookingForm = this.bookForm.group({
       requestId:['',Validators.required],
-      patientname:['',Validators.required],
-      Treatmentcategory:['',Validators.required],
-      appointstatus:['',Validators.required],
-      assigndoctor:['',Validators.required],
-      dateofappointment:['',Validators.required],
-      timingforappointment:['',Validators.required],
-      Tokenname:['',Validators.required],
-      dbdoctorreference:['']
+      patientName:['',Validators.required],
+      treatmentCategory:['',Validators.required],
+      appointStatus:['',Validators.required],
+      assignDoctor:['',Validators.required],
+      dateofAppointment:['',Validators.required],
+      timingforAppointment:['',Validators.required],
+      tokenName:['',Validators.required],
+      dbdoctorReference:['']
   })
    }
    number:any;
@@ -71,11 +71,11 @@ export class PatientlistComponent implements OnInit {
         {
               const availength = data.data.docs.length;
              
-              this.patientrequest = [];
+              this.patientRequest = [];
         
               for(let i=0;i<availength;i++)
               {
-                this.patientrequest.push(data.data.docs[i]);
+                this.patientRequest.push(data.data.docs[i]);
               }
       }
       })
@@ -92,14 +92,14 @@ export class PatientlistComponent implements OnInit {
   {
    
     const getDoctorname = e.target.value;
-    this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
+    this.serveapi.getDoctorslist(this.doctors).subscribe((data)=>{
     
       //push doctors as per the specialization into the array
-      const arraylength = data.data.docs.length;
+      const arrayLength = data.data.docs.length;
       
       this.orthodoctors = [];
       this.doctorsid = [];
-      for(let i=0;i<arraylength;i++)
+      for(let i=0;i<arrayLength;i++)
       {
         if(getDoctorname == data.data.docs[i].doctorname)
         {
@@ -137,9 +137,9 @@ export class PatientlistComponent implements OnInit {
   
   this.doctors = e.target.value;
  this.tokename = this.tokename + '-T' + this.doctors
-  this.bookingform.controls['Tokenname'].setValue(this.tokename);
+  this.bookingForm.controls['Tokenname'].setValue(this.tokename);
  
-  this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
+  this.serveapi.getDoctorslist(this.doctors).subscribe((data)=>{
  
     //push doctors as per the specialization into the array
     const arraylength = data.data.docs.length;
@@ -162,12 +162,12 @@ export class PatientlistComponent implements OnInit {
   
 }
 //
-  savebookingstatus(bookinformation:any){
+  saveBookingStatus(bookinformation:any){
  
-    bookinformation.docid = this.dbdoctorid;
+    bookinformation.docId = this.dbdoctorid;
    
-    bookinformation.timingforappointment = this.timeclock;
-    this.serveapi.bookappointment(bookinformation,this.patientid).subscribe((data)=>{
+    bookinformation.timingforAppointment = this.timeclock;
+    this.serveapi.bookAppointment(bookinformation,this.patientid).subscribe((data)=>{
       if(data)
       {
       this.showsuccess("Patient Request is Booked Successfully");
@@ -211,11 +211,11 @@ this.timeclock = hours + ':' + minutes + ' ' + meridian;
     this.patientrefid = row._rev;
 
 
-    this.bookingform.controls['requestId'].setValue(row.patientid);
+    this.bookingForm.controls['requestId'].setValue(row.patientid);
     this.tokename = row.patientid;
-    this.bookingform.controls['patientname'].setValue(row.patientname);
-    this.bookingform.controls['Treatmentcategory'].setValue(row.Treatmentcategory);
-    this.bookingform.controls['appointstatus'].setValue(this.status);
+    this.bookingForm.controls['patientname'].setValue(row.patientname);
+    this.bookingForm.controls['Treatmentcategory'].setValue(row.Treatmentcategory);
+    this.bookingForm.controls['appointstatus'].setValue(this.status);
     }
     //toastr service
     showerror(message)

@@ -7,7 +7,7 @@ const {doctorauthentication} = require('../validatior');
 const errorlog = require('../logger/errorlog');
 
 
-const adminlogin = (adminvalidataion)=>{
+const adminLogin = (adminvalidataion)=>{
     let isAdminAvail;
     return new Promise((resolve,reject)=>{
         if(adminvalidataion == undefined)
@@ -15,12 +15,12 @@ const adminlogin = (adminvalidataion)=>{
             reject();
         }
         else{
-            const adminquery = {
+            const adminQuery = {
                 selector:{
                     "type":"Admin"
                 }
             }
-            isAdminAvail = storedb.hospitaldb.find(adminquery).then((data)=>{
+            isAdminAvail = storedb.hospitaldb.find(adminQuery).then((data)=>{
                 return data;
             }).catch((err)=>{
                 generatelog.error("Not available",err);
@@ -32,7 +32,7 @@ const adminlogin = (adminvalidataion)=>{
 
 //implemented using promise
 
- const checkdoctorauth = (searchadmin)=>{
+ const checkDoctorAuth = (searchadmin)=>{
 
     const mailcheck =  validator.validate(searchadmin);
         console.log("Yes this is a Email",mailcheck);
@@ -82,7 +82,7 @@ const adminlogin = (adminvalidataion)=>{
 
 //Get all doctors working in Hospital
 //implemented using Promise
-const getalldoctors = (getdata)=>{
+const getallDoctors = (getdata)=>{
     return new Promise((resolve,reject)=>{
         if(getdata === undefined)
         {
@@ -106,7 +106,7 @@ const getalldoctors = (getdata)=>{
 
 //store doctor profile into database
 //implemented using promise 
-const storedoctorinformation = async (storeobject)=>{
+const storeDoctorInformation = async (storeobject)=>{
     return new Promise((resolve,reject)=>{
         if(storeobject === undefined)
         {
@@ -143,7 +143,7 @@ const storedoctorinformation = async (storeobject)=>{
     })
     
 }
-const gettabletlist = (getreference)=>{
+const getTabletList = (getreference)=>{
    console.log("from services",getreference);
     return new Promise((resolve,reject)=>{
        if(getreference == undefined){
@@ -170,7 +170,7 @@ const gettabletlist = (getreference)=>{
 
 }
 
-const timeslot = (name,id)=>{
+const timeSlot = (name,id)=>{
     return new Promise((resolve,reject)=>{
         if(name)
         {
@@ -182,7 +182,7 @@ const timeslot = (name,id)=>{
                 }
                  
                }
-               console.log("***",findTimeslot);
+             
             const retTimeslot = storedb.hospitaldb.find(findTimeslot).then((data)=>{
                 return data;
             }).catch((err)=>{
@@ -195,7 +195,7 @@ const timeslot = (name,id)=>{
     }
 )}
 
-const storetestreport = (reportobject)=>{
+const storeTestReport = (reportobject)=>{
     console.log("from services",reportobject);
     return new Promise((resolve,reject)=>{
         if(reportobject == undefined)
@@ -215,5 +215,5 @@ const storetestreport = (reportobject)=>{
     })
 }
 module.exports = {
-    storedoctorinformation,checkdoctorauth,getalldoctors,gettabletlist,storetestreport,adminlogin,timeslot
+    storeDoctorInformation,checkDoctorAuth,getallDoctors,getTabletList,storeTestReport,adminLogin,timeSlot
 }

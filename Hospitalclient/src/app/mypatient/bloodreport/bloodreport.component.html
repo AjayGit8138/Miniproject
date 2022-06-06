@@ -9,8 +9,8 @@
                             <div class="jumbo jumbotron">
                                 <div class="col-md-12">
                                     <div class="mx-auto col-md-10">
-                                        <form [formGroup]="bloodreport"
-                                            (ngSubmit)="submitbooldsample(this.bloodreport.value,'blood')">
+                                        <form [formGroup]="bloodReport"
+                                            (ngSubmit)="submitBloodsample(this.bloodReport.value,'blood')">
                                             <div>
                                                 <div class="row"
                                                     [class.has-error]="patientId.invalid && patientId.touched">
@@ -119,7 +119,7 @@
                                             </div>
                                             <div>
                                                 <div class="row col-4">
-                                                    <button type="submit" [disabled]="!bloodreport.valid"
+                                                    <button type="submit" [disabled]="!bloodReport.valid"
                                                         style="height: 60px;" mat-flat-button
                                                         color="accent">GenerateBoodreport
                                                     </button>
@@ -183,12 +183,12 @@
                 <h1 class="text-dark">Date and Time<span>:</span></h1>
             </div>
             <div class="col-md-6">
-                <h1>{{currentdate}}</h1>
+                <h1>{{currentDate}}</h1>
             </div>
         </div>
         <hr>
         <div class="container">
-            <table aria-label="report" *ngFor="let items of makepdf" class="table table-dark">
+            <table aria-label="report" *ngFor="let items of makePdf" class="table table-dark">
                 <thead>
                     <tr>
                         <th scope="col">Report</th>
@@ -207,7 +207,7 @@
                 </tbody>
             </table>
             <table aria-label="report">
-                <tr *ngFor="let key of arrayofkey">
+                <tr *ngFor="let key of arrayofKey">
                     <th scope="col">{{key}}</th>
                     <td *ngFor="let data of makepdf">
                         {{data[key]}}

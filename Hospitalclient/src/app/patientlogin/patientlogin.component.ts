@@ -13,10 +13,10 @@ import { PatienauthService } from '../shared/patienauth.service';
   styleUrls: ['./patientlogin.component.css']
 })
 export class PatientloginComponent implements OnInit {
-  patientloginform:FormGroup;
+  patientLoginForm:FormGroup;
   
-  constructor(private fb:FormBuilder,private serveapi:ApiserviceService,private router:Router,private activeparams:ActivatedRoute,private patientauth:PatienauthService,private toastrService:ToastrService) {
-    this.patientloginform = this.fb.group({
+  constructor(private fbBuilder:FormBuilder,private serveApi:ApiserviceService,private routerService:Router,private activeParams:ActivatedRoute,private patientAuth:PatienauthService,private toastrService:ToastrService) {
+    this.patientLoginForm = this.fbBuilder.group({
       email:['',Validators.required],
       loginid:['',Validators.required],
       password:['',Validators.required]
@@ -25,19 +25,19 @@ export class PatientloginComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.patientauth.logout();
+    this.patientAuth.logout();
   }
-  get patientname() {return this.patientloginform.get('patientname');}
-  get email() {return this.patientloginform.get('email');}
-  get password() {return this.patientloginform.get('password');}
-  get loginid() {return this.patientloginform.get('loginid');}
+  get patientname() {return this.patientLoginForm.get('patientname');}
+  get email() {return this.patientLoginForm.get('email');}
+  get password() {return this.patientLoginForm.get('password');}
+  get loginid() {return this.patientLoginForm.get('loginid');}
 
 
   //Login Authentication Check
-  loginauth(loginval:any)
+  loginAuth(loginval:any)
   {
 
-    this.serveapi.checkpatientlogin(loginval.loginid).subscribe(data=>{
+    this.serveApi.checkPatientLogin(loginval.loginid).subscribe(data=>{
      
       if((data.data.docs[0].email == loginval.email) && (data.data.docs[0].password == loginval.password))
       {
@@ -46,7 +46,7 @@ export class PatientloginComponent implements OnInit {
     
      
         this.showSuccess("Login Successfull")
-        this.router.navigate(['patientdashboard/',loginval.loginid]);
+        this.routerService.navigate(['patientdashboard/',loginval.loginid]);
       }
       else{
         this.showError("Login Authentication Failed Invalid Password or Email Error");

@@ -7,10 +7,10 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
   styleUrls: ['./patientsignup.component.css']
 })
 export class PatientsignupComponent implements OnInit {
-  patientsignupform:FormGroup
+  patientSignupform:FormGroup
   constructor(private request:FormBuilder) {
 
-    this.patientsignupform = this.request.group({
+    this.patientSignupform = this.request.group({
       patientid:['',Validators.required],
       appointmentstatus:['',Validators.required],
       Symptoms:['',Validators.required]
@@ -23,12 +23,12 @@ patientcount:any;
     console.log("Constructor")
 
   }
-  public updatetreatment(e:any)
+  public updateTreatment(e:any)
   {
-    let genid;
+   
     this.selected = e.target.value;
   }
-  loginauth(fromvalue:NgForm)
+  loginAuth(fromvalue:NgForm)
   {
       console.log("Formvalues",fromvalue);
   }

@@ -4,20 +4,20 @@
 
     <nav class="navbar">
 
-        <a [routerLink]="['displayreport',this.currentpage.id]" routerLinkActive="active">Medical
+        <a [routerLink]="['displayreport',this.currentPage.id]" routerLinkActive="active">Medical
             Status
         </a>
 
-        <a [routerLink]="['enquiryform',this.currentpage.id,this.patientname]" (click)="showdiv(4)"
+        <a [routerLink]="['enquiryform',this.currentPage.id,this.patientName]" (click)="showDiv(4)"
             routerLinkActive="active">Patient
             Enquiryform
         </a>
 
-        <a routerLinkActive="active" [routerLink]="['yourdoctor',this.currentpage.id]">Your doctor
+        <a routerLinkActive="active" [routerLink]="['yourdoctor',this.currentPage.id]">Your doctor
 
         </a>
 
-        <a (click)="Logout()" routerLinkActive="active">Logout</a>
+        <a (click)="logOut()" routerLinkActive="active">Logout</a>
 
 
 

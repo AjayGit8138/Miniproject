@@ -7,10 +7,10 @@ import { ApiserviceService } from 'src/app/apiservice.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  requestedpatients:any;
-  avialabledoctors:any;
-  admittedpatients:any;
-  constructor(private serveapi:ApiserviceService) { }
+  requestedPatients:any;
+  avialableDoctors:any;
+  admittedPatients:any;
+  constructor(private serveApi:ApiserviceService) { }
 
   ngOnInit(): void {
     this.getdetails();
@@ -18,18 +18,18 @@ export class MenuComponent implements OnInit {
 
   getdetails()
   {
-    this.serveapi.getrequestedpatient().subscribe((data)=>{
+    this.serveApi.getrequestedpatient().subscribe((data)=>{
      
-      this.requestedpatients = data.data.docs.length;
+      this.requestedPatients = data.data.docs.length;
     })
     const referenceid = 'Doctor';
-    this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
+    this.serveApi.getDoctorslist(referenceid).subscribe((data)=>{
      
-      this.avialabledoctors = data.data.docs.length;
+      this.avialableDoctors = data.data.docs.length;
     })
-    this.serveapi.getadmittedpatients().subscribe((data)=>{
+    this.serveApi.getadmittedpatients().subscribe((data)=>{
      
-      this.admittedpatients = data.data.docs.length;
+      this.admittedPatients = data.data.docs.length;
     })
   }
 

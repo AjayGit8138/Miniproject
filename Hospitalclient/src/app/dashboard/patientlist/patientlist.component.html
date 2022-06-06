@@ -6,7 +6,7 @@
 
         <div class="contheight container">
             <div class="table-wrapper">
-                <table aria-label="patientable" class="table table-striped table-dark">
+                <table aria-label="patienTable" class="table table-striped table-dark">
                     <thead>
                         <tr>
                             <th scope="col">RequestId</th>
@@ -18,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let list of patientrequest">
+                        <tr *ngFor="let list of patientRequest">
 
                             <td>{{list.patientid}}</td>
                             <td>{{list.patientname}}</td>
@@ -46,7 +46,7 @@
                 <button type="button" class="btn-close" aria-label="Close"
                     (click)="modal.dismiss('Cross click')"></button>
             </div>
-            <form [formGroup]="bookingform" (ngSubmit)="savebookingstatus(this.bookingform.value)">
+            <form [formGroup]="bookingForm" (ngSubmit)="saveBookingStatus(this.bookingForm.value)">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="PatentName" class="col-sm-2 col-form-label">RequestId:</label>
