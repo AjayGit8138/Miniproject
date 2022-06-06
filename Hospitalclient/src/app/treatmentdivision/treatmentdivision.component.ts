@@ -45,23 +45,16 @@ export class TreatmentdivisionComponent implements OnInit {
  
   
   gettreatmentlist(){
-    
-    
     this.getdetail();
-    
   }
   getdetail()
   {
     this.serveapi.gettotalpatients(this.undertreatment.doctor,this.undertreatment.Treatmentcategory).subscribe((data)=>{
-      console.log("Undertreatment category is received successfully",data);
-
       //get patients details working under doctor
       for(const element of data.docs)
       {
         this.mypatients.push(element);
       }
-    
-      console.log("Patients under working",this.mypatients);
     })
 
   }
@@ -70,7 +63,7 @@ export class TreatmentdivisionComponent implements OnInit {
     
   }
   doctorlogout() {  
-    console.log('logout');  
+   
     this.authserve.doctorlogout();  
     this.route.navigate(['/home']);  
   } 

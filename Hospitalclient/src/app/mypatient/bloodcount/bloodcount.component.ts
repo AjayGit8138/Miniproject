@@ -43,14 +43,13 @@ export class BloodcountComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.bloodtest);
-    console.log("doctorid",this.doctorid)
+   
     this.bloodcount.controls['patientId'].setValue(this.bloodtest.id);
     this.bloodcount.controls['patientname'].setValue(this.bloodtest.name);
     
     this.bloodcountreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
     this.autocode(this.bloodcountreport);
-    console.log("autogenerate blood",this.bloodcountreport);
+  
     this.bloodcount.controls['reportby'].setValue(this.bloodtest.generatedby);
     this.bloodcount.controls['totalreport'].setValue(this.bloodcountreport);
 
@@ -59,17 +58,15 @@ export class BloodcountComponent implements OnInit {
   submitbooldsample(formvalue:any,_ref:any)
   {
    
-      console.log("Formvalues",formvalue);
+    
       this.makepdf.push(formvalue);
       this.arrayofkey = Object.keys(this.makepdf[0]);
-      console.log(this.makepdf);
+    
       formvalue.docid = localStorage.getItem('doctorid');
       this.serveapi.generatebloodcountreport(formvalue).subscribe((response)=>{
-        console.log("response message",response);
+        
         if(response.status == 200)
         {
-          console.log("test report successfully generated into the database",response);
-         
           this.showsuccess(response.success);
           this.bloodcount.reset()
         }
@@ -83,20 +80,14 @@ export class BloodcountComponent implements OnInit {
   //autogenerate test report based on Previous report
   autocode(params:any)
   {
-    console.log("samplereport",params);
-    
     this.serveapi.gettestreport(params).subscribe((response)=>{
-      console.log("autogenerate reports",response);
+     
       if(params == response.docs[0].totalreport)
       {
-        console.log('matched');
         this.numbercount += 1;
-        console.log("counts",this.numbercount);
         this.bloodcountreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
         this.pdfname = this.bloodcountreport;
-        console.log("Pdfname",this.pdfname);
          this.bloodcount.controls['totalreport'].setValue(this.bloodcountreport);
-
       }
       else{
         console.log("Not matched id",params);
@@ -137,17 +128,17 @@ export class BloodcountComponent implements OnInit {
     
     get patientId() {return this.bloodcount.get('patientId');}
 
-get patientname() {return this.bloodcount.get('patientname')}
-get reportby()  {return this.bloodcount.get('reportby')}
-get totalreport() {return this.bloodcount.get('totalreport')}
-get Rbc() {return this.bloodcount.get('Rbc')}
-get hemoglobin() {return this.bloodcount.get('hemoglobin')}
-get hemocrit() {return this.bloodcount.get('hemocrit')}
-get mcv() {return this.bloodcount.get('mcv')}
+    get patientname() {return this.bloodcount.get('patientname')}
+    get reportby()  {return this.bloodcount.get('reportby')}
+    get totalreport() {return this.bloodcount.get('totalreport')}
+    get Rbc() {return this.bloodcount.get('Rbc')}
+    get hemoglobin() {return this.bloodcount.get('hemoglobin')}
+    get hemocrit() {return this.bloodcount.get('hemocrit')}
+    get mcv() {return this.bloodcount.get('mcv')}
 
-get mch() {return this.bloodcount.get('mch')}
+    get mch() {return this.bloodcount.get('mch')}
 
-get rdw() {return this.bloodcount.get('rdw')}
+    get rdw() {return this.bloodcount.get('rdw')}
 
 
 

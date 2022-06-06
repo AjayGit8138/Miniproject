@@ -61,7 +61,7 @@ export class PatientlistComponent implements OnInit {
     getrequestpatients()
     {
       this.serveapi.getrequestedpatient().subscribe((data)=>{
-        console.log("waiting for Doctor appointment",data);
+     
         if(data.status == 404)
         {
           this.tablestatus = true;
@@ -70,18 +70,15 @@ export class PatientlistComponent implements OnInit {
         else
         {
               const availength = data.data.docs.length;
-              console.log("returned Length",availength);
+             
               this.patientrequest = [];
         
               for(let i=0;i<availength;i++)
               {
                 this.patientrequest.push(data.data.docs[i]);
               }
-       
-            console.log("patient request",this.patientrequest);
       }
       })
-
     }
 
   //
@@ -93,13 +90,13 @@ export class PatientlistComponent implements OnInit {
   }
   selectindex(e:any)
   {
-    console.log("Onchange get indexval",e.target.value);
+   
     const getDoctorname = e.target.value;
     this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
-      console.log("Get specialized doctor data from server",data);
+    
       //push doctors as per the specialization into the array
       const arraylength = data.data.docs.length;
-      console.log("arraylength",arraylength);
+      
       this.orthodoctors = [];
       this.doctorsid = [];
       for(let i=0;i<arraylength;i++)
@@ -109,14 +106,8 @@ export class PatientlistComponent implements OnInit {
         this.orthodoctors[i] = data.data.docs[i].doctorname;
       
         this.doctorsid[i] = data.data.docs[i]._id;
-   
-        console.log("doctors id from selectindex",this.doctorsid[i]);
         this.dbdoctorid = data.data.docs[i]._id;
       }
-      console.log("Error",this.orthodoctors);
-      console.log("Totalid's length",this.doctorsid);
-      
-
       
     }
 
@@ -125,12 +116,9 @@ export class PatientlistComponent implements OnInit {
       docid:this.dbdoctorid
     }
     this.serveapi.gettimeslot(timeslot).subscribe((res)=>{
-      console.log("Available Time slot from doctor",res.data);
- 
-      
       for(let x of res.data.docs)
       {
-        console.log("Timeslot",x.appointmenttime);
+      
         if(this.checkdate == x.appointmentdata)
         {
           let filtervalue = x.appointmenttime;
@@ -145,17 +133,17 @@ export class PatientlistComponent implements OnInit {
   }
 
   public updatetreatment(e:any)
-{
+  {
   
   this.doctors = e.target.value;
  this.tokename = this.tokename + '-T' + this.doctors
   this.bookingform.controls['Tokenname'].setValue(this.tokename);
-  console.log("doctors",this.doctors);
+ 
   this.serveapi.getdoctorslist(this.doctors).subscribe((data)=>{
-    console.log("Get specialized doctor data from server",data);
+ 
     //push doctors as per the specialization into the array
     const arraylength = data.data.docs.length;
-    console.log("arraylength",arraylength);
+   
     this.orthodoctors = [];
     this.doctorsid = [];
     for(let i=0;i<arraylength;i++)
@@ -163,28 +151,27 @@ export class PatientlistComponent implements OnInit {
       this.orthodoctors[i] = data.data.docs[i].doctorname;
     
       this.doctorsid[i] = data.data.docs[i]._id;
-      console.log(this.orthodoctors[i]);
-      console.log("doctors id",this.doctorsid[i]);
+      
     }
-    console.log("Error",this.orthodoctors);
-    console.log("Totalid's length",this.doctorsid);
+  
 
     this.employeddoctors.push(data.docs);
-    console.log("List of specialization doctors",this.employeddoctors)
+  
 })
 
   
 }
 //
   savebookingstatus(bookinformation:any){
-    console.log(bookinformation);
+ 
     bookinformation.docid = this.dbdoctorid;
-    console.log("new updated booking",bookinformation);
-    console.log("Emptylist",this.orthodoctors);
+   
     bookinformation.timingforappointment = this.timeclock;
     this.serveapi.bookappointment(bookinformation,this.patientid).subscribe((data)=>{
-      console.log("Updated patient data is successfully loaded:",data);
-      alert(data.message);
+      if(data)
+      {
+      this.showsuccess("Patient Request is Booked Successfully");
+      }
       window.location.reload();
     })
 }
@@ -219,26 +206,24 @@ this.timeclock = hours + ':' + minutes + ' ' + meridian;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     })
-    console.log(row);
-    console.log(row.patientname);
-    console.log(row._id);
+
     this.patientid = row._id;
     this.patientrefid = row._rev;
-    console.log(row._rev);
+
 
     this.bookingform.controls['requestId'].setValue(row.patientid);
     this.tokename = row.patientid;
     this.bookingform.controls['patientname'].setValue(row.patientname);
     this.bookingform.controls['Treatmentcategory'].setValue(row.Treatmentcategory);
     this.bookingform.controls['appointstatus'].setValue(this.status);
-    
-    
-    console.log("specialist",this.doctors);
- 
     }
     //toastr service
     showerror(message)
     {
       this.toastr.error(message);
+    }
+    showsuccess(message)
+    {
+      this.toastr.success(message);
     }
 }

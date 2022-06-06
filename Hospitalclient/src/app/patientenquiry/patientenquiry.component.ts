@@ -68,14 +68,9 @@ Formsubmit(Formvalue:NgForm)
   }
   else{
   this.serverapi.storepatientrecord(Formvalue).subscribe((res)=>{
-        console.log("Form value added successfully into database");
-        console.log("return response",res);
         this.showsuccess(res.message);
-       
-     
   })
   this.patientinquiryform.reset();
- 
   window.location.reload();
 }
 }
@@ -93,7 +88,7 @@ setrequestid(event:any)
 setmobileno(event:any)
 {
   this.checkmobileno = event.target.value;
-  console.log(this.checkmobileno);
+
 }
 setesino(event:any)
 {
@@ -104,17 +99,16 @@ setesino(event:any)
 passwordcheck(e:any)
 {
   this.passwordmatch = e.target.value;
-  console.log("password",this.passwordmatch);
-}
+  console.log("password",this.passwordmatch);}
 //confirmpassword check
 checkcpassword(e:any)
 {
   this.cpasswordcheck = e.target.value;
-  console.log("cpassword",this.cpasswordcheck);
+ 
   if(this.passwordmatch == this.cpasswordcheck)
   {
     this.validpass = true;
-    console.log("True",this.validpass);
+  
   }
   else
   {

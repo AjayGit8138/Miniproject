@@ -36,7 +36,7 @@ export class YourdoctorComponent implements OnInit {
     
     })
     this.serveapi.getdoctor(this.currentpage.id).subscribe((data)=>{
-      console.log("Response from a server",data);
+     
       this.direct.controls['doctorname'].setValue(data.data.doctorname);
       this.direct.controls['specialist'].setValue(data.data.specialist);
       this.direct.controls['patientid'].setValue(this.currentpage.id);
@@ -63,7 +63,7 @@ export class YourdoctorComponent implements OnInit {
 
     pastdate()
     {
-      console.log("Hi*******");
+  
       this.todaydate = new Date();
       this.month = this.todaydate.getMonth();
       this.year = this.todaydate.getUTCFullYear() - 0;
@@ -89,11 +89,12 @@ export class YourdoctorComponent implements OnInit {
       const dbrefpatientid = localStorage.getItem('patientdbid');
       formvalue.dbrefpatientid = dbrefpatientid;
       this.serveapi.directbooking(formvalue).subscribe((response)=>{
-        console.log("return response",response);
+        if(response)
+        {
+          this.success("Your Appointment Booking is generated successfully")
+        }
       })
-      console.log("Bookdirect",formvalue);
-      this.success("Your Appointment Booking is generated successfully" + formvalue.appointmenttime + "AM")
-
+     
     }
     public success(message:any)
     {

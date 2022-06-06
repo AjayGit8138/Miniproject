@@ -43,16 +43,11 @@ export class PatientdashboardComponent implements OnInit {
 
     this.testreport = this.currentpage.id + '-'+ 'Testreport' + '-' + 1;
     this.autocode(this.testreport);
-    console.log("Testreports",this.testreport);
-
-
     this.serviceapi.checkpatientlogin(this.currentpage.id).subscribe((data)=>{
-        console.log("session login data for patient",data);
         this.appointstatus.push(data.data.docs[0]);
-        console.log("appointment status",this.appointstatus);
         for(const element of this.appointstatus)
         {
-              console.log(element);
+            
               localStorage.setItem('patientdbid',element._id)
               this.patientname = element.patientname;
         }
@@ -64,26 +59,21 @@ export class PatientdashboardComponent implements OnInit {
    
   }
 
-  open(content:any,row:any) {
+  open(content:any,_row:any) {
     
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     })
-    console.log("row details",row);
 
   }
 
   autocode(params:any)
   {
     this.serveapi.gettestreport(this.testreport).subscribe((response)=>{
-      console.log("autogenerate reports",response);
       if(params == response.data.docs[0].totalreport)
       {
-        console.log('matched');
         this.numbercount += 1;
-        console.log("counts",this.numbercount);
         this.patienttestreports.push(response.data.docs[0]);
-        console.log("Need to show the output for patient",this.patienttestreports);
         this.testreport = this.currentpage.id + '-' + 'Testreport' + '-' + this.numbercount;
 
       }
@@ -105,8 +95,6 @@ export class PatientdashboardComponent implements OnInit {
   }
   displaytestreport(items:any,disval:any)
   {
-    
-    console.log("items to display",items);
     this.showobject.dietplan = items.dietplan;
     this.showobject.tabletone = items.medicineone;
     this.showobject.tablettwo = items.medicinetwo;

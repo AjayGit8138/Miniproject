@@ -15,7 +15,7 @@ export class DoctorlistComponent implements OnInit {
   ngOnInit(): void {
     let referenceid = 'Doctor';
     this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
-      console.log("Avalable Doctors in Hospital",data);
+   
       if(data.status == 404)
       {
         this.errorstatus = true;
@@ -29,19 +29,12 @@ export class DoctorlistComponent implements OnInit {
           this.doctorlist.push(data.data.docs[i]);
         }
         this.showsuccess(data.success);
-        console.log("Availabily doctors in Hospital",this.doctorlist);
+       
     }
     })
   
   }
-  selectdoctors(event:any)
-  {
-     console.log(event.target.value);
-     const referenceid = event.target.value;
-     this.serveapi.getdoctorslist(referenceid).subscribe((data)=>{
-          console.log("Get specialized doctor data from server",data);
-     })
-  }
+
   //toastr service
   showerror(message)
   {

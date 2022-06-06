@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -77,12 +76,11 @@ object = {
    }
 
   ngOnInit(): void {
-    console.log("doctor id",this.currentpage.id);
+   
     this.serveapi.checkdoctorlogin(this.currentpage.id).subscribe((data)=>{
-      console.log("Logged doctor details",data);
+     
       localStorage.setItem('doctorid',data.data.docs[0]._id);
-      console.log("Doctor-Name",data.data.docs[0].doctorname);
-      console.log("category",data.data.docs[0].specialist);
+     
       this.undertreatment.doctor = data.data.docs[0].doctorname;
       this.undertreatment.Treatmentcategory = data.data.docs[0].specialist;
       this.testgenerated = this.currentpage.id + '-' + this.undertreatment.doctor;
@@ -94,9 +92,9 @@ object = {
   }
   getdetail()
   {
-    console.log(this.undertreatment);
+  
     this.serveapi.gettotalpatients(this.undertreatment.doctor,this.undertreatment.Treatmentcategory).subscribe((data)=>{
-      console.log("Undertreatment category is received successfully",data);
+  
       this.showsuccess(data.success);
       //get patients details working under doctor
       for(const element of data.data.docs)
@@ -104,7 +102,7 @@ object = {
         this.mypatients.push(element);
       }
     
-      console.log("Patients under working",this.mypatients);
+    
     })
 
   }
@@ -124,10 +122,13 @@ object = {
   }
   deletepatient(list:any)
   {
-    console.log("Delete patient",list);
+   
    
     this.serveapi.deletepatient(list).subscribe((response=>{
-      console.log("Deleted patient record",response);
+      if(response)
+      {
+      this.showsuccess("Pateint record is Deleted successfully");
+      }
       window.location.reload();
     }),(err)=>{
       console.log("Patient record is not deleted",err);
@@ -152,12 +153,12 @@ object = {
   }
   generatereport(formobject:any)
   {
-    console.log("Report Generation",formobject);
+   
     formobject.docid = localStorage.getItem('doctorid');
     this.serveapi.generatetestreport(formobject).subscribe((response)=>{
       if(response)
       {
-        console.log("test report successfully generated into the database",response);
+
         this.showsuccess(response.success);
         this.testform.reset()
       }
@@ -176,12 +177,10 @@ object = {
   autocode(params:any)
   {
     this.serveapi.gettestreport(this.nofreport).subscribe((response)=>{
-      console.log("autogenerate reports",response);
+  
       if(params == response.data.docs[0].totalreport)
       {
-        console.log('matched');
         this.numbercount += 1;
-        console.log("counts",this.numbercount);
         this.nofreport = this.patineid + '-' + 'Testreport' + '-' + this.numbercount;
          this.testform.controls['totalreport'].setValue(this.nofreport);
 
@@ -196,12 +195,9 @@ object = {
   addtestreport(list:any,showdiv:any)
   {
     this.divboolean = showdiv;
-    
     this.object.id = list.patientid;
     this.object.name = list.patientname;
     this.object.generatedby = this.testgenerated;
-
-    
   }
  
   sendData(event:any)
@@ -213,7 +209,6 @@ object = {
   setmedicine(event:any): void
   {
     this.tabletlist.tabletname = event.target.value;
-    console.log(this.tabletlist.tabletname);
     this.getmedical();
   }
   getmedical()
@@ -221,16 +216,15 @@ object = {
     let reference = this.tabletlist.tabletname;
       this.serveapi.gettablets(reference).subscribe(
         (response) => {                          
-          console.log('response received',response);
-          console.log(response.data.docs[0][`${this.tabletlist.tabletname}`]);
           this.tablets = [];
           this.tablets.push(response.data.docs[0][`${this.tabletlist.tabletname}`]);
         },
         (error) => {                              
-          console.error('error caught in component')
+       
           this.errorMessage = error;
-          console.log("Errot",this.errorMessage.error);
-          alert("oops!server Down can't take a details from Database" + this.errorMessage.error);
+          
+        
+          this.showerror(this.errorMessage.error);
         }
       )
   }
@@ -240,5 +234,9 @@ object = {
   {
     this.toastr.success(message);
   }
-  
+
+  showerror(message)
+  {
+    this.toastr.error(message);
+  }
 }

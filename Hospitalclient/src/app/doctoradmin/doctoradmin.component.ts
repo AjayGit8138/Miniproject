@@ -47,7 +47,7 @@ export class DoctoradminComponent implements OnInit {
   {
     let fullPath = event;
     this.filename = `/src/images/`+ fullPath.replace(/^.*[\\\/]/, '');
-    console.log("Hi File name is:", `/src/images/` + this.filename);
+   
   }
   navigatenext()
   {
@@ -57,7 +57,7 @@ export class DoctoradminComponent implements OnInit {
 {
     let emailId = event.target.value;
     this.serveapi.checkdoctorlogin(emailId).subscribe((data)=>{
-        console.log("Patient Exists data from Database",data);
+      
         if(data.data.docs[0].email == emailId)
         {
          
@@ -69,16 +69,16 @@ export class DoctoradminComponent implements OnInit {
 passwordcheck(e:any)
 {
   this.passwordmatch = e.target.value;
-  console.log("password",this.passwordmatch);
+
 }
 checkcpassword(e:any)
 {
   this.cpasswordcheck = e.target.value;
-  console.log("cpassword",this.cpasswordcheck);
+ 
   if(this.passwordmatch == this.cpasswordcheck)
   {
     this.validpass = true;
-    console.log("True",this.validpass);
+  
   }
   else
   {
@@ -95,11 +95,13 @@ getToday(): string {
   {
     Formvalue.profilesnap = this.filename;
     this.serveapi.storedoctorprofile(Formvalue).subscribe(resdata=>{
-      console.log("Hi doctor information is inserted",resdata);
+      
+      if(resdata)
+      {
+        this.showsuccess("Doctor Profile is added succesfully")
+      }
     })
     this.doctoradmingroup.reset();
-    alert("Doctor Profile is added succesfully");
-    console.log(Formvalue);
   }
 
   //toastrservice
@@ -107,7 +109,10 @@ getToday(): string {
   {
     this.toastr.warning(message);
   }
-
+  showsuccess(message)
+  {
+    this.toastr.success(message);
+  }
   get doctorname() {return this.doctoradmingroup.get('doctorname');}
   get email() {return this.doctoradmingroup.get('email');}
   get mobileno() {return this.doctoradmingroup.get('mobileno');}

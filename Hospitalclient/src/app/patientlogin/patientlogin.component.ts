@@ -43,7 +43,7 @@ export class PatientloginComponent implements OnInit {
       {
         localStorage.setItem('isPatientloggedIn','true');
         localStorage.setItem('token', loginval.loginid);  
-        console.log("email",loginval);
+    
      
         this.showSuccess("Login Successfull")
         this.router.navigate(['patientdashboard/',loginval.loginid]);

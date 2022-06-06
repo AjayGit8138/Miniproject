@@ -27,9 +27,9 @@ export class AdminComponent implements OnInit {
 
   Adminauth(formdata:any)
   {
-    console.log("admindata",formdata);
+   
     this.api.getadmin(formdata).subscribe((data)=>{
-      console.log("Authorized email accepts",data);
+     
     
       if((data.data.docs[0].loginid == formdata.loginid) && (data.data.docs[0].password == formdata.password))
     {

@@ -63,13 +63,12 @@ arrayofkey = [];
 
   
   ngOnInit(): void {
-    console.log(this.bloodtest);
-    console.log("doctorid",this.doctorid)
+   
     this.bloodreport.controls['patientId'].setValue(this.bloodtest.id);
     this.bloodreport.controls['patientname'].setValue(this.bloodtest.name);
     this.bloodtestreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
     this.autocode(this.bloodtestreport);
-    console.log("autogenerate blood",this.bloodtestreport);
+   
     this.bloodreport.controls['reportby'].setValue(this.bloodtest.generatedby);
     this.bloodreport.controls['totalreport'].setValue(this.bloodtestreport);
     this.currentdate = new Date();
@@ -77,15 +76,15 @@ arrayofkey = [];
 
   submitbooldsample(formvalue:any,_ref:any)
   {
-      console.log("Formvalues",formvalue);
+      
       this.makepdf.push(formvalue);
       this.arrayofkey = Object.keys(this.makepdf[0]);
-      console.log(this.makepdf);
+     
       formvalue.docid = localStorage.getItem('doctorid');
       this.serveapi.generatebloodreport(formvalue).subscribe((response)=>{
         if(response)
         {
-          console.log("test report successfully generated into the database",response);
+      
 
           this.bloodreport.reset()
         }
@@ -97,14 +96,14 @@ arrayofkey = [];
   //autogenerate test report code based on previous report
   autocode(params:any)
   {
-    console.log("samplereport",params);
+   
     
     this.serveapi.gettestreport(params).subscribe((data)=>{
       if(params == data.data.docs[0].totalreport)
       {
-        console.log('matched');
+       
         this.numbercount += 1;
-        console.log("counts",this.numbercount);
+      
         this.bloodtestreport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numbercount;
         this.pdfname = this.bloodtestreport;
          this.bloodreport.controls['totalreport'].setValue(this.bloodtestreport);
@@ -140,7 +139,7 @@ arrayofkey = [];
 
   fileChange(element) {
     const file = element.target.files[0];
-    console.log(file);
+
 
     const formdata = new FormData();
     formdata.append("file",file);

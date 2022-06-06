@@ -19,6 +19,7 @@ const {schemadoctor} = require('./doctorvalidator');
 const { response } = require('express');
 app.use(connection.static('public'));
 app.use(bodyparser.json());
+app.disable("x-powered-by");
 
 //cors implementation
 app.use(cors({origin: [

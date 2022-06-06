@@ -39,13 +39,13 @@ export class DisplayreportComponent implements OnInit {
 
     this.testreport = this.currentpage.id + '-'+ 'Testreport' + '-' + 1;
     this.autocode(this.testreport);
-    console.log("Testreports",this.testreport);
+  
 
 
     this.serviceapi.checkpatientlogin(this.currentpage.id).subscribe((data)=>{
-        console.log("session login data for patient",data);
+       
         this.appointstatus.push(data.docs[0]);
-        console.log("appointment status",this.appointstatus);
+      
     },(err)=>{
       console.log("Bad response from the server",err);
     })
@@ -54,7 +54,7 @@ export class DisplayreportComponent implements OnInit {
   displaytestreport(items:any,disval:any)
   {
     
-    console.log("items to display",items);
+   
     this.showobject.dietplan = items.dietplan;
     this.showobject.tabletone = items.medicineone;
     this.showobject.tablettwo = items.medicinetwo;
@@ -84,14 +84,12 @@ export class DisplayreportComponent implements OnInit {
   autocode(params:any)
   {
     this.serveapi.gettestreport(this.testreport).subscribe((response)=>{
-      console.log("autogenerate reports",response);
+     
       if(params == response.data.docs[0].totalreport)
       {
-        console.log('matched');
+      
         this.numbercount += 1;
-        console.log("counts",this.numbercount);
         this.patienttestreports.push(response.data.docs[0]);
-        console.log("Need to show the output for patient",this.patienttestreports);
         this.testreport = this.currentpage.id + '-' + 'Testreport' + '-' + this.numbercount;
 
       }

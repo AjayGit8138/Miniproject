@@ -43,10 +43,6 @@ doctorloginauth(loginval:any)
 
 
   this.serveapi.checkdoctorlogin(loginval.loginid).subscribe((data)=>{
-    const length = data.data.docs;
-    console.log("total length",length);
-  
-    
     if((data.data.docs[0].email == loginval.email) && (data.data.docs[0].password == loginval.password))
     {
       localStorage.setItem('isdoctorLoggedIn','true');

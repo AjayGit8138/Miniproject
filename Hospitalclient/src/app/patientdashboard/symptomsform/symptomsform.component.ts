@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute,Params } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from 'src/app/apiservice.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class SymptomsformComponent implements OnInit {
   patientsignupform:FormGroup;
   currentpage= {id:'number',name:'string'};
   status = 'NO';
-  constructor(private request:FormBuilder,private activeparams:ActivatedRoute,private api:ApiserviceService) { 
+  constructor(private toastr:ToastrService,private request:FormBuilder,private activeparams:ActivatedRoute,private api:ApiserviceService) { 
     this.patientsignupform = this.request.group({
       patientid:['',Validators.required],
       patientname:['',Validators.required],
@@ -38,10 +39,16 @@ export class SymptomsformComponent implements OnInit {
   }
   loginauth(fromvalue:NgForm)
   {
-      console.log("Formvalues",fromvalue);
+     
       this.api.postconsulting(fromvalue).subscribe((data)=>{
-        alert(data.message);
+       
+        this.showsuccess(data.message);
         this.patientsignupform.reset();
       })
+  }
+
+  showsuccess(message)
+  {
+    this.toastr.success(message);
   }
 }
