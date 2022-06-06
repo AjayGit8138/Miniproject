@@ -1,24 +1,26 @@
-<nav>
+<header class="header">
 
-    <ul class="links">
-        <li class="nav-item"><a routerLinkActive="active" routerLink="home">Home
-            </a>
-        </li>
-        <li class="nav-item"><a routerLink="specialists" routerLinkActive="active">Specialists
-            </a>
-        </li>
-        <li class="nav-item"><a routerLink="docadmin" routerLinkActive="active">Doctor's
-                Portal</a>
-        </li>
-        <li class="nav-item"><a routerLink="enquiry" routerLinkActive="active">Patient Portal</a>
-        </li>
+    <a href="#" class="logo"> <em class="fas fa-heartbeat"></em> medcare. </a>
 
-        <li class="nav-item"><a routerLink="adminauth" routerLinkActive="active">Admin</a>
-        </li>
-    </ul>
-    <label for="nav-toggle" class="icon-burger">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-    </label>
-</nav>
+    <nav class="navbar">
+
+        <a routerLinkActive="active" routerLink="home">Home
+        </a>
+
+        <a routerLink="specialists" routerLinkActive="active">Specialists
+        </a>
+
+        <a routerLink="docadmin" routerLinkActive="active">Doctor's
+            Portal</a>
+
+        <a routerLink="enquiry" routerLinkActive="active">Patient Portal</a>
+
+
+        <a routerLink="adminauth" routerLinkActive="active">Admin</a>
+
+
+    </nav>
+
+    <div id="menu-btn" class="fas fa-bars" (click)="mobileview()"></div>
+
+</header>

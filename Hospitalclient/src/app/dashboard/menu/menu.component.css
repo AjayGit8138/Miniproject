@@ -22,10 +22,12 @@
       background-image: url('../../../images/request.png');
       background-repeat: no-repeat;
       background-position: center;
+      height: 200px;
 
   }
   .counts{
       font-size: 50px;
+      margin-top: 60px;
   }
   .doctors{
       background-image: url('../../../images/doctors.png');

@@ -1,192 +1,216 @@
-<div class="slider">
-    <div class="container">
-        <div class="row">
-            <div class="banner">
-                <div class="caption">
-                    <br><br>
-                    <h1>We are here<br><br><br>
-                        for your Care</h1><br><br><br>
-                    <p>Far far away, behind the word mountains, <br><br>far from the countries Vokalia and
-                        Consonantia,<br><br>
-                        there
-                        live the blind texts. Separated they live in Bookmarksgrove.</p>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <button (click)="makeappointment()" class="appointmentbtn">Make Appointment</button>
-                    </div>
-                </div>
+<div class="container homebanner">
+    <div class="col-md-12 homebanner">
+        <section class="home" id="home">
+
+            <div class="image">
+                <img [src]="banner" alt="">
             </div>
-        </div>
+
+            <div class="content">
+                <h3>stay safe, stay healthy</h3>
+                <p>The Good Physician Treats The Disease,The Great Physician Treats The Patient Who Has The Disease.</p>
+                <a (click)="makeappointment()" class="btn"> BookAppointment <span class="fas fa-chevron-right"></span>
+                </a>
+            </div>
+
+        </section>
     </div>
 </div>
+
+
+<div class="col-md-12 slider">
+    <div class="container">
+        <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let image of images">
+                <div class="wrapper">
+                    <img class="img-thumbnail banner" [src]="image.src" alt="Random first slide">
+                </div>
+
+            </ng-template>
+        </ngb-carousel>
+    </div>
+</div>
+
+
+
+<section class="services" id="services">
+
+    <h1 class="heading"> our <span>services</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <em class="fas fa-notes-medical"></em>
+            <h3>free checkups</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+        </div>
+
+        <div class="box">
+            <em class="fas fa-ambulance"></em>
+            <h3>24/7 ambulance</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+        </div>
+
+        <div class="box">
+            <em class="fas fa-user-md"></em>
+            <h3>expert doctors</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+        </div>
+
+        <div class="box">
+            <em class="fas fa-pills"></em>
+            <h3>medicines</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+        </div>
+
+        <div class="box">
+            <em class="fas fa-procedures"></em>
+            <h3>bed facility</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+        </div>
+
+        <div class="box">
+            <em class="fas fa-heartbeat"></em>
+            <h3>total care</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, omnis.</p>
+            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="services" id="services">
+
+    <h1 class="heading"> our <span> ClinicalServices</span> </h1>
+
+    <div class="box-container">
+        <h2> As a multi-speciality hospital based in Chennai, our pre-paid packages make quality health
+            care affordable at equitable costs for the residents of Chennai and beyond. Our goal is to
+            provide innovative and integrated health care to all. It is a privilege for us to treat
+            those who entrust their health to us, and we value the trust and repay the multitude by
+            going above and beyond the expectations in serving them.
+
+
+            We are particular in keeping our hospital clean and safe and ensuring that we deliver safe
+            and excellent health care. We are honored to serve every patient who stays with us are our
+            guests. We treat our guests with great respect and courtesy.</h2>
+
+    </div>
+</section>
+
 
 
 <div class="container">
 
     <div class="card services bg-light text-dark">
-        <div class="card-body">
-            <div class="container transone">
 
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <h1 class="text-success">Our ClinicalServices</h1>
-                        <h2> As a multi-speciality hospital based in Chennai, our pre-paid packages make quality health
-                            care affordable at equitable costs for the residents of Chennai and beyond. Our goal is to
-                            provide innovative and integrated health care to all. It is a privilege for us to treat
-                            those who entrust their health to us, and we value the trust and repay the multitude by
-                            going above and beyond the expectations in serving them.
-
-
-                            We are particular in keeping our hospital clean and safe and ensuring that we deliver safe
-                            and excellent health care. We are honored to serve every patient who stays with us are our
-                            guests. We treat our guests with great respect and courtesy.</h2>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
     </div>
     <br><br><br>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="medicalcard">
+                <div class="card-body">
+                    <img [src]="hearticon" class="iconmedical card-img-top" alt="nervesicon">
 
-    <div class=" container">
-        <div class="row">
-            <div class="services col-md-6">
-
-                <div class="card horizontal">
-
-                    <div class="card-stacked">
-                        <div class="goalservices card-content">
-
-                            <img class="goalimg" [src]="services" alt="goal">
-                            <h1>Our Mission</h1>
-                            <h2> “To provide holistic comprehensive healthcare under one roof at an affordable cost.”
-                            </h2>
-                        </div>
-                        <div class="card-action">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="services col-md-6">
-
-                <div class="card horizontal">
-
-                    <div class="card-stacked">
-                        <div class="goalservices card-content">
-
-                            <img class="goalimg" [src]="vision" alt="goal">
-                            <h2>Our Vision</h2>
-                            <h2>“Raising the standards of healthcare and make it Affordable, Equitable and
-                                Free-at-The-point of Delivery.”</h2>
-                        </div>
-                        <div class="card-action">
-
-                        </div>
-                    </div>
+                    <h1 class="card-title">Cardiology</h1>
+                    <p class="card-text">Cardiology
+                        Far far away, behind the word mountains</p>
                 </div>
             </div>
         </div>
-
-        <div class="container">
-
-            <div class="card services bg-light text-dark">
+        <div class="col-sm-4">
+            <div class="medicalcard">
                 <div class="card-body">
-                    <div class="container transone">
+                    <img [src]="nervesicon" class="iconmedical card-img-top" alt="nervesicon">
 
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <h1 class="text-success">Our Objectives</h1>
-                                <h2> The most important objective for which our hospital will be to provide high-quality
-                                    service at an affordable cost not only for the affluent sections of the society but
-                                    also to those who may not be economically well off. The outpatient services will be
-                                    provided on the concept of polyclinics and referral clinics. The outpatient services
-                                    will be provided not only in the morning hours but also through special clinics in
-                                    the afternoon and in the evening also at night which mentions as a 24x7 hospital. It
-                                    would be the endeavor of the hospital to treat patients through ambulatory care as
-                                    far as possible. Those who need admission will first be fully investigated wherever
-                                    possible through the diagnostic departments.</h2>
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                    <h1 class="card-title">Neurology</h1>
+                    <p class="card-text">Neurology
+                        Far far away, behind the word mountains</p>
                 </div>
             </div>
-            <br><br><br>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="medicalcard card">
-                        <div class="card-body">
-                            <img [src]="hearticon" class="iconmedical card-img-top" alt="nervesicon">
+        </div>
+        <div class="col-sm-4">
+            <div class="medicalcard">
+                <div class="card-body">
+                    <img [src]="dentalicon" class="iconmedical card-img-top" alt="nervesicon">
 
-                            <h1 class="card-title">Cardiology</h1>
-                            <p class="card-text">Cardiology
-                                Far far away, behind the word mountains</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="medicalcard card">
-                        <div class="card-body">
-                            <img [src]="nervesicon" class="iconmedical card-img-top" alt="nervesicon">
-
-                            <h1 class="card-title">Neurology</h1>
-                            <p class="card-text">Neurology
-                                Far far away, behind the word mountains</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="medicalcard card">
-                        <div class="card-body">
-                            <img [src]="dentalicon" class="iconmedical card-img-top" alt="nervesicon">
-
-                            <h1 class="card-title">Denatal</h1>
-                            <p class="card-text">Neurology
-                                Far far away, behind the word mountains</p>
-                        </div>
-                    </div>
-                </div>
-            </div><br><br><br>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="medicalcard card">
-                        <div class="card-body">
-                            <img [src]="skinicon" class="iconmedical card-img-top" alt="nervesicon">
-
-                            <h1 class="card-title">Skin</h1>
-                            <p class="card-text">Highly Efficiency Treatment in Skin Therapy
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="medicalcard card">
-                        <div class="card-body">
-                            <img [src]="generalicon" class="iconmedical card-img-top" alt="nervesicon">
-
-                            <h1 class="card-title">GeneralTreatment</h1>
-                            <p class="card-text">Our Specialist Caring in GeneralTreatment
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="medicalcard card">
-                        <div class="card-body">
-                            <img [src]="dentalicon" class="iconmedical card-img-top" alt="nervesicon">
-
-                            <h1 class="card-title">Denatal</h1>
-                            <p class="card-text">Neurology
-                                Far far away, behind the word mountains</p>
-                        </div>
-                    </div>
+                    <h1 class="card-title">Dental</h1>
+                    <p class="card-text">Neurology
+                        Far far away, behind the word mountains</p>
                 </div>
             </div>
+        </div>
+    </div><br><br><br>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="medicalcard">
+                <div class="card-body">
+                    <img [src]="skinicon" class="iconmedical card-img-top" alt="nervesicon">
+
+                    <h1 class="card-title">Skin</h1>
+                    <p class="card-text">Highly Efficiency Treatment in Skin Therapy
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="medicalcard">
+                <div class="card-body">
+                    <img [src]="generalicon" class="iconmedical card-img-top" alt="nervesicon">
+
+                    <h1 class="card-title">GeneralTreatment</h1>
+                    <p class="card-text">Our Specialist Caring in GeneralTreatment
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="medicalcard">
+                <div class="card-body">
+                    <img [src]="orthoicon" class="iconmedical card-img-top" alt="nervesicon">
+
+                    <h1 class="card-title">OrthoTreatment</h1>
+                    <p class="card-text">Neurology
+                        Far far away, behind the word mountains</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><br><br>
+
+
+<section class="services" id="services">
+
+    <h1 class="heading"> our <span> Objectives</span> </h1>
+
+    <div class="box-container">
+        <h2>
+            <h2> The most important objective for which our hospital will be to provide
+                high-quality
+                service at an affordable cost not only for the affluent sections of the society
+                but
+                also to those who may not be economically well off. The outpatient services will
+                be
+                provided on the concept of polyclinics and referral clinics. The outpatient
+                services
+                will be provided not only in the morning hours but also through special clinics
+                in
+                the afternoon and in the evening also at night which mentions as a 24x7
+                hospital. It
+                would be the endeavor of the hospital to treat patients through ambulatory care
+                as
+                far as possible. Those who need admission will first be fully investigated
+                wherever
+                possible through the diagnostic departments.</h2>
+        </h2>
+
+    </div>
+</section>

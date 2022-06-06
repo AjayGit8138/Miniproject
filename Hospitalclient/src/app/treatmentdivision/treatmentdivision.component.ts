@@ -33,6 +33,7 @@ export class TreatmentdivisionComponent implements OnInit {
    }
   ngOnInit(): void {
    this.tabchange = 1;
+   this.logindocid = localStorage.getItem('token');
   }
 
   tabselect(params:any)
@@ -77,5 +78,14 @@ export class TreatmentdivisionComponent implements OnInit {
   selectab(divselect:any)
   {
     this.tabchange = divselect;
+  }
+
+  mobileview()
+  {
+  let menu = document.querySelector('#menu-btn') as HTMLDivElement;
+  let navbar = document.querySelector('.navbar');
+
+     menu.classList.toggle('fa-times');
+    navbar.classList.toggle('active');
   }
 }

@@ -1,4 +1,16 @@
-*{
-    margin: 10px;
-    padding: 10px;
+.model{
+    margin: 3px;
+    padding: 5px;
+}
+.patientbook{
+    margin-top: 200px;
+}
+a{
+    text-decoration-line: none;
+}
+a{
+    text-decoration-line: none;
+}
+select{
+    width: 400px;
 }

@@ -4,6 +4,7 @@ const validator = require("email-validator");
 
 const generatelog = require('../logger/logger');
 const {doctorauthentication} = require('../validatior');
+const errorlog = require('../logger/errorlog');
 
 
 const adminlogin = (adminvalidataion)=>{
@@ -169,6 +170,31 @@ const gettabletlist = (getreference)=>{
 
 }
 
+const timeslot = (name,id)=>{
+    return new Promise((resolve,reject)=>{
+        if(name)
+        {
+            const findTimeslot = {
+                selector:{
+                    doctorname:name,
+                    dbdoctorid:id,
+                    type:"bookrequest"
+                }
+                 
+               }
+               console.log("***",findTimeslot);
+            const retTimeslot = storedb.hospitaldb.find(findTimeslot).then((data)=>{
+                return data;
+            }).catch((err)=>{
+                errorlog.error("Doctor is Not Booked By any Patient",err);
+            })
+            return resolve(retTimeslot);
+        }else{
+            return reject();
+        }
+    }
+)}
+
 const storetestreport = (reportobject)=>{
     console.log("from services",reportobject);
     return new Promise((resolve,reject)=>{
@@ -189,5 +215,5 @@ const storetestreport = (reportobject)=>{
     })
 }
 module.exports = {
-    storedoctorinformation,checkdoctorauth,getalldoctors,gettabletlist,storetestreport,adminlogin
+    storedoctorinformation,checkdoctorauth,getalldoctors,gettabletlist,storetestreport,adminlogin,timeslot
 }

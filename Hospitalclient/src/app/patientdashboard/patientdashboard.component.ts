@@ -12,6 +12,7 @@ import { PatienauthService } from '../shared/patienauth.service';
 })
 export class PatientdashboardComponent implements OnInit {
   currentpage= {id:'number'};
+  loginpatientid:any;
   appointstatus:any = [];
   divBoolean:any;
   testreport:any;
@@ -52,6 +53,7 @@ export class PatientdashboardComponent implements OnInit {
         for(const element of this.appointstatus)
         {
               console.log(element);
+              localStorage.setItem('patientdbid',element._id)
               this.patientname = element.patientname;
         }
       
@@ -116,6 +118,7 @@ export class PatientdashboardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.divBoolean = 1;
+    this.loginpatientid = localStorage.getItem('token');
   }
   Logout() {  
     console.log('logout');  

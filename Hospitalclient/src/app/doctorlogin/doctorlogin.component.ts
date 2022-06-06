@@ -28,6 +28,7 @@ export class DoctorloginComponent implements OnInit {
   }
 get loginid(){return this.doctorloginformgroup.get('loginid');}
 get email(){return this.doctorloginformgroup.get('email');}
+get password(){return this.doctorloginformgroup.get('password');}
 
 
 

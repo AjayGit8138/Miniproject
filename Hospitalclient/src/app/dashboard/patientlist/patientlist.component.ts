@@ -24,6 +24,7 @@ export class PatientlistComponent implements OnInit {
   timeclock:any;
   doctors:any;
   content = '';
+  checkdate:any;
   tablestatus:boolean = false;
   //for update new method
   patientid:any;
@@ -46,7 +47,9 @@ export class PatientlistComponent implements OnInit {
    num = 1;
    orthodoctors = [];
    sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
-   skindoctors = ["karthick","Ramamoorthy","ramachandran","geetha","srinivasan"];
+  
+  timeslotbook = ['8:00AM to 9:00AM','9:00AM to 10:00AM','10:00AM to 11:00AM','11:00AM to 12:00PM','12:00PM to 1:00PM','3:00PM to 4:00PM','4:00PM to 5:00PM','6:00PM to 7:00PM','7:00PM to 8:00PM']
+
   ngOnInit(): void {
 
     this.number = 1;
@@ -82,6 +85,12 @@ export class PatientlistComponent implements OnInit {
     }
 
   //
+
+  //check appointment date with doctor booked date
+  checkappointmentdate(event:any)
+  {
+    this.checkdate = event.target.value;
+  }
   selectindex(e:any)
   {
     console.log("Onchange get indexval",e.target.value);
@@ -106,9 +115,32 @@ export class PatientlistComponent implements OnInit {
       }
       console.log("Error",this.orthodoctors);
       console.log("Totalid's length",this.doctorsid);
-  
+      
+
       
     }
+
+    let timeslot = {
+      doctorname:getDoctorname,
+      docid:this.dbdoctorid
+    }
+    this.serveapi.gettimeslot(timeslot).subscribe((res)=>{
+      console.log("Available Time slot from doctor",res.data);
+ 
+      
+      for(let x of res.data.docs)
+      {
+        console.log("Timeslot",x.appointmenttime);
+        if(this.checkdate == x.appointmentdata)
+        {
+          let filtervalue = x.appointmenttime;
+          this.timeslotbook = this.timeslotbook.filter(function(item){
+            return item!== filtervalue
+          })
+        }
+       
+      }
+    })
   })
   }
 

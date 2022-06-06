@@ -74,4 +74,14 @@ const schema =  Joi.object({
     rdw:Joi.string().required(),
     docid:Joi.string().required(),
   })
-  module.exports = {countreport,schema,adminauth,doctorauthentication,patientauthentication,reportvalidation,urinetestreport}
+
+  const booking = Joi.object({
+    appointmentdata:Joi.string().required(),
+      appointmenttime:Joi.string().required(),
+      dbdoctorid:Joi.string().required(),
+      doctorname:Joi.string().required(),
+      patientid:Joi.string().required(),
+      specialist:Joi.string().required(),
+      dbpatientid:Joi.string().required(),
+  })
+  module.exports = {countreport,schema,adminauth,doctorauthentication,patientauthentication,reportvalidation,urinetestreport,booking}

@@ -4,6 +4,7 @@ import { ActivatedRoute,Params } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from 'src/app/apiservice.service';
+
 @Component({
   selector: 'app-yourdoctor',
   templateUrl: './yourdoctor.component.html',
@@ -16,8 +17,16 @@ export class YourdoctorComponent implements OnInit {
   tdate:any;
   direct:FormGroup;
   currentDate:any = new Date();
-  
+  doctorinformation = {
+    dbid:'',
+    doctorid:'',
+    specialist:'',
+    patientid:'',
+    patientdbid:''
+
+  }
   currentpage= {id:'number'};
+  timeslot = ['8:00AM to 9:00AM','9:00AM to 10:00AM','10:00AM to 11:00AM','11:00AM to 12:00PM','12:00PM to 1:00PM','3:00PM to 4:00PM','4:00PM to 5:00PM','6:00PM to 7:00PM','7:00PM to 8:00PM']
   constructor(private consulting:FormBuilder,private activeparams:ActivatedRoute,private serveapi:ApiserviceService,private toastr:ToastrService) { 
     this.activeparams.params.subscribe((data:Params)=>{
       this.currentpage = {
@@ -31,6 +40,11 @@ export class YourdoctorComponent implements OnInit {
       this.direct.controls['doctorname'].setValue(data.data.doctorname);
       this.direct.controls['specialist'].setValue(data.data.specialist);
       this.direct.controls['patientid'].setValue(this.currentpage.id);
+      this.doctorinformation.dbid = data.data._id;
+      this.doctorinformation.doctorid = data.data.certificateid;
+      this.doctorinformation.specialist = data.data.specialist;
+      this.doctorinformation.patientid = this.currentpage.id;
+
     })
     this.direct = this.consulting.group({
       patientid:['',Validators.required],
@@ -44,6 +58,7 @@ export class YourdoctorComponent implements OnInit {
   directconsulting:FormGroup;
   ngOnInit(): void {
     console.log("constructor");
+  
   }
 
     pastdate()
@@ -69,6 +84,13 @@ export class YourdoctorComponent implements OnInit {
     
     bookdirectappointment(formvalue:any)
     {
+      formvalue.dbparentid = this.doctorinformation.dbid;
+      formvalue.doctorid = this.doctorinformation.doctorid;
+      const dbrefpatientid = localStorage.getItem('patientdbid');
+      formvalue.dbrefpatientid = dbrefpatientid;
+      this.serveapi.directbooking(formvalue).subscribe((response)=>{
+        console.log("return response",response);
+      })
       console.log("Bookdirect",formvalue);
       this.success("Your Appointment Booking is generated successfully" + formvalue.appointmenttime + "AM")
 

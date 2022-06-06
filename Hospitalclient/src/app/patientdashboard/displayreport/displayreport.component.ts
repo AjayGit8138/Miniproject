@@ -10,7 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class DisplayreportComponent implements OnInit {
   currentpage= {id:'number'};
   appointstatus:any = [];
-  divBoolean:any;
+  divBoolean:number = 1;
   testreport:any;
   patienttestreports = [];
   numbercount:number = 1;
@@ -71,6 +71,15 @@ export class DisplayreportComponent implements OnInit {
   showdiv(setdisplay:any)
   {
     this.divBoolean = setdisplay;
+  }
+  viewreports(params:any)
+  {
+    this.divBoolean = params;
+  }
+
+  exit()
+  {
+    this.divBoolean = 1;
   }
   autocode(params:any)
   {

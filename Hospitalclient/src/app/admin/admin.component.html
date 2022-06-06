@@ -1,28 +1,32 @@
-<div class="container">
-    <div class="wrapper">
-        <div class="title"><span>Login Form</span></div>
-        <form [formGroup]="adminauth" (ngSubmit)="Adminauth(this.adminauth.value)">
-            <div class="row" [class.has-error]="loginid.invalid && loginid.touched">
+<div class="container enquiryform">
 
-                <input type="text" formControlName="loginid" placeholder="LoginId" required>
-                <div class="help-block text-danger" *ngIf="loginid.invalid && loginid.touched">
-                    <span *ngIf="loginid.errors?.required">
-                        LoginId is REQUIRED!!!
-                    </span>
-                </div>
-            </div><br><br>
-            <div class="row" [class.has-error]="password.invalid && password.touched">
+    <div class="row m-4">
 
-                <input type="password" formControlName="password" placeholder="Password" required>
-                <div class="help-block text-danger" *ngIf="password.invalid && password.touched">
-                    <span *ngIf="password.errors?.required">
-                        Hi Admin Password is REQUIRED!!!
-                    </span>
-                </div>
-            </div><br><br>
-            <div class="row button">
-                <input type="submit" value="Login">
-            </div>
-        </form>
+        <div class="col-md-6 col-sm-12 bg-custom-form">
+            <p class="text-center mb-0 pt-4">Admin Login</p>
+            <form [formGroup]="adminauth" (ngSubmit)="Adminauth(this.adminauth.value)" class="p-3">
+                <div class="form-group" [class.has-error]="loginid.invalid && loginid.touched">
+                    <label for="Loginid">Login Id:</label>
+                    <input type="text" class="form-control" formControlName="loginid"
+                        placeholder="Enter the Register LoginId">
+                    <div class="help-block text-danger" *ngIf="loginid.touched">
+                        <span *ngIf="loginid.errors?.required">
+                            LoginId is REQUIRED as per Regitered account!!!
+                        </span>
+                    </div>
+                </div><br><br>
+                <div class="form-group" [class.has-error]="password.invalid && password.touched">
+                    <label for="Loginid">Admin Password:</label>
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password"
+                        required>
+                    <div class="help-block text-danger" *ngIf="password.invalid && password.touched">
+                        <span *ngIf="password.errors?.required">
+                            Hi Admin Password is REQUIRED!!!
+                        </span>
+                    </div>
+                </div><br><br>
+                <button type="submit" class="btn btn-pnt btn-custom mb-3 mt-3">Login</button><br>
+            </form>
+        </div>
     </div>
 </div>

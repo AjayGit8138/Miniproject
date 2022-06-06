@@ -1,6 +1,8 @@
 const storedb = require('../db/nanodb');
 const tomail = require('../sendmail');
 const generatelog = require('../logger/logger');
+const { object } = require('joi');
+const errorlog = require('../logger/errorlog');
 
 
 //implemented using promise handling
@@ -205,11 +207,29 @@ const admitted = ()=>{
     })
 }
 
-const getdoctor = (object)=>{
+const appointbook = (storebook)=>{
+    return new Promise((resolve,reject)=>{
+        if(storebook)
+        {
+            const directconsult = storedb.hospitaldb.insert(storebook).then((data)=>{
+                return data;
+            }).catch((error)=>{
+                errorlog.error("Server down can't access the requested files into the server",error);
+            })
+            return resolve(directconsult);
+        }
+        else{
+            reject();
+        }
+    })
+}
+
+
+const getdoctor = (patientref)=>{
     return new Promise((resolve,_reject)=>{
         const finddoctor = {
             selector:{
-                "patientid":object,
+                "patientid":patientref,
                 "type":"patient-request"
             }
         }
@@ -230,4 +250,4 @@ const getdoctor = (object)=>{
         return resolve(getdatail);
     }) 
 }
-module.exports = {getdoctor,admitted,enquiryrequest,getbookrequest,bookappointment,availability,gettestreport,patientdelete,newpatinetrecord};
+module.exports = {appointbook,getdoctor,admitted,enquiryrequest,getbookrequest,bookappointment,availability,gettestreport,patientdelete,newpatinetrecord};

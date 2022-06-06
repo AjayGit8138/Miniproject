@@ -1,29 +1,30 @@
-<div class="row">
-    <nav>
-        <input id="nav-toggle" type="checkbox">
-        <ul class="links">
-            <li class="nav-item"> <a routerLink="menu" routerLinkActive="active">Menu
-                </a>
-            </li>
-            <li class="nav-item"> <a routerLink="enquirypatients" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}">Admission
-                    Request</a></li>
-            <li class="nav-item"> <a [ngClass]="tabchange == 3?'showactive':'showdeactive'" (click)="linkchange(3)"
-                    routerLink="doclist" routerLinkActive="active">Total
-                    Doctors List
-                </a>
-            </li>
-            <li class="nav-item"> <a (click)="redirectlink()">Logout
+<header class="header">
 
-                </a> </li>
-        </ul>
-        <label for="nav-toggle" class="icon-burger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </label>
+    <a href="#" class="logo"> <em class="fas fa-heartbeat"></em> medcare. </a>
+
+    <nav class="navbar">
+
+        <a routerLink="menu" routerLinkActive="active">Menu
+        </a>
+
+        <a routerLink="enquirypatients" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Admission
+            Request</a>
+        <a routerLink="doclist" routerLinkActive="active">Total
+            Doctors List
+        </a>
+
+        <a (click)="redirectlink()">Logout
+
+        </a>
+
+
+
     </nav>
 
-    <div class="container">
-        <router-outlet></router-outlet>
-    </div>
+    <div id="menu-btn" class="fas fa-bars" (click)="mobileview()"></div>
+
+</header>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

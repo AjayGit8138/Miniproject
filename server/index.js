@@ -14,8 +14,9 @@ const errorlog = require('./logger/errorlog');
 const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
-const {schema,adminauth,reportvalidation,urinetestreport,countreport} = require('./validatior');
-const {schemadoctor} = require('./doctorvalidator')
+const {schema,adminauth,reportvalidation,urinetestreport,countreport,booking} = require('./validatior');
+const {schemadoctor} = require('./doctorvalidator');
+const { response } = require('express');
 app.use(connection.static('public'));
 app.use(bodyparser.json());
 
@@ -542,6 +543,63 @@ app.get('/getreport/:id',(req,res)=>{
   })
 
 })
+
+app.post('/directbook',((req,res)=>{
+    const {error} = booking.validate(req.body);
+    if(error)
+    {
+      const invalidBook = {
+        status:422,
+        failure:"Empty Field is Entered while Entering the form"
+      }
+      res.json(invalidBook);
+    }else{
+    const directBooking = {
+      appointmentdata:req.body.appointment,
+      appointmenttime:req.body.appointmenttime,
+      dbdoctorid:req.body.dbparentid,
+      doctorname:req.body.doctorname,
+      patientid:req.body.patientid,
+      specialist:req.body.specialist,
+      dbpatientid:req.body.dbrefpatientid,
+      type:"bookrequest"
+    }
+    patienparse.appointbook(directBooking).then((data)=>{
+      if(data)
+      {
+        res.status(201).send({
+          message:"successfully inserted into the database"
+        })
+      }
+      else
+        res.status(404).send({failure:"Can't handle your data Not inserted into the database"})
+    })
+  }
+}))
+
+app.get('/timeslot/:name/:id',((req,res)=>{
+
+  doctorfile.timeslot(req.params.name,req.params.id).then((data)=>{
+    if(data)
+    {
+      const isAvailtime = {
+        status:200,
+        message:"Booked Timeslot under Doctor",
+        data:data
+      }
+      res.json(isAvailtime);
+    }
+    else{
+      const isNotaviltime = {
+        status:422,
+        failure:"Booked Timeslot Not available under doctor"
+      };
+      res.json(isNotaviltime);
+      errorlog.error("Error" + `${isNotaviltime.failure}` + "Statuscode:-" + `${isNotaviltime.status}`)
+    }
+  })
+}))
+
 
 app.delete('/deletepatient/:id/:rev',((req,res)=>{
   console.log("Delete patient record",req.params.id);

@@ -1,4 +1,4 @@
-<div *ngIf="divboolean == 1">
+<div *ngIf="divboolean == 1" class="mypatients">
 
     <div class="container">
         <div class="row">
@@ -29,7 +29,8 @@
                             <td><button class="btnspace getrow" mat-raised-button color="primary"
                                     (click)="addtestreport(list,3)">Add TestReport</button>
                             </td>
-                            <td><button class="btn btn-danger" (click)="deletepatient(list)">Delete</button>
+                            <td><button class="btnspace getrow" mat-raised-button color="warn"
+                                    (click)="deletepatient(list)">Delete</button>
                             </td>
                         </tr>
 
@@ -196,7 +197,7 @@
     </div>
 </div>
 
-<div *ngIf="divboolean == 3">
+<div *ngIf="divboolean == 3" class="mypatients">
     <div class="container">
         <div class="row">
             <div class="col-md-6">

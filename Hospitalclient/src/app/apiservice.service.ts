@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 })
 export class ApiserviceService {
  idgen:number = 0;
+
   private loggedInStatus = JSON.parse(localStorage.getItem('loggedIn') || 'false')
 
   constructor(private http:HttpClient) {
@@ -21,18 +22,14 @@ export class ApiserviceService {
    {
      this.loggedInStatus = value;
    }
-
- gettotalpatients(getcategory:any,getlist:any){
-  
- 
+   gettotalpatients(getcategory:any,getlist:any)
+  {
    return this.http.get<any>('http://localhost:8000/totalpatients/'+getcategory+'/'+getlist);
-   
   }
   storepatientrecord(formobject:any)
   {
     return this.http.post<any>('http://localhost:8000/storepatient/',formobject);
   }
-
   checkpatientlogin(Formvalue:any)
   {
     return this.http.get<any>('http://localhost:8000/checkpatientlogin/'+Formvalue);
@@ -105,13 +102,19 @@ export class ApiserviceService {
     return this.http.post(`http://localhost:8000/download`, body, {
       responseType : 'blob',
   });
-    
   }
   getdoctor(doctor:any)
   {
     return this.http.get<any>('http://localhost:8000/senddoctor/'+doctor);
   }
- 
+  directbooking(booking:any)
+  {
+    return this.http.post<any>('http://localhost:8000/directbook',booking);
+  }
+  gettimeslot(timeslot:any)
+  {
+    return this.http.get<any>('http://localhost:8000/timeslot/'+timeslot.doctorname + '/' + timeslot.docid);
+  }
 }
-
+ 
 

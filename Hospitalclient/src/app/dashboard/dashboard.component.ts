@@ -153,6 +153,14 @@ export class DashboardComponent implements OnInit {
     this.route.navigate(['adminauth']);  
   } 
     
+  mobileview()
+  {
+  let menu = document.querySelector('#menu-btn') as HTMLDivElement;
+  let navbar = document.querySelector('.navbar');
+
+     menu.classList.toggle('fa-times');
+    navbar.classList.toggle('active');
+  }
   }
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiserviceService } from '../apiservice.service';
 @Component({
@@ -20,7 +21,7 @@ export class PatientenquiryComponent implements OnInit {
   patientinquiryform:FormGroup;
 
   //Formgroup validation
-  constructor( private validate:FormBuilder,private serverapi:ApiserviceService,private toastr:ToastrService) { 
+  constructor(private router:Router,private validate:FormBuilder,private serverapi:ApiserviceService,private toastr:ToastrService) { 
     this.patientinquiryform = this.validate.group({
       patientname:['',[Validators.required]],
       age:['',[Validators.required]],
@@ -92,6 +93,7 @@ setrequestid(event:any)
 setmobileno(event:any)
 {
   this.checkmobileno = event.target.value;
+  console.log(this.checkmobileno);
 }
 setesino(event:any)
 {
@@ -144,14 +146,23 @@ public emailcheck(event:any)
         if(element.email == emailId )
         {
           this.showwarn("Email Id already Exists,Please register with new one");
+          this.patientinquiryform.controls['email'].setValue('');
         }
-        else if((element.esino == this.dubesi ) || (element.aadharno == this.addharid))
+        else if((element.esino == this.dubesi ))
+        {
+          this.showwarn("Esino Already Exists");
+          this.patientinquiryform.controls['esino'].setValue('');
+        }
+        else if((element.aadharno == this.addharid))
         {
           this.showwarn("aadharno Exists");
+          this.patientinquiryform.controls['aadharno'].setValue('');
         }
         else if((element.mobileno == this.checkmobileno ))
         {
           this.showwarn("Mobileno Exists");
+          this.patientinquiryform.controls['mobileno'].setValue('');
+
         }
        
         }

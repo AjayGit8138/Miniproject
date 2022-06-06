@@ -128,6 +128,7 @@ object = {
    
     this.serveapi.deletepatient(list).subscribe((response=>{
       console.log("Deleted patient record",response);
+      window.location.reload();
     }),(err)=>{
       console.log("Patient record is not deleted",err);
     })

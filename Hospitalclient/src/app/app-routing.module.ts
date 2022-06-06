@@ -32,34 +32,27 @@ const routes: Routes = [
   {path:'adminauth',component:AdminComponent},
   {path:'doclogin',component:DoctorloginComponent},
   {path:'docdash/:id',component:DashboardComponent,canActivate : [AuthguardGuard] ,
-  
     children:[
       {path:'enquirypatients',component:PatientlistComponent},
       {path:'doclist',component:DoctorlistComponent},
       {path:'menu',component:MenuComponent},
       {path:'',redirectTo:'enquirypatients', pathMatch: 'full' },
     ],
-    
   },
   {path:'patientdashboard/:id',component:PatientdashboardComponent,canActivate : [PatientGuard],
       children:[
         {path:'enquiryform/:id/:name',component:SymptomsformComponent},
         {path:'displayreport/:id',component:DisplayreportComponent},
         {path:'yourdoctor/:id',component:YourdoctorComponent},
-        // {path:'',redirectTo:'displayreport/:id', pathMatch: 'full' },
-
+        
         
       ]
 },
   {path:'home',component:HomeComponent},
   {path:'specialists',component:SpecialityComponent},
- 
   {path:'treat',component:TreatmentdivisionComponent,
-
   children: [
     {path:'',redirectTo:'mypatient/:id', pathMatch: 'full' },
-    // {path:'scan',component:ScanreportComponent},
-    // {path:'scan/:id',component:ScanreportComponent},
     { path: 'mypatient/:id', component: MypatientComponent,canActivate : [DoctorauthGuard],
         children:[
           { path: 'analyze/:id/:name/:docid/:docname', component: TestanalysisComponent},
@@ -70,21 +63,15 @@ const routes: Routes = [
 }, 
   {path:'treat/:id',component:TreatmentdivisionComponent,
 children: [
-  
   { path: 'mypatient', component: MypatientComponent,
       children:[
         { path: 'analyze/:id/:name/:docid/:docname', component: TestanalysisComponent},
       ]
   }
-
-  
- 
 ]},
 
-  // {path:'treat/:id',component:TreatmentdivisionComponent},
   {path:'',redirectTo:'home', pathMatch: 'full' },
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

@@ -1,35 +1,37 @@
-<div class="container">
-    <div class="wrapper">
-        <div class="title"><span>Consulting Form</span></div>
-        <form [formGroup]="patientsignupform" (ngSubmit)="loginauth(this.patientsignupform.value)">
-            <div class="row">
-                <label for="patientId">Patien Id:</label>
-                <input type="text" placeholder="pateintID" readonly formControlName="patientid">
-            </div><br>
-            <div class="row">
-                <label for="patientId">Patient Name:</label>
-                <input type="text" placeholder="patientname" readonly formControlName="patientname">
-            </div><br>
-            <div class="row">
-                <label for="Appointmentstatus">Email:</label>
-                <input type="text" placeholder="email" formControlName="email">
-            </div><br>
-            <div class="row">
-                <label for="Appointmentstatus">Appointment Status:</label>
-                <input type="text" placeholder="appointmentstatus" readonly [(ngModel)]="status"
-                    formControlName="appointmentstatus">
-            </div><br>
-            <div class="row">
-                <label for="SysmptomsQuery">Enter the
-                    Symptoms:</label>
-                <textarea class="form-control" formControlName="Symptoms" id="Textarea" rows="3"></textarea>
-            </div><br><br>
+<div class="container ">
 
-            <div class="row button">
-                <input type="submit" value="GetAppointment">
-            </div>
+    <div class="row m-4">
 
+        <div class="col-md-6 col-sm-12 bg-custom-form">
+            <p class="text-center mb-0 pt-4">Direct AppointmentBooking</p>
+            <form [formGroup]="patientsignupform" (ngSubmit)="loginauth(this.patientsignupform.value)" class="p-3">
+                <div class="form-group">
+                    <label for="patientId">Patien Id:</label>
+                    <input type="text" class="form-control" placeholder="pateintID" readonly
+                        formControlName="patientid">
+                </div>
+                <div class="form-group">
+                    <label for="patientId">Patient Name:</label>
+                    <input type="text" class="form-control" placeholder="patientname" readonly
+                        formControlName="patientname">
+                </div>
+                <div class="form-group">
+                    <label for="Appointmentstatus">Email:</label>
+                    <input type="text" class="form-control" placeholder="email" formControlName="email">
+                </div>
+                <div class="form-group">
+                    <label for="Appointmentstatus">Appointment Status:</label>
+                    <input type="text" class="form-control" placeholder="appointmentstatus" readonly
+                        [(ngModel)]="status" formControlName="appointmentstatus">
+                </div>
+                <div class="form-group">
+                    <label for="SysmptomsQuery">Enter the
+                        Symptoms:</label>
+                    <textarea class="form-control" formControlName="Symptoms" id="Textarea" rows="3"></textarea>
+                </div>
 
-        </form>
+                <button type="submit" class="btn btn-custom mb-3 mt-3">GetAppointment</button>
+            </form>
+        </div>
     </div>
 </div>

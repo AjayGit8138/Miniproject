@@ -17,3 +17,6 @@ input[type="text"]
 .checkupform{
     border: 2px solid green;
 }
+.mypatients{
+    margin-top: 200px;
+}
