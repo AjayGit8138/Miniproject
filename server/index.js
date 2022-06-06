@@ -20,6 +20,7 @@ const { response } = require('express');
 app.use(connection.static('public'));
 app.use(bodyparser.json());
 app.disable("x-powered-by");
+const pathmodule = require('path');
 
 //cors implementation
 app.use(cors({origin: [
@@ -525,8 +526,12 @@ app.post('/download',(req,res)=>{
 
   const filePath = path.join(__dirname,'./uploads/')  + req.body.filename;
   console.log("filepath",filePath);
-  let sendData = fs.readFileSync(filePath, { encoding: 'utf8', flag: 'r' }); 
-  res.sendFile(sendData);
+  const resolvedPath = pathmodule.resolve(filePath);
+  if (resolvedPath.startsWith(__dirname + './uploads')) { 
+    let data = fs.readFileSync(resolvedPath, { encoding: 'utf8', flag: 'r' }); 
+    res.sendFile(data);
+  }
+ 
 })
 app.get('/getreport/:id',(req,res)=>{
      
