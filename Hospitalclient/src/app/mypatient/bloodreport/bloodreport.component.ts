@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import {saveAs} from 'file-saver';
+
 
 
 @Component({
@@ -150,24 +150,8 @@ arrayofkey = [];
   })
 }
 
-download()
-{
-  let item = 'WIN_20220404_12_24_49_Pro.jpg';
-  this.serveapi.getfile(item).subscribe((data)=>{
-    console.log("Data downloading",data);
-    saveAs(data,item);
-  })
-}
-upload() {
-  let formData = new FormData();
-  for (const element of this.uploadedFiles) {
-      formData.append("uploads[]", element, element.name);
-  }
-  this.serveapi.post( formData)
-  .subscribe((response) => {
-       console.log('response received is ', response);
-  })
-}
+
+
 
 //get setters for form validation
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {saveAs} from 'file-saver';
 @Component({
   selector: 'app-displayreport',
   templateUrl: './displayreport.component.html',
@@ -9,6 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class DisplayreportComponent implements OnInit {
   currentpage= {id:'number'};
+  
   appointstatus:any = [];
   divBoolean:number = 1;
   testreport:any;
@@ -63,7 +65,7 @@ export class DisplayreportComponent implements OnInit {
     this.showobject.remedies = items.remedies;
     this.showobject.dosage = items.dosage;
     this.showobject.filename = items.filename;
-
+    
     this.divBoolean = disval;
   }
   ngOnInit(): void {
@@ -77,6 +79,15 @@ export class DisplayreportComponent implements OnInit {
   viewreports(params:any)
   {
     this.divBoolean = params;
+  }
+
+  download(event:any)
+  {
+    let item = event;
+  this.serveapi.getfile(item).subscribe((data)=>{
+    console.log("Data downloading",data);
+    saveAs(data,item);
+  })
   }
 
   exit()

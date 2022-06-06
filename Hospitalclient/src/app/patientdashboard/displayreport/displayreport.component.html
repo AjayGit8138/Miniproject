@@ -55,7 +55,9 @@
 
             <td>
                 <h1>{{item.value}}</h1>
-                <h1>{{item.filename}}</h1>
+                <div *ngIf="item.key == 'filename'">
+                    <button mat-raised-button color="accent" (click)="download(item.value)">Download</button>
+                </div>
             </td>
 
 
