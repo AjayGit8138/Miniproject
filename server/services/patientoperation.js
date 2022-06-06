@@ -141,18 +141,18 @@ const gettestreport = (getreference)=>{
  
  }
 //Patient record deletion process
- const patientdelete = (object)=>{
-     console.log("delete from patientoperation",object);
+ const patientdelete = (deletepatient)=>{
+     console.log("delete from patientoperation",deletepatient);
      return new Promise((resolve,reject)=>{
-        if(object == undefined){
-            return reject(object);
+        if(deletepatient == undefined){
+            return reject(deletepatient);
        }
        else{
-          const delval =  storedb.hospitaldb.get(object.id,function(_err,doc){
+          const delval =  storedb.hospitaldb.get(deletepatient.id,function(_err,doc){
                console.log("want to delete a data from database",doc);
                if(doc)
                {
-                   storedb.hospitaldb.destroy(object.id,object.rev,function(error,_body){
+                   storedb.hospitaldb.destroy(deletepatient.id,deletepatient.rev,function(error,_body){
                        if(!error)
                        {
                            console.log("Deleted successfully");
