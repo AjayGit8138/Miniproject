@@ -12,10 +12,12 @@ import { ToastrService } from 'ngx-toastr';
 export class MypatientComponent implements OnInit {
 //testanalyze
 bloodreport:FormGroup;
+uploadedFiles: Array < File > ;
 testform:FormGroup;
 errorMessage:any;
 numbercount:number = 1;
 tablets:any = [];
+filename:any;
 testgenerated:any;
 medical=['orthotablet','skinmedicine','heartmedicine','nervesmedicine','eyemedicine','generalmedicine'];
 nofreport:any;
@@ -67,7 +69,8 @@ object = {
       medicineone:['',Validators.required],
       medicinetwo:['',Validators.required],
       medicinethree:['',Validators.required],
-      docid:['',Validators.required]
+      docid:['',Validators.required],
+      filename:['',Validators.required]
 
   });
 
@@ -120,6 +123,27 @@ object = {
     this.router.navigate(['..']);
     
   }
+  //checkfilename
+  checkfile(event:any)
+  {
+    let fullPath = event.target.value;
+    this.filename = `/src/images/`+ fullPath.replace(/^.*[\\\/]/, '');
+   
+  }
+
+
+  //filechange
+  fileChange(element) {
+    const file = element.target.files[0];
+
+
+    const formdata = new FormData();
+    formdata.append("file",file);
+    this.serveapi.post(formdata)
+  .subscribe((response) => {
+       console.log('response received is ', response);
+  })
+}
   deletepatient(list:any)
   {
    
@@ -153,8 +177,10 @@ object = {
   }
   generatereport(formobject:any)
   {
-   
+  
+   formobject.filename = formobject.filename.replace(/^.*[\\\/]/, '');
     formobject.docid = localStorage.getItem('doctorid');
+    console.log("formbobject",formobject);
     this.serveapi.generatetestreport(formobject).subscribe((response)=>{
       if(response)
       {

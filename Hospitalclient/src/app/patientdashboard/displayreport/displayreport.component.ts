@@ -24,7 +24,8 @@ export class DisplayreportComponent implements OnInit {
     tablettwo:'',
     tabletthree:'',
     dietplan:'',
-    dosage:''
+    dosage:'',
+    filename:''
 
   }
   
@@ -61,6 +62,7 @@ export class DisplayreportComponent implements OnInit {
     this.showobject.tabletthree = items.medicinethree;
     this.showobject.remedies = items.remedies;
     this.showobject.dosage = items.dosage;
+    this.showobject.filename = items.filename;
 
     this.divBoolean = disval;
   }

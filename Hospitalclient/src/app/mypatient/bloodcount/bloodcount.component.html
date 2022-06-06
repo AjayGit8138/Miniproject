@@ -160,7 +160,8 @@
                                             <div>
                                                 <div class="row col-4">
                                                     <button type="submit" [disabled]="!bloodcount.valid"
-                                                        style="height: 60px;" class="btn btn-primary">GenerateBoodreport
+                                                        style="height: 60px;" mat-flat-button
+                                                        color="accent">GenerateBoodreport
                                                     </button>
 
                                                 </div><br>
@@ -169,7 +170,8 @@
 
                                         </form>
                                         <div class="row col-4">
-                                            <button style="height: 60px;" (click)="exit()" class="btn btn-primary">Back
+                                            <button style="height: 60px;" (click)="exit()" mat-flat-button
+                                                color="accent">Back
                                                 to
                                                 Doctoradmin
                                             </button>
@@ -244,7 +246,7 @@
         </div>
 
     </div>
-
-    <div class="container">
-        <button class="btn btn-primary" (click)="openPDF()">generatepdf</button>
-    </div>
+</div>
+<div class="container">
+    <button class="btn btn-primary" (click)="openPDF()">generatepdf</button>
+</div>

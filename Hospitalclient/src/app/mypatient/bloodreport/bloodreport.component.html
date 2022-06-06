@@ -120,13 +120,15 @@
                                             <div>
                                                 <div class="row col-4">
                                                     <button type="submit" [disabled]="!bloodreport.valid"
-                                                        style="height: 60px;" class="btn btn-primary">GenerateBoodreport
+                                                        style="height: 60px;" mat-flat-button
+                                                        color="accent">GenerateBoodreport
                                                     </button>
                                                 </div><br>
                                             </div>
                                         </form>
                                         <div class="row col-4">
-                                            <button style="height: 60px;" (click)="exit()" class="btn btn-primary">Back
+                                            <button style="height: 60px;" (click)="exit()" mat-flat-button
+                                                color="accent">Back
                                                 to
                                                 Doctoradmin
                                             </button>
@@ -215,6 +217,14 @@
         </div>
 
     </div>
-    <div class="container">
-        <button class="btn btn-primary" (click)="openPDF()">generatepdf</button>
-    </div>
+</div>
+
+<div class="container">
+    <button class="btn btn-primary" (click)="openPDF()">generatepdf</button>
+</div>
+
+<input (change)="fileChange($event)" type="file" name="file" class="custom-file-input" id="inputGroupFile01"
+    aria-describedby="inputGroupFileAddon01">
+<span class="input-group-text upload" (click)="upload()" id="btnUpload">Upload</span>
+
+<button (click)="download()">download</button>

@@ -388,6 +388,7 @@ app.post('/generatemedicalreport',(req,res)=>{
           reportby:req.body.reportby,
           tablets:req.body.tabletscategory,
           totalreport:req.body.totalreport,
+          filename:req.body.filename,
           docid:req.body.docid,
           dateofreport:new Date()
                 } 

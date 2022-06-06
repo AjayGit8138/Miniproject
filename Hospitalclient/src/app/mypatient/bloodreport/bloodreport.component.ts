@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import {saveAs} from 'file-saver';
 
 
 @Component({
@@ -154,6 +155,7 @@ download()
   let item = 'WIN_20220404_12_24_49_Pro.jpg';
   this.serveapi.getfile(item).subscribe((data)=>{
     console.log("Data downloading",data);
+    saveAs(data,item);
   })
 }
 upload() {

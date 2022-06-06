@@ -23,3 +23,40 @@ Patient Portal
 3.After Logged into the patient Portal,The patient can be able to book a appointment request.
 4.If doctor is allocated to the patient,The patient can be directly consulting using the Your doctor form.
 
+Technologies implemented
+
+Frontend:
+
+1.Angular 11 Cli
+2.HTML,CSS and Angular Material,Bootstrap
+3.Toastr Notifilcations
+4.Session Handling
+
+NPM Packages:
+
+1.npm i ngx-toastr@13.2.1 
+2.ng add @ng-bootstrap/ng-bootstrap
+3.ng add @angular/material
+4.npm install jspdf --save
+
+Backend Technologies implemented:
+
+1.Creating api connection using express Packages, creating app routing,creating api calls
+2.Send a Notifilcations to the patient mail using Nodemailer package,while booking status.
+3.api functions are implemented with a Promise(resolve,reject) function calls.
+4.Implemented using three layers of operaions which is done in server side,
+        *creating DB configuration files and Couchdb connection
+        *creating api routing file which have all api calls
+        *creating service layer's for doctor and patient's operations
+
+NPM Packages used in server
+1.Express package,
+2.CORS
+3.Nodemailer
+4.JOI validation
+5.multer upload and storage,
+6.nano couchdb npm package
+7.winston loggerfile log creation
+
+
+

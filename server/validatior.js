@@ -48,6 +48,7 @@ const schema =  Joi.object({
     reportby:Joi.string().required(),
     totalreport:Joi.string().required(),
     docid:Joi.string().required(),
+    filename:Joi.string().required()
   })
 
   const urinetestreport = Joi.object({

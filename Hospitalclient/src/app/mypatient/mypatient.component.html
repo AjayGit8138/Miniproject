@@ -173,16 +173,26 @@
                                     </div><br><br>
                                     <div>
                                         <div class="row col-4">
-                                            <button type="submit" style="height: 60px;"
-                                                class="btn btn-primary">GenerateTest
+                                            <input (change)="fileChange($event)" formControlName="filename" type="file"
+                                                name="file" class="custom-file-input" id="inputGroupFile01"
+                                                aria-describedby="inputGroupFileAddon01">
+
+
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="row col-4">
+                                            <button type="submit" style="height: 60px;" mat-flat-button
+                                                color="accent">GenerateTest
                                                 report</button>
 
                                         </div><br>
 
                                     </div>
+
                                     <div class="row col-4">
-                                        <button style="height: 60px;" (click)="navigatetoback(1)"
-                                            class="btn btn-primary">Back to
+                                        <button style="height: 60px;" (click)="navigatetoback(1)" mat-flat-button
+                                            color="accent">Back to
                                             Doctoradmin
                                         </button>
 
@@ -201,10 +211,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <button class="testbtn btn btn-primary" (click)="display(4)">Urine Test&nbsp;<em
+                <button class="btnreport" mat-flat-button color="accent" (click)="display(4)">Urine Test&nbsp;<em
                         class="fa fa-plus"></em></button>
                 <p>&nbsp;</p>
-                <button class="testbtn btn btn-primary" (click)="display(5)">Bloodcount Test&nbsp;<em
+                <button class="btnreport" mat-flat-button color="accent" (click)="display(5)">Bloodcount Test&nbsp;<em
                         class="fa fa-plus"></em></button>
             </div>
 
