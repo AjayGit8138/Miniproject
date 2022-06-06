@@ -51,7 +51,11 @@ const storage = multer.diskStorage({
     console.log("orginal name",originalname);
   }
 })
-const upload = multer({storage:storage});
+const upload = multer({storage:storage,
+  limits: {
+    fileSize: 8000000
+ }
+});
 
 
 app.post('/upload', upload.single("file"), (req, res) => {
