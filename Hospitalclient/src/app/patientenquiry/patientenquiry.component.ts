@@ -75,7 +75,7 @@ setRequestid(event:any)
   let genId;
   this.addharId = event.target.value;
   genId = this.addharId;
-  this.requestId = 'Patient-' + genId.slice(-4);
+  this.requestId = 'Patient-' + genId.slice(-6);
 }
 
 //checkmobileno
@@ -152,6 +152,7 @@ public emailCheck(event:any)
           this.patientinQuiryform.controls['mobileno'].setValue('');
 
         }
+     
        
         }
     })

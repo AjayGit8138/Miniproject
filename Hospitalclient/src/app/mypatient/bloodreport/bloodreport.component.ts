@@ -140,8 +140,6 @@ arrayofKey = [];
 
   fileChange(element:any) {
     const file = element.target.files[0];
-
-
     const formdata = new FormData();
     formdata.append("file",file);
     this.serveapi.postData(formdata)
