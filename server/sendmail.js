@@ -1,6 +1,10 @@
 const nodemail = require('nodemailer');
 
 const sender = nodemail.createTransport({
+    secure: true,
+    requireTLS: true, 
+    port: 465,
+    secured: true,
     service:'gmail',
     auth:{
         user:'akhospital12@gmail.com',
