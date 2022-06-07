@@ -27,23 +27,7 @@ app.use(cors({origin: [
   "http://localhost:4200"
 ], credentials: true}));
 
-
-//api routing calls starts from here
-
-app.get('/admittedPatients', function(_req, res){
-      patientParse.admitted().then((data)=>{
-        if(data)
-        {
-          res.status(200).send({
-            data:data,
-            message:"Admitted Patients Details fetched From database"
-          })
-        }
-      }).catch((err)=>{
-        generatelogger.error("can't fetch admittedpatients details from the server" + err);
-      })
-});
-
+//Multer stroage functions
 const storage = multer.diskStorage({
   destination:function(_req,_file,cb){
     cb(null,"uploads");
@@ -61,8 +45,36 @@ const upload = multer({
     fileSize: 8000000
  }
 });
+//Multer storage functions ends
+
+//api routing calls starts from here
 
 
+//Get AdmittedPatients
+app.get('/admittedPatients', function(_req, res){
+      patientParse.admitted().then((data)=>{
+        if(data)
+        {
+          res.status(200).send({
+            data:data,
+            message:"Admitted Patients Details fetched From database"
+          })
+        }
+        else{
+          const errorStatus = {
+            status:422,
+            failure:"Admitted Patients Not Found in Database"
+          }
+          errorlog.error("Error" + `${errorStatus.failure}` + "statusCode:-" + `${errorStatus.status}`);
+        }
+      }).catch((err)=>{
+        generatelogger.error("can't fetch admittedpatients details from the server" + err);
+      })
+});
+
+
+
+//api Call for Upload a file
 app.post('/upload', upload.single("file"), (req, res) => {
  
 
@@ -70,14 +82,26 @@ app.post('/upload', upload.single("file"), (req, res) => {
   console.log("filenames",file);
   if(file)
   {
-    res.json({"message":"upload successfully"});
+    const fileStatus = {
+      status:200,
+      message:"Files Upload Successfully"
+    }
+    res.json(fileStatus);
+  }
+  else{
+    const errorStatus = {
+      status:404,
+      failure:"Files Not Uploaded Successfully! Files Missing"
+    }
+    errorlog.error("Error" + `${errorStatus.failure}` + "Statuscode:-" + `${errorStatus.status}`);
   }
  
 });
 
+//Get Totalpatientsby Id and Refid
+
 app.get('/totalPatients/:id/:refid',(req,res)=>{
-    console.log("Request sent By Treatment Category"+req.params.id);
-    console.log(req.params.refid);
+   
     const fetchData ={
       "selector": {
          "treatmentcategory": req.params.refid,
@@ -104,8 +128,6 @@ app.get('/totalPatients/:id/:refid',(req,res)=>{
 })
 //store Patient data into the database
 app.post('/storePatient',(req,res)=>{
-  console.log("validation");
-  
   const { error } = schema.validate(req.body)
   console.log("validation",error);
     if(error === undefined)
@@ -190,7 +212,7 @@ app.post('/saveDoctorProfile',(req,res)=>{
           const {error} = schemadoctor.validate(req.body);
           if(error == undefined)
           {
-        controller.storeDoctorDetails(req).then((success=>{
+          controller.storeDoctorDetails(req).then((success=>{
 
           console.log("Hi Doctor information stored into the server",success);
           if(success)
@@ -198,6 +220,13 @@ app.post('/saveDoctorProfile',(req,res)=>{
             res.status(201).send({
               message:"Doctor Profile is successfully Stored into the database"
             })
+          }
+          else{
+            let profileStatus = {
+              failure:"Doctor Profile is Not able to stored into the database",
+              status:422
+            }
+            errorlog.error("Error" + `${profileStatus.failure}` + "statusCode:-" + `${profileStatus.status}`);
           }
         })).catch((err=>{
           console.log("Some Bad updation Doctor profile is not uploaded into the server",err);
@@ -209,6 +238,7 @@ app.post('/saveDoctorProfile',(req,res)=>{
       }
 })
 
+//get BookRequested
 app.get('/bookRequested',(_req,res)=>{
   const book = {
     selector:{
@@ -234,10 +264,9 @@ app.get('/bookRequested',(_req,res)=>{
       })
 })
 
+//get DoctorloginAuthentication
 app.get('/doctorLoginAuth/:objectid',(req,res)=>{
  
-  console.log("session address",req.params.objectid);
-
   controller.checkDoctorLogin(req.params.objectid).then((data)=>{
     console.log("Successfully data received from server",data);
     generatelogger.info("Doctor auth proceess is done");
@@ -281,6 +310,7 @@ app.post('/admin',(req,res)=>{
   }
 })
 
+//getDoctordetails
 app.get('/getDoctorDetails/:id',(req,res)=>{
   let doctorSearch;
   if(req.params.id == 'Doctor')
@@ -322,6 +352,8 @@ app.get('/getDoctorDetails/:id',(req,res)=>{
   }
 })
 
+
+//update Patientbookinf recored
 app.put('/updatePatienRecord/:updateobject',(req,res)=>{
     const patientId = req.params.updateobject;
     const updatePatient = {
@@ -334,7 +366,7 @@ app.put('/updatePatienRecord/:updateobject',(req,res)=>{
       dateofappointment:req.body.dateofAppointment
     }
     
-  const retmessage = controller.waitingForBook(updatePatient,patientId).then((resdata)=>{
+       const retmessage = controller.waitingForBook(updatePatient,patientId).then((resdata)=>{
       console.log("Updated Appointment Booking status successfully",resdata);
 
       //return response
@@ -363,7 +395,7 @@ app.put('/updatePatienRecord/:updateobject',(req,res)=>{
     }
       
 })
-//generate medical report
+//generate medical general report
 app.post('/generateMedicalReport',(req,res)=>{
         const {error} = reportvalidation.validate(req.body);
         console.log("Report validation",error);
@@ -418,6 +450,7 @@ app.post('/generateMedicalReport',(req,res)=>{
 }
 })
 
+//generate UrineTest Report
 app.post('/bloodreport',(req,res)=>{
  
   const {error} = urinetestreport.validate(req.body);
@@ -522,11 +555,13 @@ app.post('/bloodCountReport',(req,res)=>{
   }
 })
 
+
+//Download from Frontend
 app.post('/download',(req,res)=>{
   console.log("filename",req.body.filename);
 
   const filePath = path.join(__dirname,'./uploads/')  + req.body.filename;
-  console.log("filepath",filePath);
+ 
   const resolvedPath = pathmodule.resolve(filePath);
   if (resolvedPath.startsWith(__dirname + './uploads')) { 
     fs.readFileSync(resolvedPath, { encoding: 'utf8', flag: 'r' }); 
@@ -535,6 +570,8 @@ app.post('/download',(req,res)=>{
   res.sendFile(resolvedPath);
  
 })
+
+//getreport by id
 app.get('/getreport/:id',(req,res)=>{
      
             controller.getReport(req.params.id).then((data)=>{
@@ -559,6 +596,7 @@ app.get('/getreport/:id',(req,res)=>{
 
 })
 
+//Post directbook
 app.post('/directbook',((req,res)=>{
     const {error} = booking.validate(req.body);
     if(error)
@@ -592,6 +630,7 @@ app.post('/directbook',((req,res)=>{
   }
 }))
 
+//get TimeSlot checking while Booking
 app.get('/timeSlot/:name/:id',((req,res)=>{
 
   doctorfile.timeSlot(req.params.name,req.params.id).then((data)=>{
@@ -615,7 +654,7 @@ app.get('/timeSlot/:name/:id',((req,res)=>{
   })
 }))
 
-
+//deletePatient details
 app.delete('/deletePatient/:id/:rev',((req,res)=>{
 
   const deleteObject = {
@@ -631,7 +670,7 @@ app.delete('/deletePatient/:id/:rev',((req,res)=>{
 
 }))
 
-//file upload
+//file upload into the server
 app.post('/consulting',(req,res)=>{
   const requestBook = {
     patientid:req.body.patientid,
@@ -652,6 +691,8 @@ app.post('/consulting',(req,res)=>{
     generatelogger.error("Pateint enquire process is rejected",err);
   })
 })
+
+//send a Doctor details to the client
 app.get('/senddoctor/:id',(req,res)=>{
   
   patientParse.getDoctor(req.params.id).then((data)=>{
@@ -665,6 +706,8 @@ app.get('/senddoctor/:id',(req,res)=>{
   })
 })
 
+
+//app server starts
 app.listen(port, (err) => {
     if (err) {
       return console.log('something bad happened', err);

@@ -137,7 +137,7 @@ export class PatientlistComponent implements OnInit {
   
   this.doctors = e.target.value;
  this.tokename = this.tokename + '-T' + this.doctors
-  this.bookingForm.controls['Tokenname'].setValue(this.tokename);
+  this.bookingForm.controls['tokenName'].setValue(this.tokename);
  
   this.serveapi.getDoctorslist(this.doctors).subscribe((data)=>{
  
@@ -202,7 +202,7 @@ this.timeclock = hours + ':' + minutes + ' ' + meridian;
 
   //model pop up for booking form
   open(content:any,row:any) {
-    
+    console.log("row values",row);
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     })
@@ -213,9 +213,9 @@ this.timeclock = hours + ':' + minutes + ' ' + meridian;
 
     this.bookingForm.controls['requestId'].setValue(row.patientid);
     this.tokename = row.patientid;
-    this.bookingForm.controls['patientname'].setValue(row.patientname);
-    this.bookingForm.controls['Treatmentcategory'].setValue(row.Treatmentcategory);
-    this.bookingForm.controls['appointstatus'].setValue(this.status);
+    this.bookingForm.controls['patientName'].setValue(row.patientname);
+    this.bookingForm.controls['treatmentCategory'].setValue(row.Treatmentcategory);
+    this.bookingForm.controls['appointStatus'].setValue(this.status);
     }
     //toastr service
     showerror(message)
