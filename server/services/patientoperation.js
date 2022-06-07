@@ -212,6 +212,7 @@ const appointBook = (storebook)=>{
         if(storebook)
         {
             const directconsult = storedb.hospitaldb.insert(storebook).then((data)=>{
+                console.log("Inserted data",data);
                 return data;
             }).catch((error)=>{
                 errorlog.error("Server down can't access the requested files into the server",error);
@@ -230,6 +231,7 @@ const getDoctor = (patientref)=>{
         const finddoctor = {
             selector:{
                 "patientid":patientref,
+                "appointmentstatus": "YES",
                 "type":"patient-request"
             }
         }

@@ -77,12 +77,13 @@ const schema =  Joi.object({
   })
 
   const booking = Joi.object({
-    appointmentdata:Joi.string().required(),
+      appointmentdata:Joi.string().required(),
       appointmenttime:Joi.string().required(),
-      dbdoctorid:Joi.string().required(),
+      dbparentid:Joi.string().required(),
       doctorname:Joi.string().required(),
       patientid:Joi.string().required(),
       specialist:Joi.string().required(),
-      dbpatientid:Joi.string().required(),
+      dbrefpatientid:Joi.string().required(),
+      doctorid:Joi.string().required()
   })
   module.exports = {countreport,schema,adminauth,doctorauthentication,patientauthentication,reportvalidation,urinetestreport,booking}

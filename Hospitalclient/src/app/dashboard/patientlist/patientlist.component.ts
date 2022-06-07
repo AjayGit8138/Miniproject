@@ -166,7 +166,7 @@ export class PatientlistComponent implements OnInit {
  
     bookinformation.docId = this.dbdoctorid;
    
-    bookinformation.timingforAppointment = this.timeclock;
+    
     this.serveapi.bookAppointment(bookinformation,this.patientid).subscribe((data)=>{
       if(data)
       {

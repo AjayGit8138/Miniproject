@@ -163,7 +163,7 @@ object = {
 
   testformDisplay(list:any,display:any)
   {
-    
+    console.log("list",list);
     this.divBoolean = display;
     this.testForm.controls['patientId'].setValue(list.patientid);
     this.testForm.controls['patientname'].setValue(list.patientname);

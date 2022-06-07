@@ -36,7 +36,7 @@ export class YourdoctorComponent implements OnInit {
     
     })
     this.serveApi.getDoctor(this.currentPage.id).subscribe((data)=>{
-     
+      console.log("Doctor details",data);
       this.directConsulting.controls['doctorname'].setValue(data.data.doctorname);
       this.directConsulting.controls['specialist'].setValue(data.data.specialist);
       this.directConsulting.controls['patientid'].setValue(this.currentPage.id);
@@ -50,8 +50,9 @@ export class YourdoctorComponent implements OnInit {
       patientid:['',Validators.required],
       doctorname:['',Validators.required],
       specialist:['',Validators.required],
-      appointment:['',Validators.required],
-      appointmenttime:['',Validators.required]
+      appointmentdata:['',Validators.required],
+      appointmenttime:['',Validators.required],
+    
 
     })
   }
@@ -88,11 +89,16 @@ export class YourdoctorComponent implements OnInit {
       formvalue.doctorid = this.doctorinformation.doctorId;
       const dbrefpatientid = localStorage.getItem('patientdbid');
       formvalue.dbrefpatientid = dbrefpatientid;
+      console.log("Formvalue",formvalue);
       this.serveApi.directBooking(formvalue).subscribe((response)=>{
-        if(response)
+        console.log("Response error",response);
+        if(response.status == 201)
         {
-          this.showSuccess("Your Appointment Booking is generated successfully")
+          this.showSuccess("Your Appointment Booking is generated successfully");
+          window.location.reload();
+         
         }
+      
       })
      
     }

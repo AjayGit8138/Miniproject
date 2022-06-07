@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,17 @@ import { ApiserviceService } from '../apiservice.service';
   styleUrls: ['./doctoradmin.component.css']
 })
 export class DoctoradminComponent implements OnInit {
+  //formfocus code
+ 
+ 
+
+
+  //formfocus ends
+
+  //assign Temporary variable for assign form and validation
   doctorAdminGroup:FormGroup;
+  mobileNumber:any;
+  certificationNumber:any;
   validPass:boolean;
   fileName:string = "";
   passwordMatch:any;
@@ -18,8 +28,11 @@ export class DoctoradminComponent implements OnInit {
   certifyNo:string = "DOC-";
   honourName:string = "DR.";
   profilePath:string = "../src/images/";
+
+  //Values for Options Dropdownlist
   sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
-  courses = ['MBBS,MD in Genereal Medicine','MBBS,MS in Obstetrics','MBBS,MD,DM in Cardiology','MBBS,MS,MCH in Vascular Surgery','MBBS in ENT (Ear, Nose and Throat)','MBBS in Ophthalmology','MBBS in General Medicine','MBBS in Orthopaedics','MBBS in General Surgery','MBBS in Anaesthesiology','MBBS in Obstetrics & Gynaecology','MBBS in Psychiatry','MBBS in Paediatrics']
+  courses = ['MBBS,MD in Genereal Medicine','MBBS,MS in Obstetrics','MBBS,MD,DM in Cardiology','MBBS,MS,MCH in Vascular Surgery','MBBS in ENT (Ear, Nose and Throat)','MBBS in Ophthalmology','MBBS in General Medicine','MBBS in Orthopaedics','MBBS in General Surgery','MBBS in Anaesthesiology','MBBS in Obstetrics & Gynaecology','MBBS in Psychiatry','MBBS in Paediatrics'];
+
   constructor(private fbBuilder:FormBuilder,private serveApi:ApiserviceService,private toastrService:ToastrService) {
     this.doctorAdminGroup = this.fbBuilder.group({
       doctorname:['',[Validators.required]],
@@ -54,14 +67,42 @@ export class DoctoradminComponent implements OnInit {
   {
     let emailId = event.target.value;
     this.serveApi.checkDoctorLogin(emailId).subscribe((data)=>{
-      
-        if(data.data.docs[0].email == emailId)
+        console.log("doctordetails",data);
+        for(const element of data.data.docs)
+        {
+        if(element.email == emailId)
         {
          
           this.showWarn("Email Id already Exists,Please register with new one");
           this.doctorAdminGroup.reset();
+         
+          
         }
+        else if(element.certificateid == this.certificationNumber)
+        {
+          this.showWarn("Doctor Already Registerd with Certification Number");
+          this.doctorAdminGroup.controls['certificateid'].setValue('');
+         
+          
+        }
+        else if(element.mobileno == this.mobileNumber)
+        {
+          this.showWarn("Doctor Mobileno Already Exists with Entered MobileNo");
+          this.doctorAdminGroup.controls['mobileno'].setValue('');
+         
+        }
+      }
     })
+}
+public checkMobileno(event:any)
+{
+    this.mobileNumber = event.target.value;
+    console.log("mobilenumber",this.mobileNumber);
+}
+public checkCertification(certifyId:any)
+{
+  this.certificationNumber = certifyId.target.value;
+  console.log("certification",this.certificationNumber);
 }
 passwordCheck(e:any)
 {

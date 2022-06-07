@@ -50,7 +50,7 @@
                     <div class="jumbo jumbotron">
                         <div class="col-md-12">
                             <div class="mx-auto col-md-10">
-                                <form [formGroup]="testform" (ngSubmit)="generateReport(this.testform.value)">
+                                <form [formGroup]="testForm" (ngSubmit)="generateReport(this.testForm.value)">
                                     <h1 class="text-light">Create TestReport and Remedies form</h1>
                                     <div>
                                         <div class="row">
@@ -89,7 +89,7 @@
                                         </div><br>
                                     </div>
                                     <div class="row">
-                                        <label for="Typesofdiseases">Type of symptoms and diseases
+                                        <label class="text-light col-sm-2 col-form-label" for="Typesofdiseases">Symptoms
                                         </label>
                                         <textarea class="form-control" formControlName="diseases" id="Textarea"
                                             rows="4"></textarea>
@@ -179,7 +179,7 @@
 
 
                                         </div>
-                                    </div>
+                                    </div><br><br>
                                     <div>
                                         <div class="row col-4">
                                             <button type="submit" style="height: 60px;" mat-flat-button
@@ -223,13 +223,13 @@
 </div>
 
 <div *ngIf="divBoolean == 4">
-    <app-bloodreport (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentpage.id"
+    <app-bloodreport (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentPage.id"
         [reference]="'urine'">
     </app-bloodreport>
 </div>
 
 <div *ngIf="divBoolean == 5">
-    <app-bloodcount (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentpage.id"
+    <app-bloodcount (sendData)="sendData($event)" [bloodtest]="object" [doctorid]="this.currentPage.id"
         [reference]="'bloodcount'"></app-bloodcount>
 </div>
 <br><br>

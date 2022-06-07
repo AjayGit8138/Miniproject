@@ -598,7 +598,9 @@ app.get('/getreport/:id',(req,res)=>{
 
 //Post directbook
 app.post('/directbook',((req,res)=>{
+    console.log("Calling");
     const {error} = booking.validate(req.body);
+    console.log("Error validation",error);
     if(error)
     {
       const invalidBook = {
@@ -608,7 +610,7 @@ app.post('/directbook',((req,res)=>{
       res.json(invalidBook);
     }else{
     const directBooking = {
-      appointmentdata:req.body.appointment,
+      appointmentdata:req.body.appointmentdata,
       appointmenttime:req.body.appointmenttime,
       dbdoctorid:req.body.dbparentid,
       doctorname:req.body.doctorname,
@@ -617,12 +619,15 @@ app.post('/directbook',((req,res)=>{
       dbpatientid:req.body.dbrefpatientid,
       type:"bookrequest"
     }
+    console.log("Directbook",directBooking);
     patientParse.appointBook(directBooking).then((data)=>{
       if(data)
       {
-        res.status(201).send({
+        const resSatus = {
+          status:201,
           message:"successfully inserted into the database"
-        })
+        }
+        res.json(resSatus);
       }
       else
         res.status(404).send({failure:"Can't handle your data Not inserted into the database"})
@@ -694,7 +699,7 @@ app.post('/consulting',(req,res)=>{
 
 //send a Doctor details to the client
 app.get('/senddoctor/:id',(req,res)=>{
-  
+  console.log("Senddoctor",req.params.id);
   patientParse.getDoctor(req.params.id).then((data)=>{
     console.log("Collect data from server",data);
     if(data)

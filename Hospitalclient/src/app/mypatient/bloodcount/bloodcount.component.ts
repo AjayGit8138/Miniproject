@@ -82,7 +82,7 @@ export class BloodcountComponent implements OnInit {
   {
     this.serveapi.getTestReport(params).subscribe((response)=>{
      
-      if(params == response.docs[0].totalreport)
+      if(params == response.data.docs[0].totalreport)
       {
         this.numberCount += 1;
         this.bloodCountReport = this.bloodtest.id + '-' + this.reference + '-' + 'Testreport' + '-' + this.numberCount;

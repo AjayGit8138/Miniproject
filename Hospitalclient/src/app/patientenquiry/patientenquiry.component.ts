@@ -9,7 +9,7 @@ import { ApiserviceService } from '../apiservice.service';
   styleUrls: ['./patientenquiry.component.css']
 })
 export class PatientenquiryComponent implements OnInit {
-  requestId:string="undefined";
+  patientTokenId:string="undefined";
   type:string = "patient";
   validPass:boolean;
   cpasswordCheck:any;
@@ -62,7 +62,10 @@ formSubmit(formValue:NgForm)
   }
   else{
   this.serverApi.storePatientRecord(formValue).subscribe((res)=>{
-        this.showSuccess(res.message);
+    if(res)
+    {
+        this.showSuccess(res.message + 'PatientId' + this.patientTokenId);
+    }
   })
   this.patientinQuiryform.reset();
   window.location.reload();
@@ -75,7 +78,7 @@ setRequestid(event:any)
   let genId;
   this.addharId = event.target.value;
   genId = this.addharId;
-  this.requestId = 'Patient-' + genId.slice(-6);
+  this.patientTokenId = 'Patient-' + genId.slice(-6);
 }
 
 //checkmobileno

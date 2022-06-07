@@ -23,12 +23,14 @@
   p,
   label {
     color: #fff;
+    
   }
   label {
     margin: 5px 0px;
   }
   input{
     color: white;
+    font-size: 20px;
   }
   
   .form-control {

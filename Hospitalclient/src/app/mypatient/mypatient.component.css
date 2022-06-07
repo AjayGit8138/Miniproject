@@ -4,9 +4,9 @@
 body{
     height: 100vh;
 }
-input[type="text"]
+input,textarea
 {
-    font-size:24px;
+    font-size: 20px;
 }
 .report{
     margin-top: 20%;

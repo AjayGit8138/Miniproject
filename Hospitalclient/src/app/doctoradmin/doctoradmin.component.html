@@ -16,25 +16,12 @@
                         </span>
                     </div>
                 </div><br>
-                <div class="form-group" [class.has-error]="email.invalid && email.touched">
 
-                    <label for="Doctoremail">Doctor's
-                        Email:</label>
-                    <input type="email" class="form-control" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
-                        (change)="emailCheck($event)" formControlName="email" placeholder="'DR.'Enter the DoctorsEmail">
-                    <div class="help-block text-danger" *ngIf="email.touched">
-                        <span *ngIf="email.errors?.required">
-                            Hi Doctor email is REQUIRED!!!
-                        </span>
-                        <span *ngIf="email.errors?.pattern">
-                            Please enter a valid Email address 'ex:validemail@gmail.com'
-                        </span>
-                    </div>
-                </div><br>
                 <div class="form-group" [class.has-error]="mobileno.invalid && mobileno.touched">
                     <label for="Mobileno">Mobileno:</label>
-                    <input type="text" class="form-control" required maxlength="10" pattern="[789][0-9]{9}"
-                        formControlName="mobileno" placeholder="'DR.'Enter the Mobileno">
+                    <input type="text" class="form-control" (change)="checkMobileno($event)" #mobile required
+                        maxlength="10" pattern="[789][0-9]{9}" formControlName="mobileno"
+                        placeholder="'DR.'Enter the Mobileno">
                     <div class="help-block text-danger" *ngIf="mobileno.touched">
                         <span *ngIf="mobileno.errors?.required">
                             Please enter a mobile no!!!
@@ -68,9 +55,26 @@
                         </span>
                     </div>
                 </div><br>
-                <div class="form-group" [class.has-error]="mobileno.invalid && mobileno.touched">
+                <div class="form-group" [class.has-error]="certificateid.invalid && certificateid.touched">
                     <label for="certification">Certification No:</label>
-                    <input type="text" class="form-control" formControlName="certificateid" [(ngModel)]="certifyNo">
+                    <input type="text" class="form-control" #certificate (change)="checkCertification($event)"
+                        formControlName="certificateid" [(ngModel)]="certifyNo">
+                </div><br>
+                <div class="form-group" [class.has-error]="email.invalid && email.touched">
+
+                    <label for="Doctoremail">Doctor's
+                        Email:</label>
+                    <input type="email" class="form-control" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                        (change)="emailCheck($event)" #email formControlName="email"
+                        placeholder="'DR.'Enter the DoctorsEmail">
+                    <div class="help-block text-danger" *ngIf="email.touched">
+                        <span *ngIf="email.errors?.required">
+                            Hi Doctor email is REQUIRED!!!
+                        </span>
+                        <span *ngIf="email.errors?.pattern">
+                            Please enter a valid Email address 'ex:validemail@gmail.com'
+                        </span>
+                    </div>
                 </div><br>
                 <div class="form-group">
                     <label for="treatmentspecialist">Specialist:</label>

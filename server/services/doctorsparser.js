@@ -43,7 +43,7 @@ const adminLogin = (adminvalidataion)=>{
             {
                 const emailquery = {
                     selector:{
-                        "email":searchadmin,
+                        
                         "type":"Doctor"
                     }
                 }
