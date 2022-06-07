@@ -39,7 +39,7 @@
                     <label for="Mobileno">Mobile No:</label>
 
                     <input type="text" class="form-control" formControlName="mobileno" (change)="setMobileno($event)"
-                        required maxlength="10" class="form-control" pattern="[789][0-9]{9}"
+                        required maxlength="10" class="form-control" pattern="^(\+\d{1,3}[- ]?)?\d{10}$"
                         placeholder="Enter the Mobile No">
                     <div class="help-block text-danger" *ngIf="mobileno.touched">
                         <span *ngIf="mobileno.errors?.required">
@@ -53,23 +53,30 @@
                 <div class="form-group" [class.has-error]="esino.invalid && esino.touched">
                     <label for="Esino">ESI-No:</label>
 
-                    <input type="text" class="form-control" required maxlength="12" (change)="setEsino($event)"
-                        formControlName="esino" placeholder="Enter the ESI-NO">
+                    <input type="text" class="form-control" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required
+                        maxlength=" 12" (change)="setEsino($event)" formControlName="esino"
+                        placeholder="Enter the ESI-NO">
                 </div><br><br>
                 <div class="help-block text-danger" *ngIf="esino.touched">
                     <span *ngIf="esino.errors?.required">
                         Hi'Patient Esi-No Must is REQUIRED!!!
                     </span>
+                    <span *ngIf="esino.errors?.pattern">
+                        Hi'Patient Esi-No Should be a validNumber
+                    </span>
                 </div>
                 <div class="form-group" [class.has-error]="aadharno.invalid && aadharno.touched">
                     <label for="Aadharno">Aadhar No:</label>
 
-                    <input type="text" class="form-control" required maxlength="12" id="requestid" maxlength="12"
-                        (change)="setRequestid($event)" formControlName="aadharno"
-                        placeholder="Enter the Aaharno as per Aadhar-card">
+                    <input type="text" class="form-control" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required
+                        maxlength="12" id="requestid" maxlength="12" (change)="setRequestid($event)"
+                        formControlName="aadharno" placeholder="Enter the Aaharno as per Aadhar-card">
                     <div class="help-block text-danger" *ngIf="aadharno.touched">
                         <span *ngIf="aadharno.errors?.required">
                             Hi'Patient Aadharno Must is REQUIRED!!!
+                        </span>
+                        <span *ngIf="aadharno.errors?.pattern">
+                            Hi Patient Please enter a valid Aadharno
                         </span>
 
                     </div>

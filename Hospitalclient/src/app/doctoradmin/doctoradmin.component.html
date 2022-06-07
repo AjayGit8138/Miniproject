@@ -19,8 +19,8 @@
 
                 <div class="form-group" [class.has-error]="mobileno.invalid && mobileno.touched">
                     <label for="Mobileno">Mobileno:</label>
-                    <input type="text" class="form-control" (change)="checkMobileno($event)" #mobile required
-                        maxlength="10" pattern="[789][0-9]{9}" formControlName="mobileno"
+                    <input type="text" class="form-control" (change)="checkMobileno($event)" required maxlength="10"
+                        pattern="^(\+\d{1,3}[- ]?)?\d{10}$" formControlName="mobileno"
                         placeholder="'DR.'Enter the Mobileno">
                     <div class="help-block text-danger" *ngIf="mobileno.touched">
                         <span *ngIf="mobileno.errors?.required">
@@ -55,9 +55,9 @@
                         </span>
                     </div>
                 </div><br>
-                <div class="form-group" [class.has-error]="certificateid.invalid && certificateid.touched">
+                <div class="form-group">
                     <label for="certification">Certification No:</label>
-                    <input type="text" class="form-control" #certificate (change)="checkCertification($event)"
+                    <input type="text" class="form-control" (change)="checkCertification($event)"
                         formControlName="certificateid" [(ngModel)]="certifyNo">
                 </div><br>
                 <div class="form-group" [class.has-error]="email.invalid && email.touched">
@@ -65,8 +65,7 @@
                     <label for="Doctoremail">Doctor's
                         Email:</label>
                     <input type="email" class="form-control" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
-                        (change)="emailCheck($event)" #email formControlName="email"
-                        placeholder="'DR.'Enter the DoctorsEmail">
+                        (change)="emailCheck($event)" formControlName="email" placeholder="'DR.'Enter the DoctorsEmail">
                     <div class="help-block text-danger" *ngIf="email.touched">
                         <span *ngIf="email.errors?.required">
                             Hi Doctor email is REQUIRED!!!
