@@ -1,7 +1,6 @@
 const storedb = require('../db/nanodb');
-const tomail = require('../sendmail');
 const generatelog = require('../logger/logger');
-const { object } = require('joi');
+
 const errorlog = require('../logger/errorlog');
 
 
@@ -50,16 +49,7 @@ const bookAppointment = (updateparams,referenceid)=>{
                         if(!err)
                         {
                             console.log("Updated successfully");
-                            if(1)
-                             {
-                                tomail.mail(doc.email,updateparams).then((data)=>{
-                                         console.log("Mail Successfully sent",data);
-                                      }).catch((error)=>{
-                                          generatelog.error("Mail not sent properly to the patient some bad request occurs");
-                                 console.log("Mail Not sent successfully",error);
-                             })
-                            }
-                           return "patient Appointment is Booked successfully and Mail sent to the Patient";
+                            
 
                         }
                         else{
