@@ -247,7 +247,7 @@ app.get('/bookRequested',(_req,res)=>{
     }
 }
       controller.bookingStat(book).then((data)=>{
-        console.log("waiting for book details",data);
+     
         if(data.bookmark == 'nil')
         {
           const stat = {failure:"Booked Patients Not Available in Our Hospital",status:404};

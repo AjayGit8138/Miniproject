@@ -17,10 +17,14 @@
 
                     <label for="Age">Age:</label>
 
-                    <input type="number" class="form-control" placeholder="Enter the Patient Age" formControlName="age">
+                    <input type="number" class="form-control" pattern="^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$"
+                        placeholder="Enter the Patient Age" formControlName="age">
                     <div class="help-block text-danger" *ngIf="age.touched">
                         <span *ngIf="age.errors?.required">
                             Hi'Patient Age is REQUIRED!!!
+                        </span>
+                        <span *ngIf="age.errors?.pattern">
+                            Hi'Patient Age is should not be Zero
                         </span>
                     </div>
                 </div>

@@ -11,17 +11,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PatientlistComponent implements OnInit {
   bookingForm:FormGroup;
-  dbdoctorid:any;
+  dbDoctorId:any;
   patientRequest = [];
-  doctorlist = [];
-  employeddoctors = [];
+ 
+  employedDoctors = [];
   doctorsid = [];
   closeResult = '';
-  doctorsobject = {};
-  goodresponse = [];
+ 
+
   status:any = "YES";
-  tokename:any;
-  timeclock:any;
+  tokeName:any;
+ 
   doctors:any;
   content = '';
   checkdate:any;
@@ -44,7 +44,7 @@ export class PatientlistComponent implements OnInit {
   })
    }
    number:any;
-   num = 1;
+  
    orthodoctors = [];
    sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology"];
   
@@ -84,11 +84,11 @@ export class PatientlistComponent implements OnInit {
   //
 
   //check appointment date with doctor booked date
-  checkappointmentdate(event:any)
+  checkAppointmentdate(event:any)
   {
     this.checkdate = event.target.value;
   }
-  selectindex(e:any)
+  selectIndex(e:any)
   {
    
     const getDoctorname = e.target.value;
@@ -106,16 +106,16 @@ export class PatientlistComponent implements OnInit {
         this.orthodoctors[i] = data.data.docs[i].doctorname;
       
         this.doctorsid[i] = data.data.docs[i]._id;
-        this.dbdoctorid = data.data.docs[i]._id;
+        this.dbDoctorId = data.data.docs[i]._id;
       }
       
     }
 
-    let timeslot = {
+    let timeSlot = {
       doctorname:getDoctorname,
-      docid:this.dbdoctorid
+      docid:this.dbDoctorId
     }
-    this.serveapi.getTimeSlot(timeslot).subscribe((res)=>{
+    this.serveapi.getTimeSlot(timeSlot).subscribe((res)=>{
       for(let x of res.data.docs)
       {
       
@@ -132,18 +132,17 @@ export class PatientlistComponent implements OnInit {
   })
   }
 
-  public updatetreatment(e:any)
+  public updateTreatment(e:any)
   {
   
   this.doctors = e.target.value;
- this.tokename = this.tokename + '-T' + this.doctors
-  this.bookingForm.controls['tokenName'].setValue(this.tokename);
- 
+  this.tokeName = this.tokeName + '-T' + this.doctors
+  this.bookingForm.controls['tokenName'].setValue(this.tokeName);
+  
+  //api Service call for getdoctorslist
   this.serveapi.getDoctorslist(this.doctors).subscribe((data)=>{
- 
     //push doctors as per the specialization into the array
     const arraylength = data.data.docs.length;
-   
     this.orthodoctors = [];
     this.doctorsid = [];
     for(let i=0;i<arraylength;i++)
@@ -153,20 +152,12 @@ export class PatientlistComponent implements OnInit {
       this.doctorsid[i] = data.data.docs[i]._id;
       
     }
-  
-
-    this.employeddoctors.push(data.docs);
-  
+    this.employedDoctors.push(data.docs);
 })
-
-  
 }
-//
+//save and update bookingStatus into the Database
   saveBookingStatus(bookinformation:any){
- 
-    bookinformation.docId = this.dbdoctorid;
-   
-    
+    bookinformation.docId = this.dbDoctorId;
     this.serveapi.bookAppointment(bookinformation,this.patientid).subscribe((data)=>{
       if(data)
       {
@@ -176,33 +167,11 @@ export class PatientlistComponent implements OnInit {
     })
 }
 
-//set am pm for doctor schedule
-timeformat()
-{
-  let timeinput = document.getElementById('timeinput') as HTMLInputElement;
-  let timeSplit = timeinput.value.split(':'),
-  hours,
-  minutes,
-  meridian;
-  hours = timeSplit[0];
-  minutes = timeSplit[1];
-        if (hours > 12) {
-            meridian = 'PM';
-            hours -= 12;
-        } else if (hours < 12) {
-             meridian = 'AM';
-        if (hours == 0) {
-            hours = 12;
-        }
-        } else {
-            meridian = 'PM';
-        }
-this.timeclock = hours + ':' + minutes + ' ' + meridian;
-}
+
 
   //model pop up for booking form
   open(content:any,row:any) {
-    console.log("row values",row);
+   
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     })
@@ -212,7 +181,7 @@ this.timeclock = hours + ':' + minutes + ' ' + meridian;
 
 
     this.bookingForm.controls['requestId'].setValue(row.patientid);
-    this.tokename = row.patientid;
+    this.tokeName = row.patientid;
     this.bookingForm.controls['patientName'].setValue(row.patientname);
     this.bookingForm.controls['treatmentCategory'].setValue(row.Treatmentcategory);
     this.bookingForm.controls['appointStatus'].setValue(this.status);

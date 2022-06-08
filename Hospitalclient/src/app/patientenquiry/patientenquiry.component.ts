@@ -96,7 +96,7 @@ setEsino(event:any)
 passwordCheck(e:any)
 {
   this.passwordMatch = e.target.value;
-  console.log("password",this.passwordMatch);}
+}
 //confirmpassword check
 checkcPassword(e:any)
 {

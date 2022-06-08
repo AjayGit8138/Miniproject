@@ -65,7 +65,7 @@
                         <label for="Treatment">Treatment For:</label>
 
                         <select class="form-select" formControlName="treatmentCategory" #treatment
-                            (change)="updatetreatment($event)">
+                            (change)="updateTreatment($event)">
                             <option value="default">none</option>
                             <option *ngFor="let treat of sicks" [value]="treat">{{treat}}</option>
                         </select>
@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label for="requestid" class="col-sm-2 col-form-label">Tokenid:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="tokenName" [(ngModel)]="tokenname"
+                            <input type="text" class="form-control" placeholder="tokenName" [(ngModel)]="tokenName"
                                 formControlName="tokenName">
                         </div>
                     </div><br>
@@ -89,7 +89,7 @@
                         <label for="PatinetDOB" class="col-sm-2 col-form-label">Dateofappointment:</label>
                         <div class="col-sm-10">
                             <input type="date" formControlName="dateofAppointment"
-                                (change)="checkappointmentdate($event)" min="{{currentDate | date:'yyyy-MM-dd'}}"
+                                (change)="checkAppointmentdate($event)" min="{{currentDate | date:'yyyy-MM-dd'}}"
                                 class="form-control">
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                         <div class="col-sm-10">
                             <div [ngSwitch]="doctors">
                                 <div *ngSwitchCase="'Orthology'">
-                                    <select formControlName="assignDoctor" (change)="selectindex($event)"
+                                    <select formControlName="assignDoctor" (change)="selectIndex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -107,7 +107,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'skin'">
-                                    <select formControlName="assignDoctor" (change)="selectindex($event)"
+                                    <select formControlName="assignDoctor" (change)="selectIndex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -115,7 +115,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'General'">
-                                    <select formControlName="assignDoctor" (change)="selectindex($event)"
+                                    <select formControlName="assignDoctor" (change)="selectIndex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -123,7 +123,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'Dental'">
-                                    <select formControlName="assignDoctor" (change)="selectindex($event)"
+                                    <select formControlName="assignDoctor" (change)="selectIndex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -131,7 +131,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'Eye'">
-                                    <select formControlName="assignDoctor" (change)="selectindex($event)"
+                                    <select formControlName="assignDoctor" (change)="selectIndex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -139,7 +139,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'Nerves'">
-                                    <select formControlName="assignDoctor" (change)="selectindex($event)"
+                                    <select formControlName="assignDoctor" (change)="selectIndex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -147,7 +147,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'MentalHealth'">
-                                    <select formControlName="assignDoctor" (change)="selectindex($event)"
+                                    <select formControlName="assignDoctor" (change)="selectIndex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors" [value]="doctorlist">
                                             {{doctorlist}}
@@ -155,7 +155,7 @@
                                     </select>
                                 </div>
                                 <div *ngSwitchCase="'Heart'">
-                                    <select formControlName="assignDoctor" (change)="selectindex($event)"
+                                    <select formControlName="assignDoctor" (change)="selectIndex($event)"
                                         class="form-select">
                                         <option *ngFor="let doctorlist of orthodoctors;let indexOfelement=index;"
                                             [value]="doctorlist">

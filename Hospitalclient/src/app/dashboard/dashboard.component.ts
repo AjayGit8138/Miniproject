@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   patientrefid:any;
   tabchange:any;
   currentpage = {id:"number"}
-  constructor(private activeparams:ActivatedRoute, private toastr:ToastrService,private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router,private authserve:AuthService) { 
+  constructor(private activeparams:ActivatedRoute, private toastrSevice:ToastrService,private serveapi:ApiserviceService,private modalService: NgbModal,private bookform:FormBuilder,private route:Router,private authserve:AuthService) { 
     this.bookingform = this.bookform.group({
         requestId:['',Validators.required],
         patientname:['',Validators.required],
@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   number:any;
-  num = 1;
+
   orthodoctors = [];
   sicks= ["General","skin","Heart","Dental","Eye","Nerves","Orthology","MentalHealth"];
   skindoctors = ["karthick","Ramamoorthy","ramachandran","geetha","srinivasan"];
@@ -71,6 +71,8 @@ export class DashboardComponent implements OnInit {
   {
     this.tabchange = params;
   }
+
+  //Form for Booking ng-modal open
   open(content:any,row:any) {
     
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -88,29 +90,22 @@ export class DashboardComponent implements OnInit {
     this.doctors = row.Treatmentcategory;
 
     this.serveapi.getDoctorslist(this.doctors).subscribe((data)=>{
-    
       //push doctors as per the specialization into the array
       const arraylength = data.docs.length;
-    
-
       for(let i=0;i<arraylength;i++)
       {
         this.orthodoctors[i] = data.docs[i].doctorname;
-       
       }
-     
-
       this.employeddoctors.push(data.docs);
-     
- })
-    }
+     })
+}
 
     savebookingstatus(bookinformation:any){
      
         bookinformation.timingforappointment = this.timeclock;
         this.serveapi.bookAppointment(bookinformation,this.patientid).subscribe((data)=>{
          
-          alert(data.message);
+          this.showSuccess(data.message)
           window.location.reload();
         })
     }
@@ -118,31 +113,39 @@ export class DashboardComponent implements OnInit {
     redirectlink(){
       this.route.navigate(['adminauth']);
     }
+
+    //getter and setter for form validation
     get requestId() {return this.bookingform.get('requestId');}
     get dateofappointment() {return this.bookingform.get('dateofappointment');}
     get Treatmentcategory() {return this.bookingform.get('Treatmentcategory');}
     get appointstatus() {return this.bookingform.get('appointstatus');}
     get assigndoctor() {return this.bookingform.get('assigndoctor');}
     get timingforappointment() {return this.bookingform.get('timingforappointment');}
+    //getter and setter form validation ends
 
-
-   
-  
+    //session Logout
   logout() {  
    
     this.authserve.logout();  
     this.route.navigate(['adminauth']);  
   } 
-    
+
+  //navbar Mobileview
   mobileview()
   {
-  let menu = document.querySelector('#menu-btn');
-  let navbar = document.querySelector('.navbar');
+      let menu = document.querySelector('#menu-btn');
+      let navbar = document.querySelector('.navbar');
 
-     menu.classList.toggle('fa-times');
-    navbar.classList.toggle('active');
+      menu.classList.toggle('fa-times');
+      navbar.classList.toggle('active');
   }
+
+  //totastr notifications
+  public showSuccess(meassage:any)
+  {
+    this.toastrSevice.success(meassage);
   }
+}
 
 
 

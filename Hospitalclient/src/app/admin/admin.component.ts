@@ -12,7 +12,7 @@ import { AuthService } from '../shared/auth.service';
 })
 export class AdminComponent implements OnInit {
   adminAuthForm:FormGroup;
-  returnurl = '';
+  returnUrl = '';
   constructor(private adminGroup:FormBuilder,private apiService:ApiserviceService,private appRouter:Router,private authServe:AuthService,private toastrService:ToastrService) {
     this.adminAuthForm = this.adminGroup.group({
         loginid:['',Validators.required],
@@ -21,7 +21,7 @@ export class AdminComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.returnurl = '/docdash';
+    this.returnUrl = '/docdash';
     this.authServe.logout();
   }
 
@@ -35,11 +35,11 @@ export class AdminComponent implements OnInit {
     {
         localStorage.setItem('isLoggedIn','true');
         localStorage.setItem('token', formData.loginid);  
-      this.appRouter.navigate(['docdash',formData.loginid]);
-      this.showSuccess("Login Successfull");
+        this.appRouter.navigate(['docdash',formData.loginid]);
+        this.showSuccess("Login Successfull");
     }
     else{
-      this.showError("Error Email or Password authentication failed!!!!")
+        this.showError("Error Email or Password authentication failed!!!!")
     }
     })
   }
