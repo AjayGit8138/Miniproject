@@ -67,7 +67,7 @@ export class DoctoradminComponent implements OnInit {
   {
     let emailId = event.target.value;
     this.serveApi.checkDoctorLogin(emailId).subscribe((data)=>{
-        console.log("doctordetails",data);
+       
         for(const element of data.data.docs)
         {
         if(element.email == emailId)
@@ -97,12 +97,12 @@ export class DoctoradminComponent implements OnInit {
 public checkMobileno(event:any)
 {
     this.mobileNumber = event.target.value;
-    console.log("mobilenumber",this.mobileNumber);
+  
 }
 public checkCertification(certifyId:any)
 {
   this.certificationNumber = certifyId.target.value;
-  console.log("certification",this.certificationNumber);
+
 }
 passwordCheck(e:any)
 {
