@@ -33,7 +33,8 @@ const getLoginDetails =
         {
             const loginauth ={
                 "selector": {
-                   "requestId": getobject
+                   "requestId": getobject,
+                   "type":"Patient"
                 }
              }
           value =   dbHospital.hospitaldb.find(loginauth).then(data=>{

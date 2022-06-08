@@ -39,7 +39,9 @@ export class PatientloginComponent implements OnInit {
 
     this.serveApi.checkPatientLogin(loginval.loginid).subscribe(data=>{
      
-      if((data.data.docs[0].email == loginval.email) && (data.data.docs[0].password == loginval.password))
+      for(let element of data.data.docs)
+      {
+      if((element.email == loginval.email) && (element.password == loginval.password))
       {
         localStorage.setItem('isPatientloggedIn','true');
         localStorage.setItem('token', loginval.loginid);  
@@ -49,9 +51,14 @@ export class PatientloginComponent implements OnInit {
         this.routerService.navigate(['patientdashboard/',loginval.loginid]);
       }
       else{
+        console.log("emailid",loginval.email);
+        console.log("password",loginval.password);
+        console.log("dbemail",element.email);
+        console.log("dbpass",element.password);
         this.showError("Login Authentication Failed Invalid Password or Email Error");
        
       }
+    }
     })
   }
 //Toaster service for Notifications

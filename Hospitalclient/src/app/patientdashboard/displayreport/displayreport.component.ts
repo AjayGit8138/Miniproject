@@ -84,7 +84,7 @@ export class DisplayreportComponent implements OnInit {
   downLoad(event:any)
   {
     let item = event;
-  this.serveApi.getFile(item).subscribe((data)=>{
+    this.serveApi.getFile(item).subscribe((data)=>{
     if(data)
     {
     saveAs(data,item);
@@ -102,7 +102,7 @@ export class DisplayreportComponent implements OnInit {
   autoCode(params:any)
   {
     this.serveApi.getTestReport(this.testReport).subscribe((response)=>{
-     console.log("testreports",response.data.docs);
+   
       if(params == response.data.docs[0].totalreport)
       {
       

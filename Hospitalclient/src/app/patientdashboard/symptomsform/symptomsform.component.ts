@@ -27,7 +27,7 @@ export class SymptomsformComponent implements OnInit {
         id:data['id'],
         name:data['name']
       }
-      console.log(this.currentPage.name);
+     
     })
     this.patientSignupForm.controls['patientid'].setValue(this.currentPage.id);
     this.patientSignupForm.controls['patientname'].setValue(this.currentPage.name);
